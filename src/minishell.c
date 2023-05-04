@@ -6,11 +6,12 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:36:26 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/04 13:19:19 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/05/04 13:30:13 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<msh.h>
+#include	<unistd.h>
 
 int	main(int ac, char **av, char **env)
 {
