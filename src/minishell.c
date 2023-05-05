@@ -6,18 +6,25 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:36:26 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/05 14:02:35 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/05 16:42:26 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<msh.h>
-#include	<stdlib.h>
 
 int	main(int ac, char **av, char **env)
 {
 	(void) ac;
 	(void) av;
 	(void) env;
-	write (1, "\n", 1);
+	char	*line;
+	
+	while (42)
+	{
+		line = readline("❤️> ");
+		if (!line || !*line)
+			break ;
+		printf("line: %s\n", line);
+	}
 	return (0);
 }

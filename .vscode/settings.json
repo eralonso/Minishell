@@ -1,0 +1,6 @@
+{
+	"files.associations": {
+		"msh.h": "c",
+		"rlstdc.h": "c"
+	}
+}
