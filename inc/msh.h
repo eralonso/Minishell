@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:00:02 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/09 14:47:20 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/09 14:53:09 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include	<readline.h>
 # include	<history.h>
 
+
 typedef struct s_env
 {
 	char			*key;
@@ -42,5 +43,7 @@ typedef	struct s_msh
 	t_env	*env;
 	int		err;
 }				t_msh;
+
+t_msh g_msh;
 
 #endif
