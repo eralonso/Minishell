@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/22 10:08:41 by eralonso          #+#    #+#              #
-#    Updated: 2023/05/09 14:49:10 by eralonso         ###   ########.fr        #
+#    Updated: 2023/05/09 16:55:15 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,16 +25,23 @@ CIAN		=	\033[1;96m
 NAME		=	minishell
 
 #<-------------------------------->LIBRARY<---------------------------------->#
-LIBRARY		=	lib/
+LIBS_DIR	=	lib/
+
+ER_LIB_DIR	=	$(LIBS_DIR)er_lib/
+LIBFT_DIR	=	$(ER_LIB_DIR)libft/
+PRINTF_DIR	=	$(ER_LIB_DIR)ft_printf/
+
+RDLINE_DIR	=	$(LIBS_DIR)readline/
+
 # LIB_A		=	lib/libft/libft.a lib/ft_printf/libftprintf.a
-LIB_SEARCH	=	-Llib/readline -lreadline -lhistory -ltermcap #-L./lib/libft -L./lib/ft_printf \
+LIB_SEARCH	=	-L$(RDLINE_DIR) -lreadline -lhistory -ltermcap -L$(LIBFT_DIR) -L$(PRINTF_DIR) \
 				-lft -lftprintf
 
 #<-------------------------------->HEADERS<---------------------------------->#
 HEADER		=	inc/
-PRINTF_H	=	./lib/ft_printf/inc/
-LIBFT_H		=	./lib/libft/
-RD_HEADER	=	lib/readline/
+PRINTF_H	=	$(PRINTF_DIR)inc/
+LIBFT_H		=	$(LIBFT_DIR)
+RD_HEADER	=	$(RDLINE_DIR)
 
 #<--------------------------------->DIRS<------------------------------------>#
 SRC_DIR		=	src/
@@ -51,7 +58,7 @@ OBJS		=	$(addprefix $(OBJ_DIR), $(subst .c,.o,$(SRCS)))
 DEPS		=	$(subst .o,.d,$(OBJS))
 
 #<-------------------------------->COMANDS<---------------------------------->#
-INCLUDE		=	-I$(HEADER) -I$(RD_HEADER) #-I$(PRINTF_H) -I$(LIBFT_H)
+INCLUDE		=	-I$(HEADER) -I$(RD_HEADER) -I$(PRINTF_H) -I$(LIBFT_H)
 RM			=	rm -rf
 MKD			=	mkdir -p
 MK			=	Makefile
@@ -67,12 +74,16 @@ $(OBJ_DIR)%.o	:	%.c $(MK) #$(LIB_A) $(MK)
 	@$(CC) $(CFLAGS) -MMD -DREADLINE_LIBRARY=1  $(INCLUDE) -c $< -o $@
 
 all				: 
-	@$(MAKE) rdline
+	@$(MAKE) librarys
 	@$(MAKE) $(MKFLAGS) $(NAME)
 
 $(NAME)			:	$(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) $(LIB_SEARCH) -o $@
 	@echo "\n$(GREEN)Minishell has been compiled\nNOS LO COMEMOS$(DEF_COLOR)"
+
+librarys		:
+	$(MAKE) $(MKFLAGS) -C $(ER_LIB_DIR)
+	$(MAKE) $(MKFLAGS) rdline
 
 rdline			:
 	@pwd ${BLOCK}
@@ -80,7 +91,8 @@ rdline			:
 	@make -C ./lib/readline/ ${BLOCK}
 
 clean			:
-	@$(MAKE) $(MKFLAGS) clean -C lib/readline/
+	@$(MAKE) $(MKFLAGS) clean -C $(RDLINE_DIR)
+	@$(MAKE) $(MKFLAGS) clean -C $(ER_LIB_DIR)
 	@$(RM) $(OBJ_DIR)
 	@echo ""
 	@echo "$(RED)All OBJS && DEPS has been removed$(DEF_COLOR)"
@@ -88,7 +100,7 @@ clean			:
 
 fclean			:
 	@$(MAKE) $(MKFLAGS) clean
-	@#$(MAKE) $(MKFLAGS) fclean -C $(LIBRARY)readline
+	@$(MAKE) $(MKFLAGS) fclean -C $(ER_LIB_DIR)
 	@$(RM) $(NAME)
 	@echo ""
 	@echo "$(RED)Program has been removed$(DEF_COLOR)"
