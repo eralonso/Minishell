@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:36:26 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/08 18:48:51 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/09 12:36:18 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ int	main(int ac, char **av, char **env)
 			break ;
 		else if (!*line)
 			continue ;
-		else
-			parser();
 	}
 	return (0);
 }

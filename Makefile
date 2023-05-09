@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/22 10:08:41 by eralonso          #+#    #+#              #
-#    Updated: 2023/05/08 17:02:32 by eralonso         ###   ########.fr        #
+#    Updated: 2023/05/09 12:40:46 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -88,7 +88,7 @@ clean			:
 
 fclean			:
 	@$(MAKE) $(MKFLAGS) clean
-	# @$(MAKE) $(MKFLAGS) fclean -C $(LIBRARY)readline
+	@#$(MAKE) $(MKFLAGS) fclean -C $(LIBRARY)readline
 	@$(RM) $(NAME)
 	@echo ""
 	@echo "$(RED)Program has been removed$(DEF_COLOR)"
