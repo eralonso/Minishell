@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:00:02 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/09 15:44:23 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/09 19:02:59 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ typedef struct s_env
 	struct s_env	*next;
 }				t_env;
 
-typedef	struct s_msh
+typedef struct s_msh
 {
 	t_env	*env;
 	int		err;
 }				t_msh;
 
-t_msh g_msh;
+t_msh	g_msh;
 
 #endif

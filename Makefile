@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/22 10:08:41 by eralonso          #+#    #+#              #
-#    Updated: 2023/05/09 16:55:15 by eralonso         ###   ########.fr        #
+#    Updated: 2023/05/09 18:53:39 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,9 +33,10 @@ PRINTF_DIR	=	$(ER_LIB_DIR)ft_printf/
 
 RDLINE_DIR	=	$(LIBS_DIR)readline/
 
-# LIB_A		=	lib/libft/libft.a lib/ft_printf/libftprintf.a
-LIB_SEARCH	=	-L$(RDLINE_DIR) -lreadline -lhistory -ltermcap -L$(LIBFT_DIR) -L$(PRINTF_DIR) \
-				-lft -lftprintf
+LIB_A		=	$(LIBFT_DIR)libft.a $(PRINTF_DIR)libftprintf.a \
+				$(RDLINE_DIR)libreadline.a $(RDLINE_DIR)libhistory.a
+LIB_SEARCH	=	-L$(RDLINE_DIR) -lreadline -lhistory -ltermcap -L$(LIBFT_DIR) \
+				-L$(PRINTF_DIR) -lft -lftprintf
 
 #<-------------------------------->HEADERS<---------------------------------->#
 HEADER		=	inc/
@@ -68,7 +69,7 @@ BLOCK		=	&> /dev/null
 CC			=	gcc
 
 #<--------------------------------->RULES<----------------------------------->#
-$(OBJ_DIR)%.o	:	%.c $(MK) #$(LIB_A) $(MK)
+$(OBJ_DIR)%.o	:	%.c $(MK) $(LIB_A)
 	@$(MKD) $(dir $@)
 	@printf "$(PINK)       \rCompiling: $(YELLOW)$(notdir $<)...$(DEF_COLOR)       \r"
 	@$(CC) $(CFLAGS) -MMD -DREADLINE_LIBRARY=1  $(INCLUDE) -c $< -o $@
@@ -78,12 +79,12 @@ all				:
 	@$(MAKE) $(MKFLAGS) $(NAME)
 
 $(NAME)			:	$(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) $(LIB_SEARCH) -o $@
+	@$(CC) $(CFLAGS) $(OBJS) $(LIB_SEARCH) $(LIB_A) -o $@
 	@echo "\n$(GREEN)Minishell has been compiled\nNOS LO COMEMOS$(DEF_COLOR)"
 
 librarys		:
-	$(MAKE) $(MKFLAGS) -C $(ER_LIB_DIR)
-	$(MAKE) $(MKFLAGS) rdline
+	@$(MAKE) $(MKFLAGS) -C $(ER_LIB_DIR)
+	@$(MAKE) $(MKFLAGS) rdline
 
 rdline			:
 	@pwd ${BLOCK}

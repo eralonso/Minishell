@@ -6,17 +6,44 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:36:26 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/09 15:33:42 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/09 19:03:26 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<msh.h>
 
-t_env	*node_create(char *key,  char	*value)
+char	**list_to_array(t_env *m_env)
+{
+	char		**res;
+	static char	equal[2] = {'=', '\0'};
+	int			i;
+
+	i = 0;
+	while (m_env && m_env->next && ++i)
+		m_env = m_env->next;
+	if (m_env)
+		i++;
+	res = (char **)ft_calloc(sizeof(char *), i + 1);
+	if (!res)
+		return (NULL);
+	while (m_env && --i >= 0)
+	{
+		res[i] = ft_strjoin(m_env->key, equal);
+		if (!res[i])
+			return (ft_free(res, 1));
+		res[i] = ft_malloc_strjoin(res[i], m_env->value);
+		if (!res[i])
+			return (ft_free(res, 1));
+		m_env = m_env->prev;
+	}
+	return (res);
+}
+
+t_env	*node_create(char *key, char *value)
 {
 	t_env	*node;
 
-	node = malloc(sizeof(t_env));
+	node = ft_calloc(sizeof(t_env), 1);
 	if (!node)
 		return (NULL);
 	node->key = key;
@@ -59,11 +86,11 @@ void	ft_env(char **env)
 
 int	main(int ac, char **av, char **env)
 {
+	char	*line;
+
 	(void) ac;
 	(void) av;
 	(void) env;
-	char	*line;
-	
 	if (ac > 1)
 		exit(1);
 	ft_env(env);
@@ -72,8 +99,6 @@ int	main(int ac, char **av, char **env)
 		line = readline("PESH + 🐚 > ");
 		if (!line)
 			break ;
-		else if (!*line)
-			continue ;
 	}
 	return (0);
 }

@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 19:50:46 by eralonso          #+#    #+#             */
-/*   Updated: 2023/02/07 16:33:09 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/09 19:01:32 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<libft.h>
+#include	<stdio.h>
 #define BUFFER_SIZE (int)500000
 
 char	*ft_malloc_strjoin(char *s1, char *s2)
@@ -30,7 +31,7 @@ char	*ft_malloc_strjoin(char *s1, char *s2)
 	j = -1;
 	while (s1[++i])
 		str[i] = s1[i];
-	while (s2[++j])
+	while (s2 && s2[++j])
 		str[i++] = s2[j];
 	str[i] = '\0';
 	ft_free(&s1, 2);
