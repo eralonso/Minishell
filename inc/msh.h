@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:00:02 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/05 16:33:06 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/08 17:03:02 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,8 @@
 # include	<sys/types.h>
 # include	<dirent.h>
 # include	<signal.h>
-# include	"readline.h"
-# include	"history.h"
+# include	<readline.h>
+# include	<history.h>
 
-extern char PC;
-extern char * UP;
-extern char * BC;
-extern unsigned ospeed;
 
 #endif

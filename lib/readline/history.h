@@ -28,13 +28,13 @@ extern "C" {
 
 #include <time.h>		/* XXX - for history timestamp code */
 
-// #if defined READLINE_LIBRARY
+#if defined READLINE_LIBRARY
 #  include "rlstdc.h"
 #  include "rltypedefs.h"
-// #else
-// #  include <readline/rlstdc.h>
-// #  include <readline/rltypedefs.h>
-// #endif
+#else
+#  include <readline/rlstdc.h>
+#  include <readline/rltypedefs.h>
+#endif
 
 #ifdef __STDC__
 typedef void *histdata_t;

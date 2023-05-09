@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/22 10:08:41 by eralonso          #+#    #+#              #
-#    Updated: 2023/05/05 16:25:41 by eralonso         ###   ########.fr        #
+#    Updated: 2023/05/08 17:02:32 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,11 +27,11 @@ NAME		=	minishell
 #<-------------------------------->LIBRARY<---------------------------------->#
 LIBRARY		=	lib/
 # LIB_A		=	lib/libft/libft.a lib/ft_printf/libftprintf.a
-LIB_SEARCH	=	lib/readline/libhistory.a lib/readline/libreadline.a #-Llib/readline -lreadline -lhistory #-L./lib/libft -L./lib/ft_printf \
+LIB_SEARCH	=	-Llib/readline -lreadline -lhistory -ltermcap #-L./lib/libft -L./lib/ft_printf \
 				-lft -lftprintf
 
 #<-------------------------------->HEADERS<---------------------------------->#
-HEADER		=	./inc/
+HEADER		=	inc/
 PRINTF_H	=	./lib/ft_printf/inc/
 LIBFT_H		=	./lib/libft/
 RD_HEADER	=	lib/readline/
@@ -55,24 +55,29 @@ INCLUDE		=	-I$(HEADER) -I$(RD_HEADER) #-I$(PRINTF_H) -I$(LIBFT_H)
 RM			=	rm -rf
 MKD			=	mkdir -p
 MK			=	Makefile
-CFLAGS		=	-Wall -Wextra -Werror -O3# -fsanitize=address
+CFLAGS		=	-Wall -Wextra -Werror # -fsanitize=address
 MKFLAGS		=	--no-print-directory
+BLOCK		=	&> /dev/null
+CC			=	gcc
 
 #<--------------------------------->RULES<----------------------------------->#
 $(OBJ_DIR)%.o	:	%.c $(MK) #$(LIB_A) $(MK)
 	@$(MKD) $(dir $@)
 	@printf "$(PINK)       \rCompiling: $(YELLOW)$(notdir $<)...$(DEF_COLOR)       \r"
-	@$(CC) -MT $@ $(CFLAGS) -MMD -MP $(INCLUDE) -c $< -o $@
+	@$(CC) $(CFLAGS) -MMD -DREADLINE_LIBRARY=1  $(INCLUDE) -c $< -o $@
 
-all				:
-	@cd ./lib/readline/ && ./configure
-	# @cd ../..
-	@$(MAKE) $(MKFLAGS) -sC $(LIBRARY)readline/
+all				: rdline
+	@# $(MAKE) $(MKFLAGS) -sC $(LIBRARY)readline/
 	@$(MAKE) $(MKFLAGS) $(NAME)
 
 $(NAME)			:	$(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) $(LIB_SEARCH) -o $@
 	@echo "\n$(GREEN)Minishell has been compiled\nNOS LO COMEMOS$(DEF_COLOR)"
+
+rdline			:
+	@pwd ${BLOCK}
+	@cd ./lib/readline/ ${BLOCK} && ./configure${BLOCK}
+	@make -C ./lib/readline/ ${BLOCK}
 
 clean			:
 	@$(MAKE) $(MKFLAGS) clean -sC $(LIBRARY)/readline

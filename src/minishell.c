@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:36:26 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/05 16:42:26 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/08 18:48:51 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,13 @@ int	main(int ac, char **av, char **env)
 	
 	while (42)
 	{
-		line = readline("❤️> ");
-		if (!line || !*line)
+		line = readline("+ 🐚 > ");
+		if (!line)
 			break ;
-		printf("line: %s\n", line);
+		else if (!*line)
+			continue ;
+		else
+			parser();
 	}
 	return (0);
 }
