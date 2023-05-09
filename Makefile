@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/22 10:08:41 by eralonso          #+#    #+#              #
-#    Updated: 2023/05/09 12:40:46 by eralonso         ###   ########.fr        #
+#    Updated: 2023/05/09 14:49:10 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,8 +66,8 @@ $(OBJ_DIR)%.o	:	%.c $(MK) #$(LIB_A) $(MK)
 	@printf "$(PINK)       \rCompiling: $(YELLOW)$(notdir $<)...$(DEF_COLOR)       \r"
 	@$(CC) $(CFLAGS) -MMD -DREADLINE_LIBRARY=1  $(INCLUDE) -c $< -o $@
 
-all				: rdline
-	@# $(MAKE) $(MKFLAGS) -sC $(LIBRARY)readline/
+all				: 
+	@$(MAKE) rdline
 	@$(MAKE) $(MKFLAGS) $(NAME)
 
 $(NAME)			:	$(OBJS)
@@ -80,7 +80,7 @@ rdline			:
 	@make -C ./lib/readline/ ${BLOCK}
 
 clean			:
-	@$(MAKE) $(MKFLAGS) clean -sC $(LIBRARY)/readline
+	@$(MAKE) $(MKFLAGS) clean -C lib/readline/
 	@$(RM) $(OBJ_DIR)
 	@echo ""
 	@echo "$(RED)All OBJS && DEPS has been removed$(DEF_COLOR)"

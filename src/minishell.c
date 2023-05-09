@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:36:26 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/09 12:36:18 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/09 14:47:37 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@ int	main(int ac, char **av, char **env)
 	(void) env;
 	char	*line;
 	
+	
 	while (42)
 	{
-		line = readline("+ 🐚 > ");
+		line = readline("PESH + 🐚 > ");
 		if (!line)
 			break ;
 		else if (!*line)
