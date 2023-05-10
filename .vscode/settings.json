@@ -3,6 +3,7 @@
 		"msh.h": "c",
 		"rlstdc.h": "c",
 		"wait.h": "c",
-		"types.h": "c"
+		"types.h": "c",
+		"history.h": "c"
 	}
 }

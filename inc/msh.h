@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:00:02 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/10 13:00:32 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/05/10 13:55:26 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,15 @@
 # include	<history.h>
 # include	<ft_printf.h>
 
-typedef	struct s_
+typedef	struct s_kof
 {
-	int		p;
+	int		op;
+	int		cp;
 	int		sq;
 	int		dq;
 	int		and;
 	int		or;
-	
-}				t_;
+}				t_kof;
 
 typedef struct s_env
 {
