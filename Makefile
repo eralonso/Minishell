@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/22 10:08:41 by eralonso          #+#    #+#              #
-#    Updated: 2023/05/09 18:53:39 by eralonso         ###   ########.fr        #
+#    Updated: 2023/05/10 11:17:36 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ CIAN		=	\033[1;96m
 #<--------------------------------->NAME<------------------------------------>#
 NAME		=	minishell
 
-#<-------------------------------->LIBRARY<---------------------------------->#
+#<--------------------------------->DIRS<------------------------------------>#
 LIBS_DIR	=	lib/
 
 ER_LIB_DIR	=	$(LIBS_DIR)er_lib/
@@ -33,20 +33,21 @@ PRINTF_DIR	=	$(ER_LIB_DIR)ft_printf/
 
 RDLINE_DIR	=	$(LIBS_DIR)readline/
 
+SRC_DIR		=	src/
+OBJ_DIR		=	objs/
+
+#<-------------------------------->LIBRARYS<--------------------------------->#
 LIB_A		=	$(LIBFT_DIR)libft.a $(PRINTF_DIR)libftprintf.a \
 				$(RDLINE_DIR)libreadline.a $(RDLINE_DIR)libhistory.a
+
 LIB_SEARCH	=	-L$(RDLINE_DIR) -lreadline -lhistory -ltermcap -L$(LIBFT_DIR) \
 				-L$(PRINTF_DIR) -lft -lftprintf
 
 #<-------------------------------->HEADERS<---------------------------------->#
-HEADER		=	inc/
-PRINTF_H	=	$(PRINTF_DIR)inc/
-LIBFT_H		=	$(LIBFT_DIR)
-RD_HEADER	=	$(RDLINE_DIR)
-
-#<--------------------------------->DIRS<------------------------------------>#
-SRC_DIR		=	src/
-OBJ_DIR		=	objs/
+HEADERS		=	inc/
+HEADERS		+=	$(PRINTF_DIR)inc/
+HEADERS		+=	$(LIBFT_DIR)
+HEADERS		+=	$(RDLINE_DIR)
 
 #<--------------------------------->FILES<---------------------------------->#
 FILES		=	minishell
@@ -59,13 +60,13 @@ OBJS		=	$(addprefix $(OBJ_DIR), $(subst .c,.o,$(SRCS)))
 DEPS		=	$(subst .o,.d,$(OBJS))
 
 #<-------------------------------->COMANDS<---------------------------------->#
-INCLUDE		=	-I$(HEADER) -I$(RD_HEADER) -I$(PRINTF_H) -I$(LIBFT_H)
+INCLUDE		=	$(addprefix -I,$(HEADERS))
 RM			=	rm -rf
 MKD			=	mkdir -p
 MK			=	Makefile
 CFLAGS		=	-Wall -Wextra -Werror # -fsanitize=address
 MKFLAGS		=	--no-print-directory
-BLOCK		=	&> /dev/null
+MUTE		=	&> /dev/null
 CC			=	gcc
 
 #<--------------------------------->RULES<----------------------------------->#
@@ -87,9 +88,9 @@ librarys		:
 	@$(MAKE) $(MKFLAGS) rdline
 
 rdline			:
-	@pwd ${BLOCK}
-	@cd ./lib/readline/ ${BLOCK} && ./configure${BLOCK}
-	@make -C ./lib/readline/ ${BLOCK}
+	@pwd ${MUTE}
+	@cd ./lib/readline/ ${MUTE} && ./configure ${MUTE}
+	@make -C ./lib/readline/ ${MUTE}
 
 clean			:
 	@$(MAKE) $(MKFLAGS) clean -C $(RDLINE_DIR)
@@ -112,6 +113,6 @@ re				:
 	@echo ""
 	@echo "$(CIAN)Minishell has been recompiled$(DEF_COLOR)"
 
-.PHONY			: all clean fclean re
+.PHONY			: all clean fclean re librarys rdline
 
 -include		$(DEPS)

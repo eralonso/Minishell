@@ -6,35 +6,36 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:36:26 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/09 19:03:26 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/10 11:34:14 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<msh.h>
 
-char	**list_to_array(t_env *m_env)
+char	**list_to_array(t_env **m_env)
 {
 	char		**res;
 	static char	equal[2] = {'=', '\0'};
 	int			i;
+	t_env		*tmp;
 
-	i = 0;
-	while (m_env && m_env->next && ++i)
-		m_env = m_env->next;
-	if (m_env)
-		i++;
+	(1 && ((i = 0) || 1) && (tmp = *m_env));
+	while (tmp && tmp->next && ++i)
+		tmp = tmp->next;
+	(tmp && i++);
 	res = (char **)ft_calloc(sizeof(char *), i + 1);
 	if (!res)
 		return (NULL);
-	while (m_env && --i >= 0)
+	i = -1;
+	while (tmp && ++i >= 0)
 	{
-		res[i] = ft_strjoin(m_env->key, equal);
+		res[i] = ft_strjoin(tmp->key, equal);
 		if (!res[i])
 			return (ft_free(res, 1));
-		res[i] = ft_malloc_strjoin(res[i], m_env->value);
+		res[i] = ft_malloc_strjoin(res[i], tmp->value);
 		if (!res[i])
 			return (ft_free(res, 1));
-		m_env = m_env->prev;
+		tmp = tmp->prev;
 	}
 	return (res);
 }
@@ -75,10 +76,10 @@ void	ft_env(char **env)
 	{
 		res = ft_split(env[i], '=');
 		if (!res)
-			exit(1);// error_handler (NULL);
+			exit(1); // error_handler (NULL);
 		tmp = node_create(res[0], res[1]);
 		if (!tmp)
-			exit(1);// error_handler (NULL);
+			exit(1); // error_handler (NULL);
 		addfront_env(&g_msh.env, tmp);
 		free(res);
 	}
@@ -88,9 +89,7 @@ int	main(int ac, char **av, char **env)
 {
 	char	*line;
 
-	(void) ac;
 	(void) av;
-	(void) env;
 	if (ac > 1)
 		exit(1);
 	ft_env(env);
