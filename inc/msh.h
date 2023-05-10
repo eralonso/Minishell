@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:00:02 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/09 19:02:59 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/10 13:00:32 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,16 @@
 # include	<history.h>
 # include	<ft_printf.h>
 
+typedef	struct s_
+{
+	int		p;
+	int		sq;
+	int		dq;
+	int		and;
+	int		or;
+	
+}				t_;
+
 typedef struct s_env
 {
 	char			*key;
@@ -45,5 +55,12 @@ typedef struct s_msh
 }				t_msh;
 
 t_msh	g_msh;
+
+char	**list_to_array(t_env **m_env);
+t_env	*node_create(char *key, char *value);
+void	addfront_env(t_env **msh_env, t_env *tmp);
+void	ft_env(char **env);
+int		validate_input(char *input);
+int		check_syntax(char *input);
 
 #endif
