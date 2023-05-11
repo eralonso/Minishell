@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_input.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:18:49 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/05/10 13:58:47 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/10 14:36:37 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int check_syntax(char *input, t_kof *fok)
         ((input[i] == '(' && (fok->sq < 0 && fok->dq < 0)) && (fok->op++));
         ((input[i] == ')' && (fok->sq < 0 && fok->dq < 0) && \
             fok->op > fok->cp) && (fok->cp++));
-        // ((input[i] == '&' && (fok->sq < 0 && fok->dq < 0) && \
-        //     fok->op > fok->cp) && (fok->cp++));
+        ((ft_strnstr(&input[i], "&&\0") && (fok->sq < 0 && fok->dq < 0) && \
+            (fok->cp++)));
     }
     return (0);
 }
