@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:18:49 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/05/11 13:48:20 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/05/11 17:59:39 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int	check_syntax(char *input, t_kof *fok)
 		((fok->sq < 0) && (input[i] == '\"') && (fok->dq *= -1));
 		((fok->dq < 0) && (input[i] == '\'') && (fok->sq *= -1));
 		((fok->sq < 0 && fok->dq < 0) && (input[i] == '(') && (fok->op++));
-		(((fok->sq < 0 && fok->dq < 0) && input[i] == ')' && \
-			fok->op > fok->cp) && (fok->cp++));
+		(((fok->sq < 0 && fok->dq < 0) && input[i] == ')') \
+			&& (fok->cp++));
 		if ((fok->sq < 0 && fok->dq < 0) && \
 			input[i] == '&' && input[i + 1] != '&')
 			return (1);
@@ -31,6 +31,11 @@ int	check_syntax(char *input, t_kof *fok)
 			&& ft_strchr("&|\0", input[++i + 1]))
 			return (1);
 	}
+	while (i && input[--i] == ' ')
+		;
+	if (i && (ft_strchr("&|\\\0", input[i]) || (fok->sq + fok->dq) != -2 \
+		|| fok->op != fok->cp))
+		return (1);
 	return (0);
 }
 
@@ -47,7 +52,5 @@ int	validate_input(char *input)
 	printf("%s\n", input);
 	if (check_syntax(input, &fok))
 		return (1);
-	// if (check_redirect(input));
-	//     return (1);
 	return (0);
 }
