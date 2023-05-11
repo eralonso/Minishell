@@ -30,6 +30,16 @@
 # include	<history.h>
 # include	<ft_printf.h>
 
+typedef struct s_block
+{
+	char			*line;
+	int				lvl;
+	struct	s_block	*child;
+	struct	s_block	*next;
+	int				ret;
+	char			*sep;
+}				t_block;
+
 typedef	struct s_kof
 {
 	int		op;
@@ -51,6 +61,7 @@ typedef struct s_env
 typedef struct s_msh
 {
 	t_env	*env;
+	t_block	*block;
 	int		err;
 }				t_msh;
 
