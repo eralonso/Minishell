@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:00:02 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/10 13:55:26 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/11 10:57:51 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,6 @@ t_env	*node_create(char *key, char *value);
 void	addfront_env(t_env **msh_env, t_env *tmp);
 void	ft_env(char **env);
 int		validate_input(char *input);
-int		check_syntax(char *input);
+int		check_syntax(char *input, t_kof *fok);
 
 #endif

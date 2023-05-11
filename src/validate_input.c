@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_input.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:18:49 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/05/10 14:36:37 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/05/11 10:58:03 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int check_syntax(char *input, t_kof *fok)
         ((input[i] == '(' && (fok->sq < 0 && fok->dq < 0)) && (fok->op++));
         ((input[i] == ')' && (fok->sq < 0 && fok->dq < 0) && \
             fok->op > fok->cp) && (fok->cp++));
-        ((ft_strnstr(&input[i], "&&\0") && (fok->sq < 0 && fok->dq < 0) && \
-            (fok->cp++)));
+        ((ft_strnstr(&input[i], "&&\0", 2) && (fok->sq < 0 && fok->dq < 0) && \
+            (fok->and = 1)));
     }
     return (0);
 }
@@ -42,7 +42,7 @@ int validate_input(char *input)
     fok.and = 0;
     fok.or = 0;
     printf("%s\n", input);
-    if (check_syntax(input, &fok));
+    if (check_syntax(input, &fok))
         return (1);
     // if (check_redirect(input));
     //     return (1);

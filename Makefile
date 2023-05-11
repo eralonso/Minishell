@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/22 10:08:41 by eralonso          #+#    #+#              #
-#    Updated: 2023/05/10 13:24:52 by eralonso         ###   ########.fr        #
+#    Updated: 2023/05/11 10:59:49 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,7 +72,7 @@ CC			=	gcc
 #<--------------------------------->RULES<----------------------------------->#
 $(OBJ_DIR)%.o	:	%.c $(MK) $(LIB_A)
 	@$(MKD) $(dir $@)
-	@printf "$(PINK)       \rCompiling: $(YELLOW)$(notdir $<)...$(DEF_COLOR)       \r"
+	@printf "$(PINK)Compiling: $(YELLOW)$(notdir $<)...$(DEF_COLOR)                    \r"
 	@$(CC) $(CFLAGS) -MMD -DREADLINE_LIBRARY=1  $(INCLUDE) -c $< -o $@
 
 all				: 
