@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:06:07 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/12 12:42:25 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/12 14:21:44 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_block	*create_block(char *str, int size, int lvl, char sep)
 	return (new);
 }
 
-t_block	*find_block(char *str, int lvl)
+t_block	*generate_blocks(char *str, int lvl)
 {
 	t_block	*new;
 	t_kof	fok;
@@ -48,8 +48,8 @@ t_block	*find_block(char *str, int lvl)
 			break ;
 	}
 	(1 && (new = create_block(str, i, lvl, str[i])) && (fok.op && \
-		(new->child = find_block(ft_strchr(str, '(') + 1, lvl + 1))));
-	(str[i] && str[i] != ')' && (new->next = find_block(str + i + 2, lvl)));
+		(new->child = generate_blocks(ft_strchr(str, '(') + 1, lvl + 1))));
+	(str[i] && str[i] != ')' && (new->next = generate_blocks(str + i + 2, lvl)));
 	if (!new)
 		return (NULL);
 	return (new);
@@ -60,6 +60,6 @@ int	make_blocks(char *str)
 	g_msh.block = create_block(str, -1, 0, 1);
 	if (!g_msh.block)
 		return (1);
-	g_msh.block->child = find_block(str, 1);
+	g_msh.block->child = generate_blocks(str, 1);
 	return (0);
 }
