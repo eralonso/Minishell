@@ -5,6 +5,7 @@
 *.a
 *.m
 *.log
+*.status
 *.out
 .vscode
 minishell

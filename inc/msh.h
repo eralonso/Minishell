@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:00:02 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/12 16:42:27 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/12 17:38:03 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ int		check_syntax(char *input, t_kof *fok);
 int		make_blocks(char *str);
 t_block	*create_block(char *str, int size, int lvl, char sep);
 t_block	*generate_blocks(char *str, int lvl);
+int		check_blocks(t_block *block);
 
 int		ft_echo(char **input);
 int		ft_echo_n(char **input);
