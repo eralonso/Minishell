@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:18:49 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/05/11 17:59:39 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/05/12 11:11:44 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ int	check_syntax(char *input, t_kof *fok)
 		((fok->sq < 0) && (input[i] == '\"') && (fok->dq *= -1));
 		((fok->dq < 0) && (input[i] == '\'') && (fok->sq *= -1));
 		((fok->sq < 0 && fok->dq < 0) && (input[i] == '(') && (fok->op++));
-		(((fok->sq < 0 && fok->dq < 0) && input[i] == ')') \
-			&& (fok->cp++));
+		(((fok->sq < 0 && fok->dq < 0) && input[i] == ')') && (fok->cp++));
+		if (fok->cp > fok->op)
+			return (1);
 		if ((fok->sq < 0 && fok->dq < 0) && \
 			input[i] == '&' && input[i + 1] != '&')
 			return (1);
@@ -49,7 +50,6 @@ int	validate_input(char *input)
 	fok.cp = 0;
 	fok.and = 0;
 	fok.or = 0;
-	printf("%s\n", input);
 	if (check_syntax(input, &fok))
 		return (1);
 	return (0);

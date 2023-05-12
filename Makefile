@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+         #
+#    By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/22 10:08:41 by eralonso          #+#    #+#              #
-#    Updated: 2023/05/11 10:59:49 by eralonso         ###   ########.fr        #
+#    Updated: 2023/05/12 10:07:53 by pramos-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ HEADERS		+=	$(LIBFT_DIR)
 HEADERS		+=	$(RDLINE_DIR)
 
 #<--------------------------------->FILES<---------------------------------->#
-FILES		=	minishell validate_input env
+FILES		=	minishell validate_input env built_echo
 
 #<--------------------------------->SRCS<----------------------------------->#
 SRCS		=	$(addprefix $(SRC_DIR), $(addsuffix .c, $(FILES)))

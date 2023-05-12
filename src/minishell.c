@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:36:26 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/10 12:29:33 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/05/12 11:13:12 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	main(int ac, char **av, char **env)
 			break ;
 		if (validate_input(line))
 			break ;
+		char **memuero = ft_split(line, ' ');
+			ft_echo(memuero);
 	}
 	return (0);
 }
