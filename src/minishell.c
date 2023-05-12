@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:36:26 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/12 11:13:12 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/05/12 13:18:14 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,12 @@ int	main(int ac, char **av, char **env)
 			break ;
 		if (validate_input(line))
 			break ;
-		char **memuero = ft_split(line, ' ');
-			ft_echo(memuero);
+		printf("father: %s\n", g_msh.block->line);
+		printf("first child: %s\n", g_msh.block->child->line);
+		printf("next first child: %s\n", g_msh.block->child->next->line);
+		printf("next first child child: %s\n", g_msh.block->child->next->child->line);
+		printf("next first child child child: %s\n", g_msh.block->child->next->child->child->line);
+		printf("next first child child child: %s\n", g_msh.block->child->next->child->child->child->next->line);
 	}
 	return (0);
 }

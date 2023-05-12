@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_input.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:18:49 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/05/12 11:11:44 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/05/12 12:43:33 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ int	validate_input(char *input)
 	fok.and = 0;
 	fok.or = 0;
 	if (check_syntax(input, &fok))
+		return (1);
+	if (make_blocks(input))
 		return (1);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:00:02 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/12 10:46:34 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/05/12 13:24:53 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct s_block
 	struct	s_block	*child;
 	struct	s_block	*next;
 	int				ret;
-	char			*sep;
+	char			sep;
 }				t_block;
 
 typedef	struct s_kof
@@ -73,6 +73,10 @@ void	addfront_env(t_env **msh_env, t_env *tmp);
 void	ft_env(char **env);
 int		validate_input(char *input);
 int		check_syntax(char *input, t_kof *fok);
+
+int		make_blocks(char *str);
+t_block	*create_block(char *str, int size, int lvl, char sep);
+t_block	*find_block(char *str, int lvl);
 
 int		ft_echo(char **input);
 int		ft_echo_n(char **input);
