@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:00:02 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/14 16:12:25 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/14 18:39:35 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ t_env	*node_create(char *key, char *value);
 void	addfront_env(t_env **msh_env, t_env *tmp);
 void	ft_env(char **env);
 
-void	check_qp(t_kof *fok, char c);
+int		check_qp(t_kof *fok, char c);
 int		init_kof(t_kof *fok);
 char	*ft_strip(char *str);
 

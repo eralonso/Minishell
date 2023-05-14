@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:06:07 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/14 14:37:12 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/14 19:23:45 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ t_block	*generate_block(char *str, int lvl)
 
 	if (!str || !*str)
 		return (NULL);
-	(1 && (i = -1) && ((fok.and = 0) || (fok.or = 0) || (fok.op = 0) || \
-		(fok.cp = 0) || ((fok.sq = -1) && (fok.dq = -1))));
+	(1 && (i = -1) && (init_kof(&fok)));
 	while (str[++i])
 	{
 		check_qp(&fok, str[i]);

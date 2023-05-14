@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/22 10:08:41 by eralonso          #+#    #+#              #
-#    Updated: 2023/05/12 13:27:17 by eralonso         ###   ########.fr        #
+#    Updated: 2023/05/14 18:11:35 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ HEADERS		+=	$(LIBFT_DIR)
 HEADERS		+=	$(RDLINE_DIR)
 
 #<--------------------------------->FILES<---------------------------------->#
-FILES		=	minishell validate_input env parser built_echo
+FILES		=	minishell validate_input env parser built_echo utils
 
 #<--------------------------------->SRCS<----------------------------------->#
 SRCS		=	$(addprefix $(SRC_DIR), $(addsuffix .c, $(FILES)))
