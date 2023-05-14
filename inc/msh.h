@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:00:02 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/12 17:38:03 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/05/14 16:12:25 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,10 @@
 
 # define IN		(int)0
 # define OUT	(int)1
+
+# define I		(int)0
+# define L		(int)1
+# define F		(int)2
 
 typedef struct s_redirect	t_redirect;
 typedef struct s_cmd		t_cmd;
@@ -96,15 +100,23 @@ struct s_msh
 };
 
 char	**list_to_array(t_env **m_env);
+
 t_env	*node_create(char *key, char *value);
 void	addfront_env(t_env **msh_env, t_env *tmp);
 void	ft_env(char **env);
+
+void	check_qp(t_kof *fok, char c);
+int		init_kof(t_kof *fok);
+char	*ft_strip(char *str);
+
+
 int		validate_input(char *input);
-int		check_syntax(char *input, t_kof *fok);
+int		check_syntax(char *input);
+
 
 int		make_blocks(char *str);
 t_block	*create_block(char *str, int size, int lvl, char sep);
-t_block	*generate_blocks(char *str, int lvl);
+t_block	*generate_block(char *str, int lvl);
 int		check_blocks(t_block *block);
 
 int		ft_echo(char **input);
