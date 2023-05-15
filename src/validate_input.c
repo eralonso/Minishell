@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_input.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:18:49 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/05/15 19:04:02 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/05/15 19:12:43 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,15 @@ int	check_redirection(char *str)
 		check_qp(&fok, str[i]);
 		if ((fok.sq < 0 && fok.dq < 0) && (str[i] == '>' || str[i] == '<'))
 		{
-			(((b = i) || 1) && (str[++i] == str[i - 1] || ft_isspace(str[i])) && i++);
+			(b = i) && (str[++i] == str[i - 1] && ++i) && str[i] == ' ' && (i++);
 			if (str[i - 1] == '>' && str[i] == '<')
 				return (1);
 			while (str[i] && !((fok.sq < 0 && fok.dq < 0) && ft_isspace(str[i])))
 				check_qp(&fok, str[i]);
 			(str[i] && ft_isspace(str[i]) && (i++));
-			if (b - 1 >= 0 && str[b - 1])
+			(b - 1 > 0 && ft_isspace(str[b - 1]) && b--);
+			if (b - 1 > 0 && str[b - 1] == ')' && ft_strchr("&|><", str[i]))
+				return (1);
 		}
 		if (!str[i])
 			break ;
