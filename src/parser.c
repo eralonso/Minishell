@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:06:07 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/14 19:23:45 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/15 13:17:57 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ t_block	*generate_block(char *str, int lvl)
 	(str[i] && str[i] != ')' && (new->next = generate_block(str + i + 2, lvl)));
 	if (!new)
 		return (NULL);
-	(fok.cp && !str[i] && new->line[ft_strlen(new->line) - 1] != ')' \
-		&& !(fok.and | fok.or) && (g_msh.err = lvl));
+	// (fok.cp && !str[i] && new->line[ft_strlen(new->line) - 1] != ')' \
+	// 	&& !(fok.and | fok.or) && (g_msh.err = lvl));
 	return (new);
 }
 
@@ -81,6 +81,8 @@ int	check_blocks(t_block *block)
 		if (check_blocks(block->next))
 			return (1);
 	if (!block->line || !*block->line)
+		return (1);
+	if (block->child && block->child->child && !block->child->next)
 		return (1);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_input.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:18:49 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/05/15 11:11:02 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/15 13:24:04 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,18 @@ int	check_qp(t_kof *fok, char c)
 	return (1);
 }
 
-int	check_brackets(char *str)
+int	check_bb(char *str, int i)
+{
+	if (i > 0)
+	{
+		(ft_isspace(str[i - 1]) && (i--));
+		if (i - 1 >= 0 && !ft_strchr("&|(", str[i - 1]))
+			return (1);
+	}
+	return (0);
+}
+
+int	check_front_brackets(char *str)
 {
 	int		i;
 	int		p;
@@ -30,9 +41,24 @@ int	check_brackets(char *str)
 	(1 && (i = -1) && init_kof(&fok) && (p = 0));
 	while (str[++i])
 	{
-		
+		check_qp(&fok, str[i]);
+		if ((fok.sq < 0 && fok.dq < 0) && (str[i] == '(') && check_bb(str, i))
+			return (-1);
+		(fok.op && (p = check_front_brackets(&str[i + 1])) && (i += p));
+		if (p == -1 || p == 1)
+			return (-1);
+		if (fok.cp == 1)
+		{
+			(ft_isspace(str[i + 1]) && (i++));
+			if ((str[i + 1]) && !ft_strchr("&|)", str[i + 1]))
+				return (-1);
+			else
+				return (i + 1);
+		}
+		if (!str[i])
+			break ;
 	}
-	return (0);
+	return (i);
 }
 
 int	check_syntax(char *input)
@@ -71,11 +97,11 @@ int	validate_input(char *input)
 	str = ft_strip(input);
 	if (!str)
 		return (1);
-	if (check_brackets(str))
+	if (check_front_brackets(str) != (int)ft_strlen(str))
 		return (1);
 	if (make_blocks(str) || g_msh.err)
 		return (1);
-	if (check_blocks(g_msh.block))
+	if (check_blocks(g_msh.block->child))
 		return (1);
 	return (0);
 }

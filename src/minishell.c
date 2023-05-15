@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:36:26 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/14 18:11:59 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/15 13:25:32 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int ac, char **av, char **env)
 		line = readline("PESH + 🐚 > ");
 		if (!line)
 			break ;
-		if (validate_input(line))
+		if (*line && validate_input(line))
 			printf("ERROR\nerr: %i\n", g_msh.err);
 		g_msh.err = 0;
 	}
