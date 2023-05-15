@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+         #
+#    By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/18 12:39:13 by eralonso          #+#    #+#              #
-#    Updated: 2023/02/08 16:03:11 by eralonso         ###   ########.fr        #
+#    Updated: 2023/05/15 11:04:12 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ SRCS =	ft_memset.c ft_bzero.c ft_memcpy.c ft_memmove.c \
 		ft_lstlast_bonus.c ft_lstadd_back_bonus.c ft_lstclear_bonus.c \
 		ft_lstdelone_bonus.c ft_lstiter_bonus.c ft_lstmap_bonus.c \
 		get_next_line.c ft_nbrlen_base.c ft_matrixlen.c ft_isnumdup.c \
-		ft_isint.c ft_isnum.c ft_atoll.c ft_close.c \
+		ft_isint.c ft_isnum.c ft_atoll.c ft_close.c ft_isspace.c \
 
 #------------------------------------>OBJ<-------------------------------------#
 OBJS_DIR = ./objs/

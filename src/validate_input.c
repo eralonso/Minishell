@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:18:49 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/05/14 19:24:01 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/15 11:11:02 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,29 +21,19 @@ int	check_qp(t_kof *fok, char c)
 	return (1);
 }
 
-// int	check_parentesis(char *str)
-// {
-// 	t_kof	fok;
-// 	int		i;
-// 	int		cmds;
+int	check_brackets(char *str)
+{
+	int		i;
+	int		p;
+	t_kof	fok;
 
-// 	(1 && ((i = 0) || (cmds = 0) || 1) && (init_kof(&fok)));
-// 	while (str[i])
-// 	{
-// 		check_qp(&fok, str[i]);
-// 		if (fok.op > fok.cp)
-// 		{
-// 			while (str[i] && !((fok.sq < 0 && fok.dq < 0) && str[i] == ')'))
-// 			(((check_qp(&fok, str[i]) && ((fok.sq < 0 && fok.dq < 0) \
-// 			&& (ft_strchr("&|\0", str[i]) || ft_strnstr(&str[i], "||", 2)) && (cmds++))) \
-// 			|| 1) && (i++));
-// 			if (cmds <= 1)
-// 				return (1);
-// 		}
-// 		(str[i] && (i++));
-// 	}
-// 	return (0);
-// }
+	(1 && (i = -1) && init_kof(&fok) && (p = 0));
+	while (str[++i])
+	{
+		
+	}
+	return (0);
+}
 
 int	check_syntax(char *input)
 {
@@ -75,15 +65,17 @@ int	check_syntax(char *input)
 int	validate_input(char *input)
 {
 	char	*str;
-	
+
 	if (check_syntax(input))
 		return (1);
 	str = ft_strip(input);
 	if (!str)
 		return (1);
+	if (check_brackets(str))
+		return (1);
 	if (make_blocks(str) || g_msh.err)
 		return (1);
-	if (check_blocks(g_msh.block) && (g_msh.err = -1))
+	if (check_blocks(g_msh.block))
 		return (1);
 	return (0);
 }
