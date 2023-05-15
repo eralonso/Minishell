@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:18:49 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/05/15 17:04:48 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/05/15 19:04:02 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,33 @@ int	check_bb(char *str, int i)
 	return (0);
 }
 
+int	check_redirection(char *str)
+{
+	t_kof	fok;
+	int		i;
+	int		b;
+	
+	(init_kof(&fok) && (i = -1) && (b = -1));
+	while (str[++i])
+	{
+		check_qp(&fok, str[i]);
+		if ((fok.sq < 0 && fok.dq < 0) && (str[i] == '>' || str[i] == '<'))
+		{
+			(((b = i) || 1) && (str[++i] == str[i - 1] || ft_isspace(str[i])) && i++);
+			if (str[i - 1] == '>' && str[i] == '<')
+				return (1);
+			while (str[i] && !((fok.sq < 0 && fok.dq < 0) && ft_isspace(str[i])))
+				check_qp(&fok, str[i]);
+			(str[i] && ft_isspace(str[i]) && (i++));
+			if (b - 1 >= 0 && str[b - 1])
+		}
+		if (!str[i])
+			break ;
+	}
+	
+	return (0);
+}
+
 int	check_brackets(char *str)
 {
 	int		i;
@@ -50,7 +77,7 @@ int	check_brackets(char *str)
 		if (fok.cp == 1)
 		{
 			(ft_isspace(str[i + 1]) && (i++));
-			if ((str[i + 1]) && !ft_strchr("&|)", str[i + 1]))
+			if ((str[++i]) && !ft_strchr("&|)><", str[i]))
 				return (-1);
 			else
 				return (i + 1);
@@ -99,7 +126,9 @@ int	validate_input(char *input)
 		return (1);
 	if (check_brackets(str) != (int)ft_strlen(str))
 		return (1);
-	if (make_blocks(str) || g_msh.err)
+	if (check_redirection(str))
+		return (1);
+	if (make_blocks(str))
 		return (1);
 	if (check_blocks(g_msh.block->child))
 		return (1);

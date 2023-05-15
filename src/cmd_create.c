@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:44:19 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/05/15 17:45:08 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/05/15 18:10:00 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,11 @@ int	build_cmd(t_block *block)
 	if (block->next)
 		if (build_cmd(block->next))
 			return (1);
-	block->cmd = line_cmd(block->line);
+	if (!block->child)
+	{
+		block->cmd = line_cmd(block->line);
+		printf("block->cmd->pre_cmd:%s:\n", block->cmd->pre_cmd);
+	}
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:53:35 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/05/15 17:46:31 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/05/15 18:11:24 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,14 @@ char	**split_cmd(char *str)
 	res = ft_calloc(sizeof(char *), arg_num(str));
 	j = 0;
 	i = -1;
+	init_kof(&fok);
 	while (str[++i])
 	{
-		start = i;
-		while (str[i] && (fok.sq < 0 && fok.dq < 0) && str[i] == '|')
-			i++;
-		res[j] = ft_substr(str, start, i);
-		if (!res[j])
+		((check_qp(&fok, str[i])) && (start = i));
+		while (str[i] && (fok.sq < 0 && fok.dq < 0) && str[i] != '|')
+			check_qp(&fok, str[i++]);
+		res[j] = ft_substr(str, start, (i - start) - ft_isspace(str[i - 1]));
+		if (!res[j++])
 			return (ft_free(res, 1));
 		if (!str[i])
 			break ;
