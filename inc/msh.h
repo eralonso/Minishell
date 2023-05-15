@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:00:02 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/15 12:48:24 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/05/15 17:06:03 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,17 +109,22 @@ int		check_qp(t_kof *fok, char c);
 int		init_kof(t_kof *fok);
 char	*ft_strip(char *str);
 
-
 int		validate_input(char *input);
 int		check_syntax(char *input);
-
+int		check_brackets(char *str);
 
 int		make_blocks(char *str);
 t_block	*create_block(char *str, int size, int lvl, char sep);
 t_block	*generate_block(char *str, int lvl);
 int		check_blocks(t_block *block);
-int		check_front_brackets(char *str);
-int		check_back_brackets(char *str, int len);
+
+int		build_cmd(t_block *block);
+t_cmd	*line_cmd(char	*str);
+t_cmd	*create_cmd(char *str);
+void	addback_cmd(t_cmd **cmd, t_cmd *new);
+
+char	**split_cmd(char	*str);
+
 int		ft_echo(char **input);
 int		ft_echo_n(char **input);
 

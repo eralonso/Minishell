@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:18:49 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/05/15 13:24:04 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/05/15 17:04:48 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	check_bb(char *str, int i)
 	return (0);
 }
 
-int	check_front_brackets(char *str)
+int	check_brackets(char *str)
 {
 	int		i;
 	int		p;
@@ -44,7 +44,7 @@ int	check_front_brackets(char *str)
 		check_qp(&fok, str[i]);
 		if ((fok.sq < 0 && fok.dq < 0) && (str[i] == '(') && check_bb(str, i))
 			return (-1);
-		(fok.op && (p = check_front_brackets(&str[i + 1])) && (i += p));
+		(fok.op && (p = check_brackets(&str[i + 1])) && (i += p));
 		if (p == -1 || p == 1)
 			return (-1);
 		if (fok.cp == 1)
@@ -97,11 +97,13 @@ int	validate_input(char *input)
 	str = ft_strip(input);
 	if (!str)
 		return (1);
-	if (check_front_brackets(str) != (int)ft_strlen(str))
+	if (check_brackets(str) != (int)ft_strlen(str))
 		return (1);
 	if (make_blocks(str) || g_msh.err)
 		return (1);
 	if (check_blocks(g_msh.block->child))
+		return (1);
+	if (build_cmd(g_msh.block->child))
 		return (1);
 	return (0);
 }

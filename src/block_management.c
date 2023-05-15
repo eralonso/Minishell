@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:06:07 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/15 13:17:57 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/05/15 16:05:35 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,10 @@ t_block	*generate_block(char *str, int lvl)
 	(str[i] && str[i] != ')' && (new->next = generate_block(str + i + 2, lvl)));
 	if (!new)
 		return (NULL);
-	// (fok.cp && !str[i] && new->line[ft_strlen(new->line) - 1] != ')' \
-	// 	&& !(fok.and | fok.or) && (g_msh.err = lvl));
 	return (new);
 }
+	// (fok.cp && !str[i] && new->line[ft_strlen(new->line) - 1] != ')' 
+	// 	&& !(fok.and | fok.or) && (g_msh.err = lvl));
 
 int	make_blocks(char *str)
 {
