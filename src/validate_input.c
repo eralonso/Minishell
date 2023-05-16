@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:18:49 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/05/15 19:12:43 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/16 11:40:03 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,37 @@ int	check_bb(char *str, int i)
 	return (0);
 }
 
+int	syntax_hdoc(char *str, int i)
+{
+	t_kof	fok;
+	
+	init_kof(&fok);
+	(ft_isspace(str[++i]) && (++i));
+	check_qp(&fok, str[i]);
+	if (fok.sq > 0 || fok.dq > 0)
+		return (1);
+	if (ft_strchr("&|><", str[i]))
+		return (1);
+	return (0);
+}
+
 int	check_redirection(char *str)
 {
 	t_kof	fok;
 	int		i;
 	int		b;
 	
-	(init_kof(&fok) && (i = -1) && (b = -1));
+	((i = -1) && init_kof(&fok) && (b = -1));
 	while (str[++i])
 	{
 		check_qp(&fok, str[i]);
 		if ((fok.sq < 0 && fok.dq < 0) && (str[i] == '>' || str[i] == '<'))
 		{
-			(b = i) && (str[++i] == str[i - 1] && ++i) && str[i] == ' ' && (i++);
-			if (str[i - 1] == '>' && str[i] == '<')
+			(b = (i++)) && ((str[i] == str[i - 1] && ++i) || 1) && ft_isspace(str[i]) && (i++);
+			if (str[b] == '>' && str[i] == '<')
 				return (1);
 			while (str[i] && !((fok.sq < 0 && fok.dq < 0) && ft_isspace(str[i])))
-				check_qp(&fok, str[i]);
+				check_qp(&fok, str[i++]);
 			(str[i] && ft_isspace(str[i]) && (i++));
 			(b - 1 > 0 && ft_isspace(str[b - 1]) && b--);
 			if (b - 1 > 0 && str[b - 1] == ')' && ft_strchr("&|><", str[i]))
@@ -73,7 +87,7 @@ int	check_brackets(char *str)
 		check_qp(&fok, str[i]);
 		if ((fok.sq < 0 && fok.dq < 0) && (str[i] == '(') && check_bb(str, i))
 			return (-1);
-		(fok.op && (p = check_brackets(&str[i + 1])) && (i += p));
+		(fok.op && (p = check_brackets(&str[i + 1])) && (i += p) && (fok.op = 0));
 		if (p == -1 || p == 1)
 			return (-1);
 		if (fok.cp == 1)
