@@ -6,13 +6,16 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 19:50:46 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/09 19:01:32 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/16 16:13:53 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<libft.h>
 #include	<stdio.h>
 #define BUFFER_SIZE (int)500000
+#ifndef OPEN_MAX
+# define OPEN_MAX (int)206
+#endif
 
 char	*ft_malloc_strjoin(char *s1, char *s2)
 {

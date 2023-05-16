@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:36:26 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/10 12:03:23 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/05/16 15:52:00 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ t_env	*node_create(char *key, char *value)
 		return (NULL);
 	node->key = key;
 	node->value = value;
-	node->prev = NULL;
-	node->next = NULL;
 	return (node);
 }
 
@@ -64,23 +62,46 @@ void	addfront_env(t_env **msh_env, t_env *tmp)
 	*msh_env = tmp;
 }
 
+void	*clean_env(t_env **list)
+{
+	t_env	*tmp;
+	t_env	*top;
+
+	(list && (tmp = *list)) || (tmp = NULL);
+	while (tmp)
+	{
+		top = tmp->next;
+		free(tmp->key);
+		free(tmp->value);
+		free(tmp);
+		tmp = top;
+	}
+	return (NULL);
+}
+
 void	ft_env(char **env)
 {
-	char	**res;
+	char	*res[2];
 	int		i;
+	int		eq;
 	t_env	*tmp;
 
 	i = -1;
 	g_msh.env = NULL;
 	while (env[++i])
 	{
-		res = ft_split(env[i], '=');
-		if (!res)
+		eq = ft_strchri(env[i], '=');
+		if (eq == -2)
+			continue ;
+		res[0] = ft_substr(env[i], 0, eq);
+		if (!res[0])
+			exit(1); // error_handler (NULL);
+		res[1] = ft_substr(env[i], eq + 1, ft_strlen(env[i]) - (eq + 1));
+		if (!res[1])
 			exit(1); // error_handler (NULL);
 		tmp = node_create(res[0], res[1]);
 		if (!tmp)
 			exit(1); // error_handler (NULL);
 		addfront_env(&g_msh.env, tmp);
-		free(res);
 	}
 }

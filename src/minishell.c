@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:36:26 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/15 17:52:29 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/05/16 15:38:58 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,20 @@ int	main(int ac, char **av, char **env)
 	return (0);
 }
 // printf("first child line: :%s:\n", g_msh.block->child->line);
-// printf("first child line: :%s:\n", g_msh.block->child->next->child->child->child->line);
-// printf("first child line: :%s:\n", g_msh.block->child->next->child->child->child->next->line);
-// printf("first child line: :%s:\n", g_msh.block->child->next->child->child->next->line);
-// printf("first child line: :%s:\n", g_msh.block->child->next->child->next->line);
+// printf("first child line: :%s:\n", g_msh.block->child->next->child->
+// child->child->line);
+// printf("first child line: :%s:\n", g_msh.block->child->next->child->
+// child->child->next->line);
+// printf("first child line: :%s:\n", g_msh.block->child->next->child->
+// child->next->line);
+// printf("first child line: :%s:\n", g_msh.block->child->next->child->
+// next->line);
 // printf("first child line: :%s:\n", g_msh.block->child->next->next->line);
 // printf("first child: :%s:\n", g_msh.block->child->line);
 // printf("next first child: :%s:\n", g_msh.block->child->next->line);
-// printf("next first child child: :%s:\n", g_msh.block->child->next->child->line);
-// printf("next first child child child: :%s:\n", g_msh.block->child->next->child->child->line);
-// printf("next first child child child: :%s:\n", g_msh.block->child->next->child->child->child->next->line);
+// printf("next first child child: :%s:\n", g_msh.block->child->next->
+// child->line);
+// printf("next first child child child: :%s:\n", g_msh.block->child->
+// next->child->child->line);
+// printf("next first child child child: :%s:\n", g_msh.block->child->
+// next->child->child->child->next->line);

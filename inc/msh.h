@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:00:02 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/15 17:06:03 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/05/16 15:36:07 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,32 +99,41 @@ struct s_msh
 	int		err;
 };
 
-char	**list_to_array(t_env **m_env);
-
+//Enviroment: Create
 t_env	*node_create(char *key, char *value);
 void	addfront_env(t_env **msh_env, t_env *tmp);
 void	ft_env(char **env);
 
+// Enviroment: Utils
+char	**list_to_array(t_env **m_env);
+
+// Validate
+int		validate_input(char *input);
+int		check_syntax(char *input);
+int		check_paren(char *str);
+
+// Validate: Utils
 int		check_qp(t_kof *fok, char c);
+int		check_bb(char *str, int i);
 int		init_kof(t_kof *fok);
 char	*ft_strip(char *str);
 
-int		validate_input(char *input);
-int		check_syntax(char *input);
-int		check_brackets(char *str);
-
+// Blocks Management
 int		make_blocks(char *str);
 t_block	*create_block(char *str, int size, int lvl, char sep);
 t_block	*generate_block(char *str, int lvl);
 int		check_blocks(t_block *block);
 
+// CMD: Create
 int		build_cmd(t_block *block);
 t_cmd	*line_cmd(char	*str);
 t_cmd	*create_cmd(char *str);
 void	addback_cmd(t_cmd **cmd, t_cmd *new);
 
+// CMD: Utils
 char	**split_cmd(char	*str);
 
+// Builtins
 int		ft_echo(char **input);
 int		ft_echo_n(char **input);
 

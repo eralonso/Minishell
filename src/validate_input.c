@@ -6,38 +6,18 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:18:49 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/05/16 11:40:03 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/16 15:29:56 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<msh.h>
 
-int	check_qp(t_kof *fok, char c)
-{
-	((fok->sq < 0) && (c == '\"') && (fok->dq *= -1));
-	((fok->dq < 0) && (c == '\'') && (fok->sq *= -1));
-	((fok->sq < 0 && fok->dq < 0) && (c == '(') && (fok->op++));
-	(((fok->sq < 0 && fok->dq < 0) && c == ')') && (fok->cp++));
-	return (1);
-}
-
-int	check_bb(char *str, int i)
-{
-	if (i > 0)
-	{
-		(ft_isspace(str[i - 1]) && (i--));
-		if (i - 1 >= 0 && !ft_strchr("&|(", str[i - 1]))
-			return (1);
-	}
-	return (0);
-}
-
 int	syntax_hdoc(char *str, int i)
 {
 	t_kof	fok;
-	
+
 	init_kof(&fok);
-	(ft_isspace(str[++i]) && (++i));
+	(1 && (++i) && ft_isspace(str[i]) && (i += 1));
 	check_qp(&fok, str[i]);
 	if (fok.sq > 0 || fok.dq > 0)
 		return (1);
@@ -51,14 +31,14 @@ int	check_redirection(char *str)
 	t_kof	fok;
 	int		i;
 	int		b;
-	
-	((i = -1) && init_kof(&fok) && (b = -1));
+
+	(1 && (i = -1) && init_kof(&fok) && (b = -1));
 	while (str[++i])
 	{
 		check_qp(&fok, str[i]);
 		if ((fok.sq < 0 && fok.dq < 0) && (str[i] == '>' || str[i] == '<'))
 		{
-			(b = (i++)) && ((str[i] == str[i - 1] && ++i) || 1) && ft_isspace(str[i]) && (i++);
+			1 && (b = (i++)) && ((str[i] == str[i - 1] && ++i) || 1) && ft_isspace(str[i]) && (i++);
 			if (str[b] == '>' && str[i] == '<')
 				return (1);
 			while (str[i] && !((fok.sq < 0 && fok.dq < 0) && ft_isspace(str[i])))
@@ -71,11 +51,10 @@ int	check_redirection(char *str)
 		if (!str[i])
 			break ;
 	}
-	
 	return (0);
 }
 
-int	check_brackets(char *str)
+int	check_paren(char *str)
 {
 	int		i;
 	int		p;
@@ -87,7 +66,7 @@ int	check_brackets(char *str)
 		check_qp(&fok, str[i]);
 		if ((fok.sq < 0 && fok.dq < 0) && (str[i] == '(') && check_bb(str, i))
 			return (-1);
-		(fok.op && (p = check_brackets(&str[i + 1])) && (i += p) && (fok.op = 0));
+		(fok.op && (p = check_paren(&str[i + 1])) && (i += p) && (fok.op = 0));
 		if (p == -1 || p == 1)
 			return (-1);
 		if (fok.cp == 1)
@@ -140,7 +119,7 @@ int	validate_input(char *input)
 	str = ft_strip(input);
 	if (!str)
 		return (1);
-	if (check_brackets(str) != (int)ft_strlen(str))
+	if (check_paren(str) != (int)ft_strlen(str))
 		return (1);
 	if (check_redirection(str))
 		return (1);

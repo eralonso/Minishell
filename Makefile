@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/22 10:08:41 by eralonso          #+#    #+#              #
-#    Updated: 2023/05/16 10:36:19 by eralonso         ###   ########.fr        #
+#    Updated: 2023/05/16 15:26:17 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ HEADERS		+=	$(RDLINE_DIR)
 
 #<--------------------------------->FILES<---------------------------------->#
 FILES		=	minishell validate_input env block_management cmd_create \
-				built_echo utils split_cmd
+				built_echo utils split_cmd validate_utils
 
 #<--------------------------------->SRCS<----------------------------------->#
 SRCS		=	$(addprefix $(SRC_DIR), $(addsuffix .c, $(FILES)))
