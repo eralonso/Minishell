@@ -6,11 +6,22 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:36:26 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/16 15:38:58 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/17 18:13:18 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<msh.h>
+
+void	print_env(t_env *env)
+{
+	char	**tmp;
+	int		i;
+
+	i = -1;
+	tmp = list_to_array(&env);
+	while (tmp[++i])
+		printf("%s\n", tmp[i]);
+}
 
 int	main(int ac, char **av, char **env)
 {
@@ -20,6 +31,7 @@ int	main(int ac, char **av, char **env)
 	if (ac > 1)
 		exit(1);
 	ft_env(env);
+	// print_env(g_msh.env);
 	while (42)
 	{
 		line = readline("PESH + 🐚 > ");

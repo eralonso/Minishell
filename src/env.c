@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:36:26 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/16 15:52:00 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/16 16:23:11 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	addfront_env(t_env **msh_env, t_env *tmp)
 	*msh_env = tmp;
 }
 
-void	*clean_env(t_env **list)
+int	clean_env(t_env **list, int ret)
 {
 	t_env	*tmp;
 	t_env	*top;
@@ -76,7 +76,7 @@ void	*clean_env(t_env **list)
 		free(tmp);
 		tmp = top;
 	}
-	return (NULL);
+	return (ret);
 }
 
 void	ft_env(char **env)
@@ -95,13 +95,13 @@ void	ft_env(char **env)
 			continue ;
 		res[0] = ft_substr(env[i], 0, eq);
 		if (!res[0])
-			exit(1); // error_handler (NULL);
+			clean_env(&g_msh.env, 0);
 		res[1] = ft_substr(env[i], eq + 1, ft_strlen(env[i]) - (eq + 1));
 		if (!res[1])
-			exit(1); // error_handler (NULL);
+			clean_env(&g_msh.env, ft_free(&res[0], 2) == NULL);
 		tmp = node_create(res[0], res[1]);
 		if (!tmp)
-			exit(1); // error_handler (NULL);
+			clean_env(&g_msh.env, !ft_free(&res[0], 2) | !ft_free(&res[1], 2));
 		addfront_env(&g_msh.env, tmp);
 	}
 }

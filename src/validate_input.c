@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:18:49 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/05/16 15:29:56 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/17 19:10:03 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,27 @@ int	syntax_hdoc(char *str, int i)
 	return (0);
 }
 
+// 1 && (b = (i++)) && ((str[i] == str[i - 1] && ++i) || 1) && ft_isspace(str[i]) && (i++);
+// if (str[b] == '>' && str[i] == '<')
+// 	return (1);
+// while (str[i] && !((fok.sq < 0 && fok.dq < 0) && ft_isspace(str[i])))
+// 	check_qp(&fok, str[i++]);
+// (str[i] && ft_isspace(str[i]) && (i++));
+// (b - 1 > 0 && ft_isspace(str[b - 1]) && b--);
+// if (b - 1 > 0 && str[b - 1] == ')' && ft_strchr("&|><", str[i]))
+// 	return (-1);
+
+int	check_rdt(char *str, int i, t_kof *fok)
+{
+	while (str[i])
+	{
+		if (str[i] == '<' && str[i + 1] == '>' && ft_strchr("&|><\0", str[i + 2]))
+			return (i + 2);
+		i++;
+	}
+	return (i);
+}
+
 int	check_redirection(char *str)
 {
 	t_kof	fok;
@@ -38,14 +59,8 @@ int	check_redirection(char *str)
 		check_qp(&fok, str[i]);
 		if ((fok.sq < 0 && fok.dq < 0) && (str[i] == '>' || str[i] == '<'))
 		{
-			1 && (b = (i++)) && ((str[i] == str[i - 1] && ++i) || 1) && ft_isspace(str[i]) && (i++);
-			if (str[b] == '>' && str[i] == '<')
-				return (1);
-			while (str[i] && !((fok.sq < 0 && fok.dq < 0) && ft_isspace(str[i])))
-				check_qp(&fok, str[i++]);
-			(str[i] && ft_isspace(str[i]) && (i++));
-			(b - 1 > 0 && ft_isspace(str[b - 1]) && b--);
-			if (b - 1 > 0 && str[b - 1] == ')' && ft_strchr("&|><", str[i]))
+			i = check_rdt(str, i, &fok);
+			if (i = -1)
 				return (1);
 		}
 		if (!str[i])

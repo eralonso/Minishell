@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:53:35 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/05/15 18:11:24 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/05/17 11:12:37 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	**split_cmd(char *str)
 	char	**res;
 	t_kof	fok;
 
-	res = ft_calloc(sizeof(char *), arg_num(str));
+	res = ft_calloc(sizeof(char *), arg_num(str) + 1);
 	j = 0;
 	i = -1;
 	init_kof(&fok);

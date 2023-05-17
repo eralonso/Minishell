@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:00:02 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/16 15:36:07 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/17 11:23:34 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,12 +126,13 @@ int		check_blocks(t_block *block);
 
 // CMD: Create
 int		build_cmd(t_block *block);
-t_cmd	*line_cmd(char	*str);
+t_cmd	*line_cmd(char *str);
 t_cmd	*create_cmd(char *str);
-void	addback_cmd(t_cmd **cmd, t_cmd *new);
 
 // CMD: Utils
-char	**split_cmd(char	*str);
+char	**split_cmd(char *str);
+void	addback_cmd(t_cmd **cmd, t_cmd *new);
+int		cmd_lstclear(t_cmd **cmd, int ret);
 
 // Builtins
 int		ft_echo(char **input);
