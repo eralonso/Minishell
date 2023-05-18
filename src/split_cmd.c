@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:53:35 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/05/17 11:12:37 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/18 19:12:30 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	**split_cmd(char *str)
 {
 	int		i;
 	int		j;
-	int		start;
+	int		s;
 	char	**res;
 	t_kof	fok;
 
@@ -28,10 +28,12 @@ char	**split_cmd(char *str)
 	init_kof(&fok);
 	while (str[++i])
 	{
-		((check_qp(&fok, str[i])) && (start = i));
-		while (str[i] && (fok.sq < 0 && fok.dq < 0) && str[i] != '|')
+		printf("c: %c && i: %i\n", str[i], i);
+		((check_qp(&fok, str[i])) && (s = i));
+		while (str[i] && (fok.sq < 0 && fok.dq < 0 && fok.op >= fok.cp) \
+		&& str[i] != '|' && (!i || str[i - 1] != '|'))
 			check_qp(&fok, str[i++]);
-		res[j] = ft_substr(str, start, (i - start) - ft_isspace(str[i - 1]));
+		res[j] = ft_substr(str, s, (i - s) - ft_isspace(str[i - (i > 0)]));
 		if (!res[j++])
 			return (ft_free(res, 1));
 		if (!str[i])
@@ -50,8 +52,10 @@ static int	arg_num(char *str)
 	while (str[++i])
 	{
 		check_qp(&fok, str[i]);
-		if ((fok.sq < 0 && fok.dq < 0) && str[i] == '|')
+		if ((fok.sq < 0 && fok.dq < 0 && fok.op == fok.cp) && str[i] == '|' \
+			&& str[i + 1] != '|')
 			cntr++;
 	}
+	printf("cntr: %i\n", cntr);
 	return (cntr);
 }

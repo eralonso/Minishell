@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:18:49 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/05/17 19:10:03 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/18 18:16:10 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,11 @@ int	syntax_hdoc(char *str, int i)
 
 int	check_rdt(char *str, int i, t_kof *fok)
 {
+	(void) fok;
 	while (str[i])
 	{
-		if (str[i] == '<' && str[i + 1] == '>' && ft_strchr("&|><\0", str[i + 2]))
+		if (str[i] == '<' && str[i + 1] == '>' && \
+			ft_strchr("&|><\0", str[i + 2]))
 			return (i + 2);
 		i++;
 	}
@@ -60,7 +62,7 @@ int	check_redirection(char *str)
 		if ((fok.sq < 0 && fok.dq < 0) && (str[i] == '>' || str[i] == '<'))
 		{
 			i = check_rdt(str, i, &fok);
-			if (i = -1)
+			if (i == -1)
 				return (1);
 		}
 		if (!str[i])
