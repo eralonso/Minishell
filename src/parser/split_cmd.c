@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:53:35 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/05/18 19:12:30 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/20 10:48:48 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,9 @@ char	**split_cmd(char *str)
 	init_kof(&fok);
 	while (str[++i])
 	{
-		printf("c: %c && i: %i\n", str[i], i);
 		((check_qp(&fok, str[i])) && (s = i));
 		while (str[i] && (fok.sq < 0 && fok.dq < 0 && fok.op >= fok.cp) \
-		&& str[i] != '|' && (!i || str[i - 1] != '|'))
+		&& (str[i] != '|' || (str[i] == '|' || str[i + 1] == '|')))
 			check_qp(&fok, str[i++]);
 		res[j] = ft_substr(str, s, (i - s) - ft_isspace(str[i - (i > 0)]));
 		if (!res[j++])
@@ -41,6 +40,7 @@ char	**split_cmd(char *str)
 	}
 	return (res);
 }
+		// printf("c: %c && i: %i\n", str[i], i);
 
 static int	arg_num(char *str)
 {
@@ -56,6 +56,6 @@ static int	arg_num(char *str)
 			&& str[i + 1] != '|')
 			cntr++;
 	}
-	printf("cntr: %i\n", cntr);
+	printf("str:%s:#--# cntr: %i\n", str, cntr);
 	return (cntr);
 }

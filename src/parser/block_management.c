@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:06:07 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/18 18:37:29 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/20 10:48:39 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	check_blocks(t_block *block)
 			return (1);
 	if (!block->line || !*block->line)
 		return (1);
-	if (block->child && block->child->child && !block->child->next)
-		return (1);
 	return (0);
 }
+	// if (block->child && block->child->child && !block->child->next)
+	// 	return (1);

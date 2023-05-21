@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:00:02 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/17 11:23:34 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/20 10:51:02 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,9 @@ struct s_msh
 	t_block	*block;
 	int		err;
 };
+
+//Debugging Tools
+void	print_cmd(t_cmd *cmd, int lvl);
 
 //Enviroment: Create
 t_env	*node_create(char *key, char *value);

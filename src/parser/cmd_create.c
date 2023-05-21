@@ -6,27 +6,18 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 16:44:19 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/05/18 18:58:38 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/20 10:51:44 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<msh.h>
 
-void	print_cmd(t_cmd *cmd, int  lvl)
-{
-	while (cmd)
-	{
-		printf("lvl %i -> cmd->pre_cmd:%s:\n", lvl, cmd->pre_cmd);
-		cmd = cmd->next;
-	}
-}
-
+	// print_cmd(block->cmd, block->lvl);
 int	build_cmd(t_block *block)
 {
 	block->cmd = line_cmd(block->line);
 	if (!block->cmd)
 		return (1);
-	// print_cmd(block->cmd, block->lvl);
 	if (block->child)
 		if (build_cmd(block->child))
 			return (1);
@@ -38,10 +29,10 @@ int	build_cmd(t_block *block)
 
 t_cmd	*line_cmd(char	*str)
 {
-	t_cmd	*cmd;
-	t_cmd	*tmp;
-	char	**cmds;
-	int		i;
+	t_cmd		*cmd;
+	t_cmd		*tmp;
+	char		**cmds;
+	int			i;
 	static int	j = 1;
 
 	(1 && (cmds = split_cmd(str)) && (i = -1) && !(cmd = NULL));
