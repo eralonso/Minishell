@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/22 10:08:41 by eralonso          #+#    #+#              #
-#    Updated: 2023/05/21 13:14:41 by eralonso         ###   ########.fr        #
+#    Updated: 2023/05/23 14:50:33 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,7 @@ LIB_EX		:=	readline history termcap ft ftprintf
 LIB_EX		:=	$(addprefix lib,$(addsuffix .a,$(LIB_EX)))
 
 #<-------------------------------->HEADERS<---------------------------------->#
-HEADERS		=	$(INC_ROOT)
+HEADERS		:=	$(INC_ROOT)
 HEADERS		+=	$(PRINTF_ROOT)$(INC_ROOT)
 HEADERS		+=	$(LIBFT_ROOT)
 HEADERS		+=	$(RDLINE_ROOT)
@@ -75,7 +75,7 @@ SRCS		:=	$(addsuffix .c,$(FILES))
 
 #<----------------------------->OBJS && DEPS<------------------------------->#
 OBJS		:=	$(addprefix $(OBJ_ROOT),$(subst .c,.o,$(SRCS)))
-DEPS		:=	$(addprefix $(OBJ_ROOT),$(subst .c,.d,$(SRCS)))
+DEPS		:=	$(addprefix $(DEP_ROOT),$(subst .c,.d,$(SRCS)))
 
 #<-------------------------------->COMANDS<---------------------------------->#
 INCLUDE		:=	$(addprefix -I,$(HEADERS))
@@ -90,29 +90,44 @@ CC			:=	gcc
 #<--------------------------------->VPATHS<---------------------------------->#
 
 vpath %.c $(SRC_DIRS)
+vpath %.d $(DEP_ROOT)
 
 #<--------------------------------->RULES<----------------------------------->#
-$(OBJ_ROOT)%.o : %.c $(LIB_A) $(MK)
-	$(MKD) $(@D)
-	printf "\r$(PINK)Compiling: $(YELLOW)$(notdir $<).$(DEF_COLOR)          							          						\r"
-	sleep 0.2
-	printf "\r$(PINK)Compiling: $(YELLOW)$(notdir $<)..$(DEF_COLOR)                   			 										\r"
-	sleep 0.2
-	printf "\r$(PINK)Compiling: $(YELLOW)$(notdir $<)...$(DEF_COLOR)            		        										\r"
-	sleep 0.2
-	$(CC) $(CFLAGS) -MMD -DREADLINE_LIBRARY=1 $(INCLUDE) -c $< -o $@ && printf "$(GREEN)SUCCESS$(DEF_COLOR)                               \r" && sleep 0.2 || (printf "$(RED)\n\tFAILURE: $(<F)\n$(DEF_COLOR)\n" && exit 1)
 
+# TA GUAY  && printf "$(GREEN)SUCCESS$(DEF_COLOR)                               \r" && sleep 0.2 || (printf "$(RED)\n\tFAILURE: $(<F)\n$(DEF_COLOR)\n" && exit 1)
 all :
-	$(MAKE) librarys
+	$(MAKE) $(MKFLAGS) librarys
 	$(MAKE) $(MKFLAGS) $(NAME)
-
-$(NAME) : $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LIB_ADD_DIR) $(LIB_SEARCH) $(LIB_A) -o $@
-	echo "\n$(GREEN)Minishell has been compiled\nNOS LO COMEMOS$(DEF_COLOR)"
 
 librarys :
 	$(MAKE) $(MKFLAGS) -C $(ER_LIB_ROOT)
 	$(MAKE) $(MKFLAGS) rdline
+
+$(NAME) : $(DEPS) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(LIB_ADD_DIR) $(LIB_SEARCH) $(LIB_A) -o $@
+	echo "\n$(GREEN)Minishell has been compiled\nNOS LO COMEMOS$(DEF_COLOR)"
+
+$(DEP_ROOT)%.d : %.c
+	mkdir -p $(@D)
+	printf "\r$(BLUE)Dependency: $(YELLOW)$(notdir $<).$(DEF_COLOR)                                                                 \r"
+	sleep 0.1
+	printf "\r$(BLUE)Dependency: $(YELLOW)$(notdir $<)..$(DEF_COLOR)                                                                \r"
+	sleep 0.1
+	printf "\r$(BLUE)Dependency: $(YELLOW)$(notdir $<)...$(DEF_COLOR)                                                               \r"
+	sleep 0.1
+	$(CC) $(CFLAGS) -MMD -MF $@ -DREADLINE_LIBRARY=1 $(INCLUDE) -c $< && rm -rf $(addsuffix .o,$*)
+	sed -i.tmp '1 s|:| $@ :|' $@ && rm -rf $(addsuffix .tmp,$@)
+	sed -i.tmp '1 s|^$*|$(OBJ_ROOT)$*|' $@ && rm -rf $(addsuffix .tmp,$@)
+
+$(OBJ_ROOT)%.o : %.c %.d $(LIB_A)
+	$(MKD) $(@D)
+	printf "\r$(PINK)Object: $(YELLOW)$(notdir $<).$(DEF_COLOR)                                                                     \r"
+	sleep 0.1
+	printf "\r$(PINK)Object: $(YELLOW)$(notdir $<)..$(DEF_COLOR)                                                                    \r"
+	sleep 0.1
+	printf "\r$(PINK)Object: $(YELLOW)$(notdir $<)...$(DEF_COLOR)                                                                   \r"
+	sleep 0.1
+	$(CC) $(CFLAGS) -DREADLINE_LIBRARY=1 $(INCLUDE) -c $< -o $@
 
 rdline :
 	pwd $(MUTE)
@@ -122,7 +137,7 @@ rdline :
 clean :
 	$(MAKE) $(MKFLAGS) clean -C $(RDLINE_ROOT)
 	$(MAKE) $(MKFLAGS) clean -C $(ER_LIB_ROOT)
-	$(RM) $(OBJ_ROOT)
+	$(RM) $(OBJ_ROOT) $(DEP_ROOT)
 	echo ""
 	echo "$(RED)All OBJS && DEPS has been removed$(DEF_COLOR)"
 	echo ""
@@ -144,6 +159,6 @@ re :
 
 .SILENT :
 
-# .LIBPATTERNS : lib%.a lib%.so
-
--include $(DEPS)
+ifeq (0,$(shell cd $(DEP_ROOT) $(MUTE)))
+	-include $(DEPS)
+endif
