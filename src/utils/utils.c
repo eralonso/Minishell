@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 18:10:43 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/24 14:31:43 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/24 19:20:52 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*ft_strip(char *str)
 {
 	char	*new;
 	t_kof	fok;
-	int		i[3];
+	int		i[4];
 
 	((1 && !(i[L] = 0)) && (i[I] = -1) && init_kof(&fok));
 	while (str[++i[I]])
@@ -38,16 +38,15 @@ char	*ft_strip(char *str)
 			i[I]++;
 		(((!((i[L] == 0 || !str[i[I] + 1]) && i[F]) && (i[L]++)) || 1));
 	}
-	new = ft_calloc(sizeof(char), i[L] + init_kof(&fok));
-	if (!new)
-		return (NULL);
-	while (--i[I] >= 0)
+	new = ft_calloc(sizeof(char), (i[3] = i[L]) + init_kof(&fok));
+	while (new && --i[I] >= 0)
 	{
 		(check_qp(&fok, str[i[I]]) && (i[F] = 0));
 		((fok.sq < 0 && fok.dq < 0) && str[i[I]] == ' ' && (i[F] = 1));
-		while (i[F] && i >= 0 && str[i[I]] == ' ')
+		while (i[F] && i[I] >= 0 && str[i[I]] == ' ')
 			i[I]--;
-		(((i[F] && (new[--i[L]] = ' ')) || i >= 0) && (new[--i[L]] = str[i[I]]));
+		(((i[F] && i[L] != i[3] && i[L] > 1 && (new[--i[L]] = ' ')) || 1) \
+			&& i[L] > 0 && (new[--i[L]] = str[i[I]]));
 	}
 	return (new);
 }

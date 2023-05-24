@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/22 10:08:41 by eralonso          #+#    #+#              #
-#    Updated: 2023/05/24 17:54:40 by eralonso         ###   ########.fr        #
+#    Updated: 2023/05/24 19:01:09 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,7 +82,7 @@ INCLUDE		:=	$(addprefix -I,$(HEADERS))
 RM			:=	rm -rf
 MKD			:=	mkdir -p
 MK			:=	Makefile
-CFLAGS		:=	-Wall -Wextra -Werror # -fsanitize=address
+CFLAGS		:=	-Wall -Wextra -Werror -fsanitize=address
 MKFLAGS		:=	--no-print-directory
 MUTE		:=	&> /dev/null
 CC			:=	gcc
@@ -102,10 +102,6 @@ all :
 librarys :
 	$(MAKE) $(MKFLAGS) -C $(ER_LIB_ROOT)
 	$(MAKE) $(MKFLAGS) rdline
-
-$(NAME) : $(DEPS) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LIB_ADD_DIR) $(LIB_SEARCH) $(LIB_A) -o $@
-	echo "\n$(GREEN)Minishell has been compiled\nNOS LO COMEMOS$(DEF_COLOR)"
 
 $(DEP_ROOT)%.d : %.c
 	mkdir -p $(@D)
@@ -128,6 +124,10 @@ $(OBJ_ROOT)%.o : %.c %.d $(LIB_A)
 	printf "\r$(PINK)Object: $(YELLOW)$(notdir $<)...$(DEF_COLOR)                                                                   \r"
 	sleep 0.1
 	$(CC) $(CFLAGS) -DREADLINE_LIBRARY=1 $(INCLUDE) -c $< -o $@
+
+$(NAME) : $(DEPS) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(LIB_ADD_DIR) $(LIB_SEARCH) $(LIB_A) -o $@
+	echo "\n$(GREEN)Minishell has been compiled\nNOS LO COMEMOS$(DEF_COLOR)"
 
 rdline :
 	pwd $(MUTE)
@@ -159,6 +159,6 @@ re :
 
 .SILENT :
 
-ifeq (0,$(shell cd $(DEP_ROOT) $(MUTE)))
-	-include $(DEPS)
+ifeq (0,$(shell cd $(DEP_ROOT) $(MUTE); echo $$?))
+-include $(DEPS)
 endif
