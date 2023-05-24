@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:18:49 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/05/24 17:50:52 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/20 10:47:24 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,20 @@ int	validate_input(char *input)
 {
 	char	*str;
 
+	if (check_syntax(input))
+		return (1);
 	str = ft_strip(input);
-	printf("str:%s:\n", str);
+	if (!str)
+		return (1);
+	if (check_paren(str) != (int)ft_strlen(str))
+		return (1);
+	if (check_redirection(str))
+		return (1);
+	if (make_blocks(str))
+		return (1);
+	if (check_blocks(g_msh.block->child))
+		return (1);
+	if (build_cmd(g_msh.block->child))
+		return (1);
 	return (0);
 }

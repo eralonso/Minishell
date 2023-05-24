@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:00:02 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/24 11:07:07 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/20 10:51:02 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,9 @@
 # define L		(int)1
 # define F		(int)2
 
-# define ARG	(int)0
-# define PIPE	(int)1
-# define RDI	(int)2
-# define RDO	(int)3
-# define RDHD	(int)4
-# define RDAP	(int)5
-# define AND	(int)6
-# define OR		(int)7
-# define OP		(int)8
-# define CP		(int)9
-
 typedef struct s_redirect	t_redirect;
 typedef struct s_cmd		t_cmd;
 typedef struct s_kof		t_kof;
-typedef struct s_token		t_token;
 typedef struct s_block		t_block;
 typedef struct s_env		t_env;
 typedef struct s_msh		t_msh;
@@ -75,18 +63,14 @@ struct s_cmd
 	t_cmd			*next;
 };
 
-struct s_token
-{
-	int		type;
-	char	*line;
-	t_token	*next;
-	int		sub_sh;
-	int		sub_shlvl;
-};
-
 struct s_block
 {
-	t_token	*tk;
+	char	*line;
+	int		lvl;
+	char	sep;
+	int		ret;
+	t_cmd	*cmd;
+	t_block	*child;
 	t_block	*next;
 };
 
