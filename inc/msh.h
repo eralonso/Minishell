@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:00:02 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/25 17:19:43 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/25 17:42:06 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,11 @@ void	ft_env(char **env);
 
 // Enviroment: Utils
 char	**list_to_array(t_env **m_env);
-
+t_env	*env_search(t_env *list, char *key);
+void	env_unset_node(t_env *env, char	*node);
+int		exec_unset(t_env **env, char *node);
+char	**sort_env(char **env);
+void	print_export();
 // Validate
 int		validate_input(char *input);
 int		check_syntax(char *input);
@@ -157,5 +161,8 @@ int		cmd_lstclear(t_cmd **cmd, int ret);
 // Builtins
 int		ft_echo(char **input);
 int		ft_echo_n(char **input);
+int		ft_pwd(char *input);
+void	print_env(t_env *env);
+int		print_one_env(char *input);
 
 #endif
