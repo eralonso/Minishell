@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 17:47:59 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/05/25 13:23:48 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/05/25 18:13:47 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int ft_pwd(char *input)
 }
 int print_one_env(char *input)
 {
-    while (g_msh.env && ft_strncmp(g_msh.env->key, input, ft_strlen(g_msh.env->key)))
+    while (g_msh.env && ft_strncmp(g_msh.env->key, input, \
+        ft_strlen(g_msh.env->key)))
         g_msh.env = g_msh.env->next;
 	if (ft_strncmp(g_msh.env->key, input, ft_strlen(g_msh.env->key)))
         return (-1);

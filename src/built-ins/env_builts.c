@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:30:26 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/05/25 17:35:00 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/05/25 18:15:07 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,11 @@ int	exec_export(char **nodes)
 	if (!nodes)
 		print_export();
 	else
-	{
-		
-	}
+		export_add(nodes);
 	return (0);
 }
 
-void	print_export()
+void	print_export(void)
 {
 	char	**tmp;
 	int		i;
@@ -55,7 +53,6 @@ void	print_export()
 	while (tmp[++i])
 		printf("declare -x %s\n", tmp[i]);
 }
-
 
 void	env_unset_node(t_env *env, char	*node)
 {
