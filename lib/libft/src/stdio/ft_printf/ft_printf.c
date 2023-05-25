@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/02 12:36:13 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/23 13:39:51 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/25 16:50:47 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"ft_printf.h"
+#include	"libft.h"
 
 int	ft_free_error(t_manager *stack)
 {

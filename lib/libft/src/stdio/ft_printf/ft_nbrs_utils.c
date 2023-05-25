@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_int_utils.c                                     :+:      :+:    :+:   */
+/*   ft_nbrs_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 17:24:16 by eralonso          #+#    #+#             */
-/*   Updated: 2023/01/29 18:08:19 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/25 16:47:58 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<ft_printf.h>
+#include	"libft.h"
 
 size_t	ft_nbr_size(t_lli nbr, t_lli len)
 {

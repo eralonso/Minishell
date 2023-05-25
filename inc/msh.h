@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:00:02 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/24 11:07:07 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/25 17:19:43 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include	<signal.h>
 # include	<readline.h>
 # include	<history.h>
+# include	<libft.h>
 # include	<ft_printf.h>
 
 # define IN		(int)0

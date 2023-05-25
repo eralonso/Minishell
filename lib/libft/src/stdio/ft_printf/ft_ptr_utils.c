@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ptr_fl.c                                        :+:      :+:    :+:   */
+/*   ft_ptr_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 16:50:46 by eralonso          #+#    #+#             */
-/*   Updated: 2022/12/01 12:38:18 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/25 16:48:04 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"ft_printf.h"
+#include	"libft.h"
 
 size_t	ft_size_ptr(t_ull ptr)
 {

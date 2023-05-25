@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 11:13:19 by eralonso          #+#    #+#             */
-/*   Updated: 2023/01/24 18:49:53 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/25 16:51:10 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-# include	<libft.h>
 # include	<stdarg.h>
+# include	<stdlib.h>
 
 # define B10 (char *)"0123456789"
 # define BL16 (char *)"0123456789abcdef"

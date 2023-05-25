@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:36:26 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/24 18:33:38 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/25 17:22:38 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,7 @@ int	main(int ac, char **av, char **env)
 	ft_env(env);
 	while (42)
 	{
-		printf("Bucle\n");
 		line = readline("PESH + 🐚 > ");
-		printf("POST READLINE\n");
 		if (!line)
 			break ;
 		if (*line && validate_input(line))

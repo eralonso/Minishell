@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/22 10:08:41 by eralonso          #+#    #+#              #
-#    Updated: 2023/05/24 19:01:09 by eralonso         ###   ########.fr        #
+#    Updated: 2023/05/25 17:20:18 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,18 +22,16 @@ PINK		:=	\033[1;95m
 CIAN		:=	\033[1;96m
 
 #<--------------------------------->NAME<------------------------------------>#
+NAME		:=	minishell
+
+#<--------------------------------->VARS<------------------------------------>#
 NULL		:=	
 SPACE		:=	$(NULL) #
-
-#<--------------------------------->NAME<------------------------------------>#
-NAME		:=	minishell
 
 #<--------------------------------->ROOTS<----------------------------------->#
 LIB_ROOT	:=	lib/
 
-ER_LIB_ROOT	:=	$(LIB_ROOT)er_lib/
-LIBFT_ROOT	:=	$(ER_LIB_ROOT)libft/
-PRINTF_ROOT	:=	$(ER_LIB_ROOT)ft_printf/
+LIBFT_ROOT	:=	$(LIB_ROOT)libft/
 RDLINE_ROOT	:=	$(LIB_ROOT)readline/
 
 SRC_ROOT	:=	src/
@@ -42,20 +40,16 @@ DEP_ROOT	:=	.deps/
 INC_ROOT	:=	inc/
 
 #<-------------------------------->LIBRARYS<--------------------------------->#
-LIB_A		:=	$(LIBFT_ROOT)libft.a $(PRINTF_ROOT)libftprintf.a \
-				$(RDLINE_ROOT)libreadline.a $(RDLINE_ROOT)libhistory.a
+LIB_A		:=	$(RDLINE_ROOT)libreadline.a $(RDLINE_ROOT)libhistory.a \
+				$(LIBFT_ROOT)libft.a 
 
-LIB_ADD_DIR	:=	-L$(RDLINE_ROOT) -L$(LIBFT_ROOT) -L$(PRINTF_ROOT) 
+LIB_ADD_DIR	:=	-L$(RDLINE_ROOT) -L$(LIBFT_ROOT)
 
-LIB_SEARCH	:=	-lreadline -lhistory -ltermcap -lft -lftprintf
-
-LIB_EX		:=	readline history termcap ft ftprintf
-LIB_EX		:=	$(addprefix lib,$(addsuffix .a,$(LIB_EX)))
+LIB_SEARCH	:=	-lreadline -lhistory -ltermcap -lft
 
 #<-------------------------------->HEADERS<---------------------------------->#
 HEADERS		:=	$(INC_ROOT)
-HEADERS		+=	$(PRINTF_ROOT)$(INC_ROOT)
-HEADERS		+=	$(LIBFT_ROOT)
+HEADERS		+=	$(addsuffix $(INC_ROOT),$(LIBFT_ROOT))
 HEADERS		+=	$(RDLINE_ROOT)
 
 #<---------------------------------->DIRS<----------------------------------->#
@@ -63,8 +57,6 @@ SRC_DIRS	:=	./:built-ins/:utils/:debug/:parser/
 SRC_DIRS	:=	$(subst :,$(SPACE),$(SRC_DIRS))
 SRC_DIRS	:=	$(addprefix $(SRC_ROOT),$(SRC_DIRS))
 SRC_DIRS	:=	$(subst $(SPACE),:,$(SRC_DIRS))
-
-LIB_DIRS	:=	$(LIB_ROOT):$(ER_LIB_ROOT):$(LIBFT_ROOT):$(PRINTF_ROOT):$(RDLINE_ROOT)
 
 #<--------------------------------->FILES<---------------------------------->#
 FILES		:=	main validate_input parse_env echo utils \
@@ -100,7 +92,7 @@ all :
 	$(MAKE) $(MKFLAGS) $(NAME)
 
 librarys :
-	$(MAKE) $(MKFLAGS) -C $(ER_LIB_ROOT)
+	$(MAKE) $(MKFLAGS) -C $(LIBFT_ROOT)
 	$(MAKE) $(MKFLAGS) rdline
 
 $(DEP_ROOT)%.d : %.c
@@ -136,7 +128,7 @@ rdline :
 
 clean :
 	$(MAKE) $(MKFLAGS) clean -C $(RDLINE_ROOT)
-	$(MAKE) $(MKFLAGS) clean -C $(ER_LIB_ROOT)
+	$(MAKE) $(MKFLAGS) clean -C $(LIBFT_ROOT)
 	$(RM) $(OBJ_ROOT) $(DEP_ROOT)
 	echo ""
 	echo "$(RED)All OBJS && DEPS has been removed$(DEF_COLOR)"
@@ -144,7 +136,7 @@ clean :
 
 fclean :
 	$(MAKE) $(MKFLAGS) clean
-	$(MAKE) $(MKFLAGS) fclean -C $(ER_LIB_ROOT)
+	$(MAKE) $(MKFLAGS) fclean -C $(LIBFT_ROOT)
 	$(RM) $(NAME)
 	echo ""
 	echo "$(RED)Program has been removed$(DEF_COLOR)"

@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:18:49 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/05/24 18:33:01 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/25 17:22:22 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,9 +109,7 @@ int	validate_input(char *input)
 {
 	char	*str;
 
-	printf("Entra al ft_strip\n");
 	str = ft_strip(input);
-	printf("str:%s:\n", str);
 	free(str);
 	return (0);
 }

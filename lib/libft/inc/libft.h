@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 18:50:15 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/16 14:52:42 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/25 15:45:51 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,11 @@ typedef struct s_gnl {
 //MEM
 void		*ft_calloc(size_t count, size_t size);
 void		ft_bzero(void *s, size_t n);
+void		*ft_memchr(const void *s, int c, size_t n);
+int			ft_memcmp(const void *s1, const void *s2, size_t n);
+void		*ft_memmove(void *dst, const void *src, size_t len);
+void		*ft_memset(void *b, int c, size_t len);
+void		*ft_memcpy(void *dst, const void *src, size_t n);
 
 //NUM
 int			ft_atoi(const char *str);
@@ -63,9 +68,6 @@ int			ft_tolower(int c);
 int			ft_toupper(int c);
 
 //STR: EDIT
-void		*ft_memcpy(void *dst, const void *src, size_t n);
-void		*ft_memmove(void *dst, const void *src, size_t len);
-void		*ft_memset(void *b, int c, size_t len);
 char		*ft_strjoin(char const *s1, char const *s2);
 size_t		ft_strlcat(char *dst, const char *src, size_t size);
 size_t		ft_strlcpy(char *dst, const char *src, size_t size);
@@ -85,8 +87,6 @@ char		*ft_strrchr(const char *s, int c);
 int			ft_strchri(const char *s, int c);
 char		*ft_strnstr(const char *haystack, const char *needle,
 				size_t len);
-void		*ft_memchr(const void *s, int c, size_t n);
-int			ft_memcmp(const void *s1, const void *s2, size_t n);
 
 //MATRIX: UTILS
 void		*ft_free(char **str, int option);
