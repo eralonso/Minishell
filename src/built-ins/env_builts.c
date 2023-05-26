@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:30:26 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/05/25 18:15:07 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/05/26 14:59:34 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,26 +34,6 @@ int	exec_unset(t_env **env, char *node)
 	return (0);
 }
 
-int	exec_export(char **nodes)
-{
-	if (!nodes)
-		print_export();
-	else
-		export_add(nodes);
-	return (0);
-}
-
-void	print_export(void)
-{
-	char	**tmp;
-	int		i;
-
-	i = -1;
-	tmp = sort_env(list_to_array(&g_msh.env));
-	while (tmp[++i])
-		printf("declare -x %s\n", tmp[i]);
-}
-
 void	env_unset_node(t_env *env, char	*node)
 {
 	env = env_search(env, node);
@@ -79,4 +59,22 @@ void	env_unset_node(t_env *env, char	*node)
 	if (env->value && *env->value)
 		free (env->value);
 	free(env);
+}
+
+int	ft_pwd(char *input)
+{
+	if (!ft_strncmp(&input[0], "PWD", ft_strlen(&input[0])))
+		if (print_one_env("PWD") == -1)
+			return (1);
+	return (0);
+}
+
+int	print_one_env(char *input)
+{
+	while (g_msh.env && ft_strncmp(g_msh.env->key, input, \
+		ft_strlen(g_msh.env->key)))
+		g_msh.env = g_msh.env->next;
+	if (ft_strncmp(g_msh.env->key, input, ft_strlen(g_msh.env->key)))
+		return (-1);
+	return (ft_printf(1, "%s\n", g_msh.env->value));
 }

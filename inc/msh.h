@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:00:02 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/25 17:42:06 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/05/26 17:04:05 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,8 @@ void	env_unset_node(t_env *env, char	*node);
 int		exec_unset(t_env **env, char *node);
 char	**sort_env(char **env);
 void	print_export();
+int		clean_env(t_env **list, int ret);
+
 // Validate
 int		validate_input(char *input);
 int		check_syntax(char *input);
@@ -164,5 +166,14 @@ int		ft_echo_n(char **input);
 int		ft_pwd(char *input);
 void	print_env(t_env *env);
 int		print_one_env(char *input);
+int		export_add(char **input);
+int		exec_export(char **nodes);
+int		exec_exit(char **exit);
+int		validate_args(char **node, int *value);
+int		is_valid_num(char *data);
+int		print_exit_error(char *data);
+// static bool	validate_args(char **node, int e*value);
+// static bool	is_valid_num(char *data);
+// static int	print_exit_error(char *data);
 
 #endif
