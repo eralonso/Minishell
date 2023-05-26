@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 16:42:55 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/05/25 18:16:24 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/05/26 10:49:44 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 char	**sort_env(char **env)
 {
-	int     size;
-	int     i;
-	int     j;
-	char    *tmp;
+	int		size;
+	int		i;
+	int		j;
+	char	*tmp;
 
 	i = 0;
 	size = ft_matrixlen(env);

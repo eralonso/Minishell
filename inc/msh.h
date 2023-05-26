@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:00:02 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/25 17:42:06 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/05/26 10:48:33 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,8 @@ t_env	*env_search(t_env *list, char *key);
 void	env_unset_node(t_env *env, char	*node);
 int		exec_unset(t_env **env, char *node);
 char	**sort_env(char **env);
-void	print_export();
+void	print_export(void);
+
 // Validate
 int		validate_input(char *input);
 int		check_syntax(char *input);
