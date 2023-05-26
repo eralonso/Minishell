@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/22 10:08:41 by eralonso          #+#    #+#              #
-#    Updated: 2023/05/25 17:20:18 by eralonso         ###   ########.fr        #
+#    Updated: 2023/05/26 13:12:31 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,7 @@ SRC_DIRS	:=	$(subst $(SPACE),:,$(SRC_DIRS))
 
 #<--------------------------------->FILES<---------------------------------->#
 FILES		:=	main validate_input parse_env echo utils \
-				validate_utils debug_cmd
+				validate_utils debug_cmd tokenizer token_utils
 
 #<--------------------------------->SRCS<----------------------------------->#
 SRCS		:=	$(addsuffix .c,$(FILES))

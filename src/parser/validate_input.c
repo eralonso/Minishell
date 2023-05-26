@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:18:49 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/05/25 17:22:22 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/26 11:39:53 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,11 @@ int	check_syntax(char *input)
 int	validate_input(char *input)
 {
 	char	*str;
+	t_token	tk_tmp;
 
+	tk_tmp = NULL;
 	str = ft_strip(input);
+	tokenizer(&tk_tmp);
 	free(str);
 	return (0);
 }

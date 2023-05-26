@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:00:02 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/26 10:48:33 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/26 13:15:12 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,15 @@
 # define F		(int)2
 
 # define ARG	(int)0
-# define PIPE	(int)1
-# define RDI	(int)2
-# define RDO	(int)3
-# define RDHD	(int)4
-# define RDAP	(int)5
-# define AND	(int)6
+# define PIPE	(int)2
+# define RDI	(int)4
+# define RDO	(int)6
+# define RDHD	(int)1
+# define RDAP	(int)3
+# define AND	(int)5
 # define OR		(int)7
 # define OP		(int)8
-# define CP		(int)9
+# define CP		(int)10
 
 typedef struct s_redirect	t_redirect;
 typedef struct s_cmd		t_cmd;
@@ -119,6 +119,15 @@ struct s_msh
 //Debugging Tools
 void	print_cmd(t_cmd *cmd, int lvl);
 
+//Parser: Tokens: Synthesize
+void	tokenizer(t_token *tk, char *str);
+t_token	*tk_analyzer(char *str, int *i, int not_qd, int *shlvl);
+
+//Parser: Tokens: Utils
+void	*tk_clean(t_token **tk);
+void	tk_addback(t_token **tk, t_token *new);
+t_token	*tk_create(char *str, int type, int size, int subsh_lvl);
+
 //Enviroment: Create
 t_env	*node_create(char *key, char *value);
 void	addfront_env(t_env **msh_env, t_env *tmp);
@@ -142,22 +151,6 @@ int		check_qp(t_kof *fok, char c);
 int		check_bb(char *str, int i);
 int		init_kof(t_kof *fok);
 char	*ft_strip(char *str);
-
-// Blocks Management
-int		make_blocks(char *str);
-t_block	*create_block(char *str, int size, int lvl, char sep);
-t_block	*generate_block(char *str, int lvl);
-int		check_blocks(t_block *block);
-
-// CMD: Create
-int		build_cmd(t_block *block);
-t_cmd	*line_cmd(char *str);
-t_cmd	*create_cmd(char *str);
-
-// CMD: Utils
-char	**split_cmd(char *str);
-void	addback_cmd(t_cmd **cmd, t_cmd *new);
-int		cmd_lstclear(t_cmd **cmd, int ret);
 
 // Builtins
 int		ft_echo(char **input);
