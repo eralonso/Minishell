@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 15:00:11 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/05/26 17:05:57 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/05/27 12:55:59 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	exec_exit(char **exit_args)
 	value = g_msh.err;
 	if (write(2, "exit\n", 5) < 0)
 		exit(1);
-	if (!validate_args(exit_args, &value) && exit_args[1])
+	if (!validate_args(exit_args, &value))
 	{
 		tmp_value = ft_atoi(exit_args[0]);
 		value = (int)tmp_value;
@@ -29,7 +29,7 @@ int	exec_exit(char **exit_args)
 	if (value == -1)
 		return (1);
 	clean_env(&g_msh.env, 0);
-	printf("exit val:%i", value);
+	printf("exit val:%i\n", value);
 	exit(value);
 	return (0);
 }
@@ -38,9 +38,9 @@ int	validate_args(char **node, int *value)
 {
 	int	i;
 
-	i = 1;
-	if (!node[1])
-		return (0);
+	i = 0;
+	if (!node[0])
+		return (1);
 	while (node[i])
 	{
 		if (!is_valid_num(node[i]))
@@ -52,8 +52,8 @@ int	validate_args(char **node, int *value)
 		i++;
 	}
 	if (!node[i] && i == 2)
-		return (0);
-	return (1);
+		return (1);
+	return (0);
 }
 
 int	is_valid_num(char *data)

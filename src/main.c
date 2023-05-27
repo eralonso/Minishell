@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:36:26 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/26 17:05:04 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/05/27 16:54:06 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	print_env(t_env *env)
 int	main(int ac, char **av, char **env)
 {
 	char	*line;
-	char **input;
+	char	**input;
 
 	(void) av;
 	if (ac > 1)
@@ -38,9 +38,10 @@ int	main(int ac, char **av, char **env)
 		if (!line)
 			break ;
 		input = calloc(sizeof(char *), 3);
-		input[0] = "5";
+		input[0] = "cd";
 		input[1] = NULL;
-		exec_exit(input);
+		exec_cd(input);
+		print_env(g_msh.env);
 		if (*line && validate_input(line))
 			printf("ERROR\nerr: %i\n", g_msh.err);
 		free(input[1]);

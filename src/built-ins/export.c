@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 11:01:58 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/05/26 14:58:47 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/05/27 12:56:17 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ void	print_export(void)
 int	export_add(char **input)
 {
 	char	*res[2];
-	int			j;
-	int			k;
-	int			i;
-	t_env		*tmp;
+	int		j;
+	int		k;
+	int		i;
+	t_env	*tmp;
 
 	j = -1;
 	i = 0;

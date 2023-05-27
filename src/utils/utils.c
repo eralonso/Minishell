@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 18:10:43 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/24 19:20:52 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/27 17:58:51 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,43 @@ char	*ft_strip(char *str)
 			&& i[L] > 0 && (new[--i[L]] = str[i[I]]));
 	}
 	return (new);
+}
+
+void	env_set_value(t_env **list, char *name, char *value)
+{
+	t_env	*env;
+	char	**input;
+
+	input = calloc(sizeof(char *), 3);
+	input[0] = name;
+	input[1] = value;
+	if (!list || !name || !value || !*list)
+		return ;
+	env = env_search(*list, name);
+	if (env == NULL)
+		export_add(input);
+	else
+	{
+		free (env->value);
+		env->value = ft_strdup(value);
+	}
+}
+
+int	env_change_value(t_env	*list, char *name, char *value)
+{
+	t_env	*node;
+
+	node = env_search(list, name);
+	if (!node)
+		return (0);
+	free(node->value);
+	if (value == NULL)
+		node->value = NULL;
+	else
+	{
+		node->value = ft_substr(value, 0, 0xffffffff);
+		if (!node->value)
+			return (1);
+	}
+	return (0);
 }

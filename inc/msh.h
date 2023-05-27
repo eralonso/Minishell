@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:00:02 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/26 17:04:05 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/05/27 17:50:26 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ int		exec_unset(t_env **env, char *node);
 char	**sort_env(char **env);
 void	print_export();
 int		clean_env(t_env **list, int ret);
+void	env_set_value(t_env **list, char *name, char *value);
 
 // Validate
 int		validate_input(char *input);
@@ -172,8 +173,13 @@ int		exec_exit(char **exit);
 int		validate_args(char **node, int *value);
 int		is_valid_num(char *data);
 int		print_exit_error(char *data);
-// static bool	validate_args(char **node, int e*value);
-// static bool	is_valid_num(char *data);
-// static int	print_exit_error(char *data);
+int		exec_cd(char **input);
+int		cd_home(t_env *env);
+char	*env_node_value(t_env *list, char *name);
+int		exec_changed(char *pwd, char *old_pwd);
+int		env_change_value(t_env	*list, char *name, char *value);
+int		get_cd_dir(char	**node, char **pwd);
+int		change_pwd_values(char *old_pwd, char *pwd);
+void	env_set_value(t_env **list, char *name, char *value);
 
 #endif
