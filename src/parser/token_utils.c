@@ -6,19 +6,37 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 13:11:52 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/26 13:14:51 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/27 13:41:41 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<msh.h>
 
+void	*bk_clean(t_block **bk)
+{
+	t_block	*bk_tmp;
+	t_block	*bk_tmp2;
+
+	if (!bk || !*bk)
+		return (NULL);
+	bk_tmp = *bk;
+	while (bk_tmp)
+	{
+		bk_tmp2 = bk_tmp;
+		tk_clean(&bk_tmp);
+		free(bk_tmp);
+		bk_tmp = bk_tmp2;
+	}	
+	return (NULL);
+}
+
 void	*tk_clean(t_token **tk)
 {
 	t_token	*tmp;
 	t_token	*tmp2;
-	
+
 	if (!tk || !*tk)
-		return ;
+		return (NULL);
 	tmp = *tk;
 	while (tmp)
 	{
@@ -27,28 +45,46 @@ void	*tk_clean(t_token **tk)
 		free(tmp);
 		tmp = tmp2;
 	}
+	return (NULL);
 }
 
-void	tk_addback(t_token **tk, t_token *new)
+void	tk_bk_addback(void **tk, void *new, int type)
 {
-	t_token	tmp;
+	t_token	*tk_tmp;
+	t_block	*bk_tmp;
 
 	if (!tk)
 		return ;
-	if (!*tk);
+	if (!*tk)
 	{
 		*tk = new;
 		return ;
 	}
-	if (!new)
+	((type == TK && (tk_tmp = (t_token *)*tk)) || (bk_tmp = (t_block *)*tk));
+	if (type == TK)
 	{
-		tk_clean(tk);
-		return ;
+		while (tk_tmp->next)
+			tk_tmp = tk_tmp->next;
+		tk_tmp->next = (t_token *)new;
 	}
-	tmp = *tk;
-	while (tmp->next)
-		tmp = tmp->next;
-	tmp->next = new;
+	else
+	{
+		while (bk_tmp->next)
+			bk_tmp = bk_tmp->next;
+		bk_tmp->next = (t_block *)new;
+	}
+}
+
+t_block	*bk_create(t_token *tk, int sep)
+{
+	t_block	*new;
+
+	new = ft_calloc(sizeof(t_block), 1);
+	if (!new)
+		return (NULL);
+	new->tk = tk;
+	new->sep = sep;
+	return (new);
 }
 
 t_token	*tk_create(char *str, int type, int size, int subsh_lvl)
@@ -60,8 +96,8 @@ t_token	*tk_create(char *str, int type, int size, int subsh_lvl)
 		return (NULL);
 	new->type = type;
 	if (subsh_lvl > 0)
-		new->sub_sh = 1;	
-	new->sub_shlvl = subsh_lvl;	
+		new->sub_sh = 1;
+	new->sub_shlvl = subsh_lvl;
 	new->line = ft_substr(str, 0, size);
 	if (!new->line)
 	{

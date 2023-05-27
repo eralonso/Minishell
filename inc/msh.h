@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:00:02 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/26 13:15:12 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/27 13:41:28 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,19 @@
 # define L		(int)1
 # define F		(int)2
 
-# define ARG	(int)0
-# define PIPE	(int)2
-# define RDI	(int)4
-# define RDO	(int)6
+# define TK		(int)0
+# define BK		(int)1
+
+# define EOC	(int)0
 # define RDHD	(int)1
+# define PIPE	(int)2
 # define RDAP	(int)3
+# define RDI	(int)4
 # define AND	(int)5
+# define RDO	(int)6
 # define OR		(int)7
 # define OP		(int)8
+# define ARG	(int)9
 # define CP		(int)10
 
 typedef struct s_redirect	t_redirect;
@@ -89,6 +93,7 @@ struct s_block
 {
 	t_token	*tk;
 	t_block	*next;
+	int		sep;
 };
 
 struct s_kof
@@ -120,12 +125,12 @@ struct s_msh
 void	print_cmd(t_cmd *cmd, int lvl);
 
 //Parser: Tokens: Synthesize
-void	tokenizer(t_token *tk, char *str);
-t_token	*tk_analyzer(char *str, int *i, int not_qd, int *shlvl);
+t_token	*tokenizer(char *str);
+t_token	*tk_analyzer(char *str, int *i, int *shlvl);
 
 //Parser: Tokens: Utils
 void	*tk_clean(t_token **tk);
-void	tk_addback(t_token **tk, t_token *new);
+void	tk_bk_addback(void **tk, void *new, int type);
 t_token	*tk_create(char *str, int type, int size, int subsh_lvl);
 
 //Enviroment: Create

@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/18 12:39:13 by eralonso          #+#    #+#              #
-#    Updated: 2023/05/25 17:04:18 by eralonso         ###   ########.fr        #
+#    Updated: 2023/05/27 11:01:23 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -94,7 +94,7 @@ all :
 	$(MAKE) $(MKFLAGS) $(NAME)
 
 $(NAME) : $(OBJS)
-	$(AR) $(NAME) $(OBJS)
+	$(AR) $(NAME) $?
 	printf "\n$(GREEN)LIBRARY: '$(subst .a,,$@)' has been created.$(DEF_COLOR)\n"
 
 clean :
