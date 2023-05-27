@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 13:11:52 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/27 13:41:41 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/27 18:38:47 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	*bk_clean(t_block **bk)
 	while (bk_tmp)
 	{
 		bk_tmp2 = bk_tmp;
-		tk_clean(&bk_tmp);
+		tk_clean(&bk_tmp->tk);
 		free(bk_tmp);
 		bk_tmp = bk_tmp2;
 	}	

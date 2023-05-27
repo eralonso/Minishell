@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 13:19:54 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/27 13:26:45 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/27 18:48:13 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 // 	{
 // 		tmp = tk_iter;
 // 		if (tk_iter->type == AND || tk_iter->type == OR)
-						
+			
 // 	}
 // 	return (bk);
 // }

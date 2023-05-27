@@ -6,11 +6,32 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 11:40:07 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/27 13:27:53 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/27 19:00:28 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<msh.h>
+
+int	check_tokens(t_tokens **tk)
+{
+	t_token	*tmp;
+	int		err;
+
+	(1 && (tmp = *tk) && (err = 0));
+	while (tmp && err == 0)
+	{
+		(((tmp->type == RDI || tmp->type == RDO || tmp->type == RDAP || \
+	tmp->type == RDHD) && (!tmp->next || tmp->next->type != ARG) && (err = 1)) \
+	|| (tmp->type == PIPE && (!tmp->next || tmp->next->type == OR) && \
+	(err = 1)) || ((tmp->type == AND || tmp->type == OR) && (!tmp->next || \
+	(tmp->next->type == AND || tmp->next->type == OR)) && (err = 1)));
+		tmp = tmp->next;
+	}
+	if (err)
+		return (1);
+	return (0);
+}
+
 
 int	catch_args(char *str, int *i)
 {
@@ -69,5 +90,7 @@ t_token	*tokenizer(char *str)
 			return (tk_clean(&tk));
 		tk_bk_addback((void **)&tk, (void *)node, TK);
 	}
+	if (check_tokens(&tk))
+		return (tk_clean(&tk));
 	return (tk);
 }
