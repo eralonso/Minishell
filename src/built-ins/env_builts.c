@@ -12,15 +12,18 @@
 
 #include	<msh.h>
 
-t_env	*env_search(t_env *env, char *key)
+t_env	*env_search(t_env **env, char *key)
 {
-	if (!env || !key || !(*key))
+	t_env	*tmp;
+
+	tmp = *env;
+	if (!env || !key || !(*key) || !tmp)
 		return (NULL);
-	while (env && env->next)
+	while (tmp)
 	{
-		if (!ft_strncmp(env->key, key, 0xffffffff))
-			return (env);
-		env = env->next;
+		if (!ft_strncmp(tmp->key, key, 0xffffffff))
+			return (tmp);
+		tmp = tmp->next;
 	}
 	return (NULL);
 }
@@ -36,7 +39,7 @@ int	exec_unset(t_env **env, char *node)
 
 void	env_unset_node(t_env *env, char	*node)
 {
-	env = env_search(env, node);
+	env = env_search(&env, node);
 	if (env == NULL)
 		return ;
 	else

@@ -12,15 +12,17 @@
 
 #include	<msh.h>
 
-void	print_env(t_env *env)
+void	print_env(t_env **env)
 {
-	char	**tmp;
-	int		i;
+	t_env	*tmp;
 
-	i = -1;
-	tmp = list_to_array(&env);
-	while (tmp[++i])
-		printf("%s\n", tmp[i]);
+	tmp = *env;
+	while (tmp)
+	{
+		if (tmp->key && tmp->value)
+			printf("%s=%s\n", tmp->key, tmp->value);
+		tmp = tmp->next;
+	}
 }
 
 int	main(int ac, char **av, char **env)
@@ -32,16 +34,17 @@ int	main(int ac, char **av, char **env)
 	if (ac > 1)
 		exit(1);
 	ft_env(env);
+	set_null_node("OLDPWD", &g_msh.env);
 	while (42)
 	{
 		line = readline("PESH + 🐚 > ");
 		if (!line)
 			break ;
 		input = calloc(sizeof(char *), 3);
-		input[0] = "cd";
+		input[0] = NULL;
 		input[1] = NULL;
 		exec_cd(input);
-		print_env(g_msh.env);
+		print_env(&g_msh.env);
 		if (*line && validate_input(line))
 			printf("ERROR\nerr: %i\n", g_msh.err);
 		free(input[1]);
@@ -51,6 +54,7 @@ int	main(int ac, char **av, char **env)
 	}
 	return (0);
 }
+
 // printf("first child line: :%s:\n", g_msh.block->child->line);
 // printf("first child line: :%s:\n", g_msh.block->child->next->child->
 // child->child->line);

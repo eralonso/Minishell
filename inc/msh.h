@@ -126,7 +126,7 @@ void	ft_env(char **env);
 
 // Enviroment: Utils
 char	**list_to_array(t_env **m_env);
-t_env	*env_search(t_env *list, char *key);
+t_env	*env_search(t_env **env, char *key);
 void	env_unset_node(t_env *env, char	*node);
 int		exec_unset(t_env **env, char *node);
 char	**sort_env(char **env);
@@ -165,7 +165,7 @@ int		cmd_lstclear(t_cmd **cmd, int ret);
 int		ft_echo(char **input);
 int		ft_echo_n(char **input);
 int		ft_pwd(char *input);
-void	print_env(t_env *env);
+void	print_env(t_env **env);
 int		print_one_env(char *input);
 int		export_add(char **input);
 int		exec_export(char **nodes);
@@ -174,12 +174,11 @@ int		validate_args(char **node, int *value);
 int		is_valid_num(char *data);
 int		print_exit_error(char *data);
 int		exec_cd(char **input);
-int		cd_home(t_env *env);
-char	*env_node_value(t_env *list, char *name);
+char	*env_node_value(t_env *env, char *key);
+int		create_add_node(char *key, char *value);
+int		get_cd_dir(char **input, char **pwd);
 int		exec_changed(char *pwd, char *old_pwd);
-int		env_change_value(t_env	*list, char *name, char *value);
-int		get_cd_dir(char	**node, char **pwd);
-int		change_pwd_values(char *old_pwd, char *pwd);
-void	env_set_value(t_env **list, char *name, char *value);
+int		env_pwd_change(t_env **env, char *pwd, char *old_pwd);
+void	set_null_node(char *key, t_env **env);
 
 #endif

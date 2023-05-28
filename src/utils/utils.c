@@ -61,7 +61,7 @@ void	env_set_value(t_env **list, char *name, char *value)
 	input[1] = value;
 	if (!list || !name || !value || !*list)
 		return ;
-	env = env_search(*list, name);
+	env = env_search(list, name);
 	if (env == NULL)
 		export_add(input);
 	else
@@ -75,7 +75,7 @@ int	env_change_value(t_env	*list, char *name, char *value)
 {
 	t_env	*node;
 
-	node = env_search(list, name);
+	node = env_search(&list, name);
 	if (!node)
 		return (0);
 	free(node->value);
@@ -88,4 +88,32 @@ int	env_change_value(t_env	*list, char *name, char *value)
 			return (1);
 	}
 	return (0);
+}
+
+int	create_add_node(char *key, char *value)
+{
+	t_env	*env;
+	char	*tmp;
+	char	*tmp2;
+
+	tmp = ft_strdup(key);
+	tmp2 = ft_strdup(value);
+	env = node_create(tmp, tmp2);
+	if (!env)
+		return ((clean_env(&env, 1) && ft_free(&tmp, 2)));
+	addfront_env(&g_msh.env, env);
+	return (0);
+}
+
+void	set_null_node(char *key, t_env **env)
+{
+	t_env	*tmp;
+	(void)	**env;
+
+	tmp = env_search(&g_msh.env, key);
+	if (tmp)
+	{
+		ft_free(&tmp->value, 2);
+		tmp->value = NULL;
+	}
 }

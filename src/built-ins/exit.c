@@ -29,7 +29,6 @@ int	exec_exit(char **exit_args)
 	if (value == -1)
 		return (1);
 	clean_env(&g_msh.env, 0);
-	printf("exit val:%i\n", value);
 	exit(value);
 	return (0);
 }
