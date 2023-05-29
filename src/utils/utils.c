@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 18:10:43 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/27 17:58:51 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/05/29 12:30:03 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,17 +103,4 @@ int	create_add_node(char *key, char *value)
 		return ((clean_env(&env, 1) && ft_free(&tmp, 2)));
 	addfront_env(&g_msh.env, env);
 	return (0);
-}
-
-void	set_null_node(char *key, t_env **env)
-{
-	t_env	*tmp;
-	(void)	**env;
-
-	tmp = env_search(&g_msh.env, key);
-	if (tmp)
-	{
-		ft_free(&tmp->value, 2);
-		tmp->value = NULL;
-	}
 }

@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:00:02 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/27 17:50:26 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/05/29 12:19:57 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ t_env	*env_search(t_env **env, char *key);
 void	env_unset_node(t_env *env, char	*node);
 int		exec_unset(t_env **env, char *node);
 char	**sort_env(char **env);
-void	print_export();
+void	print_export(void);
 int		clean_env(t_env **list, int ret);
 void	env_set_value(t_env **list, char *name, char *value);
 

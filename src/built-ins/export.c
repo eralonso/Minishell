@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 11:01:58 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/05/27 12:56:17 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/05/29 12:31:25 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,17 @@ char	**sort_env(char **env)
 		i++;
 	}
 	return (env);
+}
+
+void	set_null_node(char *key, t_env **env)
+{
+	t_env	*tmp;
+
+	(void)	**env;
+	tmp = env_search(&g_msh.env, key);
+	if (tmp)
+	{
+		ft_free(&tmp->value, 2);
+		tmp->value = NULL;
+	}
 }
