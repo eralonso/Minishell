@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:36:26 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/27 16:54:06 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/05/29 16:21:06 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,9 @@ int	main(int ac, char **av, char **env)
 		if (!line)
 			break ;
 		input = calloc(sizeof(char *), 3);
-		input[0] = NULL;
-		input[1] = NULL;
-		exec_cd(input);
-		print_env(&g_msh.env);
+		input = get_wildcard();
 		if (*line && validate_input(line))
 			printf("ERROR\nerr: %i\n", g_msh.err);
-		free(input[1]);
-		free(input[2]);
 		free(input);
 		g_msh.err = 0;
 	}
