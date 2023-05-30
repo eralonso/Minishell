@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 13:11:52 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/27 18:38:47 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/30 17:55:38 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void	tk_bk_addback(void **tk, void *new, int type)
 		while (tk_tmp->next)
 			tk_tmp = tk_tmp->next;
 		tk_tmp->next = (t_token *)new;
+		(t_token *)new->prev = tk_tmp;
 	}
 	else
 	{

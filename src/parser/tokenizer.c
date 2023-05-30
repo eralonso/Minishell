@@ -6,11 +6,105 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 11:40:07 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/27 19:00:28 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/30 19:14:45 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<msh.h>
+
+int	check_rd(t_token *tk)
+{
+	t_token	*next;
+	t_token	*prev;
+	int		n_type;
+	int		p_type;
+
+	if (!tk)
+		return (1);
+	next = tk->next;
+	prev = tk->prev;
+	(next && (n_type = tk->next->type));
+	(prev && (n_type = tk->prev->type));
+	return ((next && n_type != ARG));
+}
+
+int	check_and_or(t_token *tk)
+{
+	t_token	*next;
+	t_token	*prev;
+	int		n_type;
+	int		p_type;
+
+	if (!tk)
+		return (1);
+	next = tk->next;
+	prev = tk->prev;
+	(next && (n_type = tk->next->type));
+	(prev && (n_type = tk->prev->type));
+	return ((next && (n_type == PIPE || n_type == CP || n_type == AND \
+			|| n_type == OR || n_type == EOCL)) || \
+			(prev && (p_type != ARG && prev->type != CP)));
+}
+
+int	check_cp(t_token *tk)
+{
+	t_token	*next;
+	t_token	*prev;
+	int		n_type;
+	int		p_type;
+
+	if (!tk)
+		return (1);
+	next = tk->next;
+	prev = tk->prev;
+	(next && (n_type = tk->next->type));
+	(prev && (n_type = tk->prev->type));
+	return ((next && (n_type == ARG || n_type == OP)) || \
+			(prev && (p_type != ARG && prev->type != CP)));
+}
+
+int	check_op(t_token *tk)
+{
+	t_token	*next;
+	t_token	*prev;
+	int		n_type;
+	int		p_type;
+
+	if (!tk)
+		return (1);
+	next = tk->next;
+	prev = tk->prev;
+	(next && (n_type = tk->next->type));
+	(prev && (n_type = tk->prev->type));
+	return ((next && (n_type == PIPE || n_type == CP || n_type == AND \
+			|| n_type == OR || n_type == EOCL)) || \
+			(prev && (p_type != PIPE && prev->type != OP \
+			&& prev->type != AND && prev->type != OR)));
+}
+
+int	check_pipe(t_token *tk)
+{
+	t_token	*next;
+	t_token	*prev;
+	int		n_type;
+	int		p_type;
+
+	if (!tk)
+		return (1);
+	next = tk->next;
+	prev = tk->prev;
+	(next && (n_type = tk->next->type));
+	(prev && (n_type = tk->prev->type));
+	return ((next && (n_type == PIPE || n_type == CP || n_type == AND \
+			|| n_type == OR || n_type == EOCL)) || \
+			(prev && (p_type != ARG && prev->type != CP)));
+}
+
+int	chek_arg(t_token *tk)
+{
+	return ((tk->next && tk->next->type == OP) || \
+			(tk->prev && tk->prev->type == CP));
+}
 
 int	check_tokens(t_tokens **tk)
 {
@@ -18,20 +112,21 @@ int	check_tokens(t_tokens **tk)
 	int		err;
 
 	(1 && (tmp = *tk) && (err = 0));
-	while (tmp && err == 0)
+	((tmp->type == AND || tmp->type == OR || tmp->type == PIPE \
+	|| tmp->type == CP) && (err = 1));
+	while (tmp->next && tmp->type != EOCL && err == 0)
 	{
 		(((tmp->type == RDI || tmp->type == RDO || tmp->type == RDAP || \
 	tmp->type == RDHD) && (!tmp->next || tmp->next->type != ARG) && (err = 1)) \
 	|| (tmp->type == PIPE && (!tmp->next || tmp->next->type == OR) && \
 	(err = 1)) || ((tmp->type == AND || tmp->type == OR) && (!tmp->next || \
-	(tmp->next->type == AND || tmp->next->type == OR)) && (err = 1)));
+	(tmp->next->type == AND || tmp->next->type == OR)) && (err = 1)) || \
+	((tmp->type == ) && (err = 1)));
 		tmp = tmp->next;
 	}
-	if (err)
-		return (1);
-	return (0);
+	((tmp->type != CP && tmp->type != ARG) && (err = 1))
+	return (err);
 }
-
 
 int	catch_args(char *str, int *i)
 {
@@ -90,6 +185,7 @@ t_token	*tokenizer(char *str)
 			return (tk_clean(&tk));
 		tk_bk_addback((void **)&tk, (void *)node, TK);
 	}
+	node = tk_create(NULL, 0);
 	if (check_tokens(&tk))
 		return (tk_clean(&tk));
 	return (tk);

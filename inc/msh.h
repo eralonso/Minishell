@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:00:02 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/27 13:41:28 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/30 18:18:29 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 # define TK		(int)0
 # define BK		(int)1
 
-# define EOC	(int)0
+# define EOCL	(int)0
 # define RDHD	(int)1
 # define PIPE	(int)2
 # define RDAP	(int)3
@@ -84,9 +84,10 @@ struct s_token
 {
 	int		type;
 	char	*line;
-	t_token	*next;
 	int		sub_sh;
 	int		sub_shlvl;
+	t_token	*next;
+	t_token	*prev;
 };
 
 struct s_block
