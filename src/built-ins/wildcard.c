@@ -23,20 +23,17 @@ char	**get_wildcard(void)
 	names = malloc(sizeof(char *) * ft_count_dir(dir));
 	entry = readdir(dir);
 	num_entries = 0;
-	while ((entry = readdir(dir)) != NULL)
+	while (entry != NULL)
 	{
-		if (ft_strncmp(entry->d_name, ".", ft_strlen(entry->d_name)) \
-		!= 0 && ft_strncmp(entry->d_name, "..", ft_strlen(entry->d_name)) \
-		!= 0)
+		if (entry->d_name[0] != '.')
 		{
 			printf("entry name:%s:\n", entry->d_name);
 			num_entries++;
-			names[num_entries - 1] = strdup(entry->d_name);
+			names[num_entries - 1] = ft_strdup(entry->d_name);
 			if (!names[num_entries - 1])
-				return (NULL);
-				//(NULL && closedir(dir) || ft_free(names, 1));
-			readdir(dir);
+				return (ft_free(names, (closedir(dir) || 1)));
 		}
+		entry = readdir(dir);
 	}
 	closedir(dir);
 	return (names);
@@ -55,10 +52,11 @@ int	ft_count_dir(DIR *dir)
 		return (0);
 	}
 	entry = readdir(dir);
-	while ((entry = readdir(dir)) != NULL)
+	while (entry != NULL)
 	{
 		num_entries++;
 		readdir(dir);
+		entry = readdir(dir);
 	}
 	return (num_entries);
 }
