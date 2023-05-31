@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:00:02 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/30 18:18:29 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/31 19:01:18 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ t_token	*tk_analyzer(char *str, int *i, int *shlvl);
 void	*tk_clean(t_token **tk);
 void	tk_bk_addback(void **tk, void *new, int type);
 t_token	*tk_create(char *str, int type, int size, int subsh_lvl);
+int		check_tokens(t_token **tk);
 
 //Enviroment: Create
 t_env	*node_create(char *key, char *value);
