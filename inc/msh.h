@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:00:02 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/29 16:38:52 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/05/31 16:55:22 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@
 
 # define IN		(int)0
 # define OUT	(int)1
+
+# define NORM		(int)1
+# define HEARDOC	(int)2
+# define N_INTERACT	(int)2
 
 # define I		(int)0
 # define L		(int)1
@@ -185,5 +189,12 @@ void	set_null_node(char *key, t_env **env);
 //Wildcard
 char	**get_wildcard(void);
 int		ft_count_dir(DIR *dir);
+
+//Signals
+int		init_signals(int mode);
+void	norm_handler(int sig, siginfo_t *data, void *non_used_data);
+void	ninter_handler(int sig, siginfo_t *data, void *non_used_data);
+void	do_sigign(int signum);
+void eof_handler(int signum);
 
 #endif

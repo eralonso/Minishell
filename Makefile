@@ -6,7 +6,7 @@
 #    By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/22 10:08:41 by eralonso          #+#    #+#              #
-#    Updated: 2023/05/29 14:58:01 by pramos-m         ###   ########.fr        #
+#    Updated: 2023/05/31 13:21:41 by pramos-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,7 @@ SRC_DIRS	:=	$(subst $(SPACE),:,$(SRC_DIRS))
 #<--------------------------------->FILES<---------------------------------->#
 FILES		:=	main validate_input parse_env echo utils \
 				validate_utils debug_cmd export env_builts \
-				exit cd wildcard
+				exit cd wildcard signals
 
 #<--------------------------------->SRCS<----------------------------------->#
 SRCS		:=	$(addsuffix .c,$(FILES))

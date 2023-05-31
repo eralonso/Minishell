@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:36:26 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/30 11:30:19 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/05/31 17:59:17 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,15 @@ int	main(int ac, char **av, char **env)
 	set_null_node("OLDPWD", &g_msh.env);
 	while (42)
 	{
+		init_signals(NORM);
+		do_sigign(SIGQUIT);
 		line = readline("PESH + 🐚 > ");
+		do_sigign(SIGINT);
 		if (!line)
-			break ;
+		{
+			printf("exit");
+			return (0);
+		}
 		input = calloc(sizeof(char *), 3);
 		input = get_wildcard();
 		if (*line && validate_input(line))
