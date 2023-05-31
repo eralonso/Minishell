@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 13:11:52 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/30 17:55:38 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/05/31 14:24:19 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	tk_bk_addback(void **tk, void *new, int type)
 		while (tk_tmp->next)
 			tk_tmp = tk_tmp->next;
 		tk_tmp->next = (t_token *)new;
-		(t_token *)new->prev = tk_tmp;
+		tk_tmp->next->prev = tk_tmp;
 	}
 	else
 	{
@@ -99,11 +99,14 @@ t_token	*tk_create(char *str, int type, int size, int subsh_lvl)
 	if (subsh_lvl > 0)
 		new->sub_sh = 1;
 	new->sub_shlvl = subsh_lvl;
-	new->line = ft_substr(str, 0, size);
-	if (!new->line)
+	if (type != EOCL)
 	{
-		free(new);
-		return (NULL);
+		new->line = ft_substr(str, 0, size);
+		if (!new->line)
+		{
+			free(new);
+			return (NULL);
+		}
 	}
 	return (new);
 }
