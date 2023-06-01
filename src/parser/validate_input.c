@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:18:49 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/05/27 18:49:51 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/01 14:48:42 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,13 +109,13 @@ int	validate_input(char *input)
 {
 	char	*str;
 	t_token	*tk_tmp;
-	// t_block	*bk_tmp;
+	t_block	*bk_tmp;
 
 	str = ft_strip(input);
 	tk_tmp = tokenizer(str);
 	if (!tk_tmp)
 		return (ft_free(&str, 2) == NULL);
-	// bk_tmp = tk_to_block(&tk_tmp);
+	bk_tmp = tk_to_block(&tk_tmp);
 	// while (tk_tmp)
 	// 	(printf("line:%s: && type:%i: && sub_shlvl:%i:\n", tk_tmp->line, tk_tmp->type, tk_tmp->sub_shlvl) && (tk_tmp = tk_tmp->next));
 	free(str);

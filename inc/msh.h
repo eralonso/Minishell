@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:00:02 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/31 19:01:18 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/01 17:39:24 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ struct s_block
 {
 	t_token	*tk;
 	t_block	*next;
+	t_block	*child;
 	int		sep;
 };
 
