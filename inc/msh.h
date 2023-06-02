@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:00:02 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/01 17:39:24 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/02 18:12:20 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,25 +59,33 @@ typedef struct s_kof		t_kof;
 typedef struct s_token		t_token;
 typedef struct s_block		t_block;
 typedef struct s_env		t_env;
+typedef struct s_stair		t_stair;
 typedef struct s_msh		t_msh;
 
 t_msh						g_msh;
 
+struct s_stair
+{
+	int		type;
+	int		depth;
+	void	**content;
+	t_stair	*step;
+};
+
 struct s_redirect
 {
-	char	*in;
-	char	*out;
+	int		type;
+	char	*file;
 	int		fd[2];
 	int		tmp_fd[2];
 };
 
 struct s_cmd
 {
-	char			*pre_cmd;
-	char			*path_cmd;
+	char			*cmd_n;
+	char			*cmd_path;
 	char			**cmd_args;
 	t_redirect		*redirect;
-	t_cmd			*next;
 };
 
 struct s_token
@@ -86,6 +94,7 @@ struct s_token
 	char	*line;
 	int		sub_sh;
 	int		sub_shlvl;
+	int		idx;
 	t_token	*next;
 	t_token	*prev;
 };
@@ -119,7 +128,8 @@ struct s_env
 struct s_msh
 {
 	t_env	*env;
-	t_block	*block;
+	// t_block	*block;
+	t_stair	*step;
 	int		err;
 };
 
@@ -128,7 +138,7 @@ void	print_cmd(t_cmd *cmd, int lvl);
 
 //Parser: Tokens: Synthesize
 t_token	*tokenizer(char *str);
-t_token	*tk_analyzer(char *str, int *i, int *shlvl);
+t_token	*tk_analyzer(char *str, int *i, int *shlvl, int idx);
 
 //Parser: Tokens: Utils
 void	*tk_clean(t_token **tk);

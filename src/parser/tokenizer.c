@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 11:40:07 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/31 19:00:23 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/02 18:08:56 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	catch_args(char *str, int *i)
 	return (len);
 }
 
-t_token	*tk_analyzer(char *str, int *i, int *shlvl)
+t_token	*tk_analyzer(char *str, int *i, int *shlvl, int idx)
 {
 	t_token	*node;
 	int		type;
@@ -50,6 +50,7 @@ t_token	*tk_analyzer(char *str, int *i, int *shlvl)
 	node = tk_create(&str[(*i)], type, len, *shlvl);
 	(type == OP && ((*shlvl)++));
 	*i += len;
+	node->idx = idx;
 	return (node);
 }
 
@@ -57,21 +58,24 @@ t_token	*tokenizer(char *str)
 {
 	int		i;
 	int		shlvl;
+	int		idx;
 	t_token	*tk;
 	t_token	*node;
 
-	(0 || (i = 0) || (shlvl = 0) || (tk = NULL));
+	(0 || (i = 0) || (idx = 0) || (shlvl = 0) || (tk = NULL));
 	while (str[i] && i != -1)
 	{
-		node = tk_analyzer(str, &i, &shlvl);
+		node = tk_analyzer(str, &i, &shlvl, idx);
 		(str[i] && ft_isspace(str[i]) && i++);
 		if (!node)
 			return (tk_clean(&tk));
 		tk_bk_addback((void **)&tk, (void *)node, TK);
+		idx++;
 	}
 	node = tk_create(NULL, EOCL, 0, 0);
 	if (!node)
 		return (tk_clean(&tk));
+	node->idx = idx;
 	tk_bk_addback((void **)&tk, (void *)node, TK);
 	if (check_tokens(&tk))
 		return (tk_clean(&tk));
