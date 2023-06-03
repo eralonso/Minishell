@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:00:02 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/03 12:54:54 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/03 19:17:52 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,16 +94,17 @@ t_msh						g_msh;
 //Structs
 struct s_lstt
 {
-	int		type;
-	void	*content;
-	t_lstt	*next;
+	int			type;
+	void		*content;
+	t_redirect	*redirect;
+	t_lstt		*next;
 };
 
 struct s_stair
 {
 	int		type;
 	int		size;
-	int		final_index;
+	int		final_idx;
 	t_lstt	*node;
 	t_stair	*step;
 };
@@ -118,11 +119,9 @@ struct s_redirect
 
 struct s_cmd
 {
-	char			*cmd_n;
-	char			*cmd_path;
-	char			**cmd_args;
-	int				rd_num;
-	t_redirect		*redirect;
+	char	*cmd_n;
+	char	*cmd_path;
+	char	**cmd_args;
 };
 
 struct s_token
@@ -163,67 +162,70 @@ struct s_msh
 
 //Function Declarations
 ///Debugging Tools
-void	print_cmd(t_cmd *cmd, int lvl);
+void		print_cmd(t_cmd *cmd, int lvl);
 
 ///Parser: Tokens: Synthesize
-t_token	*tokenizer(char *str);
-t_token	*tk_analyzer(char *str, int *i, int *shlvl, int idx);
+t_token		*tokenizer(char *str);
+t_token		*tk_analyzer(char *str, int *i, int *shlvl, int idx);
 
 ///Parser: Tokens: Utils
-void	*tk_clean(t_token **tk);
-void	tk_addback(t_token **tk, t_token *new);
-t_token	*tk_create(char *str, int type, int size, int subsh_lvl);
-int		check_tokens(t_token **tk);
-int		tk_tkcounter(t_token **tk, int type, int del, int skip_p);
-void	tk_cut(t_token **tk);
+void		*tk_clean(t_token **tk);
+void		tk_addback(t_token **tk, t_token *new);
+t_token		*tk_create(char *str, int type, int size, int subsh_lvl);
+int			check_tokens(t_token **tk);
+int			tk_tkcounter(t_token **tk, int type, int del, int skip_p);
+t_token		*tk_copy(t_token *tk);
+void		tk_cut(t_token **tk);
+t_token		*tk_get_in_parenthesis(t_token **tk);
 
 ///Parser: Stair: Generate
-t_stair	*st_generate(t_token **tk);
+t_stair		*st_generate(t_token **tk);
 
 ///Parser: Stair: Utils
-void	st_addfront(t_stair **stair, t_stair *top);
-void	*st_clean(t_stair **stair);
-t_stair	*st_create(t_lstt *node, int type, int size);
+void		st_addfront(t_stair **stair, t_stair *top);
+void		*st_clean(t_stair **stair);
+t_stair		*st_create(t_lstt *node, int type, int size);
 
 ///Parser: Lstt: Utils
-void	lstt_addback(t_lstt **list, t_lstt *bottom);
+void		lstt_addback(t_lstt **list, t_lstt *bottom);
+t_redirect	*lstt_redirect(t_token **tk, int skip_p);
 
 ///Parser: Cmd: Utils
-void	*cmd_clean(t_cmd **cmd);
-void	*rd_clean(t_redirect *redirect, int size);
+void		*cmd_clean(t_cmd **cmd);
+void		*rd_clean(t_redirect *redirect, int size);
 
 ///Parser: Conversor
-t_lstt	*tk_to_lstt(t_token **tk, int type);
+t_lstt		*tk_to_lstt(t_token **tk);
 
 ///Enviroment: Create
-t_env	*node_create(char *key, char *value);
-void	addfront_env(t_env **msh_env, t_env *tmp);
-void	ft_env(char **env);
+t_env		*node_create(char *key, char *value);
+void		addfront_env(t_env **msh_env, t_env *tmp);
+void		ft_env(char **env);
 
 ///Enviroment: Utils
-char	**list_to_array(t_env **m_env);
-t_env	*env_search(t_env *list, char *key);
-void	env_unset_node(t_env *env, char	*node);
-int		exec_unset(t_env **env, char *node);
-char	**sort_env(char **env);
-void	print_export(void);
+char		**list_to_array(t_env **m_env);
+t_env		*env_search(t_env *list, char *key);
+void		env_unset_node(t_env *env, char	*node);
+int			exec_unset(t_env **env, char *node);
+char		**sort_env(char **env);
+void		print_export(void);
 
 ///Validate
-int		validate_input(char *input);
-int		check_syntax(char *input);
-int		check_paren(char *str);
+int			validate_input(char *input);
+int			check_syntax(char *input);
+int			check_paren(char *str);
 
 ///Validate: Utils
-int		check_qp(t_kof *fok, char c);
-int		check_bb(char *str, int i);
-int		init_kof(t_kof *fok);
-char	*ft_strip(char *str);
+int			check_qp(t_kof *fok, char c);
+int			check_bb(char *str, int i);
+int			init_kof(t_kof *fok);
+char		*ft_strip(char *str);
 
 ///Builtins
-int		ft_echo(char **input);
-int		ft_echo_n(char **input);
-int		ft_pwd(char *input);
-void	print_env(t_env *env);
-int		print_one_env(char *input);
+int			ft_echo(char **input);
+int			ft_echo_n(char **input);
+int			ft_pwd(char *input);
+void		print_env(t_env *env);
+int			print_one_env(char *input);
 
 #endif

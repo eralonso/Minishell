@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 18:03:45 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/03 13:38:23 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/03 17:37:21 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,16 @@ t_stair	*st_collect_step(t_token **tk, int type)
 	(1 && (tmp = *tk) && (start = tmp) && (paren = 0));
 	while (tmp && tmp->type != EOCL)
 	{
-		(tmp->type == OP && (paren++));
-		(tmp->type == CP && (paren--));
+		((tmp->type == OP && (paren++)) || (tmp->type == CP && (paren--)));
 		if (tmp->type == PIPE && paren == 0)
 		{
 			tk_cut(&tmp);
-			content = tk_to_lstt(&start, CMD);
+			(1 && (content = tk_to_lstt(&start)) && (start = tmp));
 			if (!content)
 				return (st_clean(&step));
 			lstt_addback(&step->node, content);
-			start = tmp;
 		}
+		(tmp && ((step->final_idx = tmp->idx) || 1) && (tmp = tmp->next));
 	}
 	return (step);
 }
@@ -59,8 +58,10 @@ t_stair	*st_generate(t_token **tk)
 		if (!step)
 			return (st_clean(&stair));
 		st_addfront(&stair, step);
-		while (tmp && tmp->type != EOCL && tmp->idx != step->final_index)
+		while (tmp && tmp->type != EOCL && tmp->idx != step->final_idx)
 			tmp = tmp->next;
+		(tmp && tmp->type != EOCL && tmp->type != AND && tmp->type != OR \
+			&& (tmp = tmp->next));
 		(tmp && (type = tmp->type) && (tmp = tmp->next));
 	}
 	return (stair);

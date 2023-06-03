@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 13:11:52 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/03 13:42:28 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/03 19:10:01 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,24 @@ void	*tk_clean(t_token **tk)
 	return (NULL);
 }
 
-void	tk_cut(t_token **tk)
+t_token	*tk_copy(t_token *tk)
 {
-	if (!tk || !*tk || (*tk)->type == EOCL)
-		return ;
-	(*tk)->prev->next = NULL;
-	*tk = (*tk)->next;
+	t_token	*cpy;
+
+	cpy = (t_token *)ft_calloc(sizeof(t_token), 1);
+	if (!cpy)
+		return (NULL);
+	cpy->type = tk->type;
+	cpy->sub_sh = tk->sub_sh;
+	cpy->sub_shlvl = tk->sub_shlvl;
+	cpy->idx = tk->idx;
+	cpy->line = ft_strdup(tk->line);
+	if (!cpy->line)
+	{
+		free(cpy);
+		return (NULL);
+	}
+	return (cpy);
 }
 
 int	tk_tkcounter(t_token **tk, int type, int del, int skip_p)
@@ -56,7 +68,7 @@ int	tk_tkcounter(t_token **tk, int type, int del, int skip_p)
 		paren *= skip_p;
 		if ((tk_type == AND || tk_type == OR) && type == LOGIC && !paren)
 			count++;
-		else if (tk_type == type)
+		else if (tk_type == type && !paren)
 			count++;
 		else if ((tk_type == RDI || tk_type == RDO || tk_type == RDAP \
 		|| tk_type == RDHD) && type == RD && !paren)
