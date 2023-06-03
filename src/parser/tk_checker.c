@@ -6,13 +6,13 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:56:51 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/31 19:00:51 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/03 13:41:53 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<msh.h>
 
-static int	check_and_or(t_token *tk)
+static int	check_logo(t_token *tk)
 {
 	t_token	*prev;
 	int		n_type;
@@ -89,7 +89,7 @@ int	check_tokens(t_token **tk)
 		(tmp->type == PIPE && check_pipe(tmp) && (err = 1));
 		(tmp->type == OP && check_op(tmp) && (err = 1));
 		(tmp->type == CP && check_cp(tmp) && (err = 1));
-		((tmp->type == AND || tmp->type == OR) && check_and_or(tmp) && (err = 1));
+		((tmp->type == AND || tmp->type == OR) && check_logo(tmp) && (err = 1));
 		((tmp->type == RDI || tmp->type == RDO || tmp->type == RDHD \
 			|| tmp->type == RDAP) && tmp->next->type != ARG && (err = 1));
 		tmp = tmp->next;

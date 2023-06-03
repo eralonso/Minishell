@@ -6,29 +6,11 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 13:11:52 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/31 14:24:19 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/03 13:42:28 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<msh.h>
-
-void	*bk_clean(t_block **bk)
-{
-	t_block	*bk_tmp;
-	t_block	*bk_tmp2;
-
-	if (!bk || !*bk)
-		return (NULL);
-	bk_tmp = *bk;
-	while (bk_tmp)
-	{
-		bk_tmp2 = bk_tmp;
-		tk_clean(&bk_tmp->tk);
-		free(bk_tmp);
-		bk_tmp = bk_tmp2;
-	}	
-	return (NULL);
-}
 
 void	*tk_clean(t_token **tk)
 {
@@ -48,10 +30,45 @@ void	*tk_clean(t_token **tk)
 	return (NULL);
 }
 
-void	tk_bk_addback(void **tk, void *new, int type)
+void	tk_cut(t_token **tk)
+{
+	if (!tk || !*tk || (*tk)->type == EOCL)
+		return ;
+	(*tk)->prev->next = NULL;
+	*tk = (*tk)->next;
+}
+
+int	tk_tkcounter(t_token **tk, int type, int del, int skip_p)
+{
+	int		count;
+	int		tk_type;
+	int		paren;
+	t_token	*tmp;
+
+	if (!tk || !*tk)
+		return (0);
+	(0 || ((tmp = *tk) && 0) || (count = 0) || (paren = 0));
+	while (tmp && (tmp->type != del || paren))
+	{
+		tk_type = tmp->type;
+		(tk_type == OP && (paren++));
+		(tk_type == CP && (paren--));
+		paren *= skip_p;
+		if ((tk_type == AND || tk_type == OR) && type == LOGIC && !paren)
+			count++;
+		else if (tk_type == type)
+			count++;
+		else if ((tk_type == RDI || tk_type == RDO || tk_type == RDAP \
+		|| tk_type == RDHD) && type == RD && !paren)
+			count++;
+		tmp = tmp->next;
+	}
+	return (count);
+}
+
+void	tk_addback(t_token **tk, t_token *new)
 {
 	t_token	*tk_tmp;
-	t_block	*bk_tmp;
 
 	if (!tk)
 		return ;
@@ -60,32 +77,11 @@ void	tk_bk_addback(void **tk, void *new, int type)
 		*tk = new;
 		return ;
 	}
-	((type == TK && (tk_tmp = (t_token *)*tk)) || (bk_tmp = (t_block *)*tk));
-	if (type == TK)
-	{
-		while (tk_tmp->next)
-			tk_tmp = tk_tmp->next;
-		tk_tmp->next = (t_token *)new;
-		tk_tmp->next->prev = tk_tmp;
-	}
-	else
-	{
-		while (bk_tmp->next)
-			bk_tmp = bk_tmp->next;
-		bk_tmp->next = (t_block *)new;
-	}
-}
-
-t_block	*bk_create(t_token *tk, int sep)
-{
-	t_block	*new;
-
-	new = ft_calloc(sizeof(t_block), 1);
-	if (!new)
-		return (NULL);
-	new->tk = tk;
-	new->sep = sep;
-	return (new);
+	tk_tmp = *tk;
+	while (tk_tmp->next)
+		tk_tmp = tk_tmp->next;
+	tk_tmp->next = new;
+	tk_tmp->next->prev = tk_tmp;
 }
 
 t_token	*tk_create(char *str, int type, int size, int subsh_lvl)

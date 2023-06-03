@@ -6,13 +6,14 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:00:02 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/02 18:12:20 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/03 12:54:54 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MSH_H
 # define MSH_H
 
+//Includes
 # include	<limits.h>
 # include	<errno.h>
 # include	<stdbool.h>
@@ -31,16 +32,32 @@
 # include	<libft.h>
 # include	<ft_printf.h>
 
+//Defines
+///FD
 # define IN		(int)0
 # define OUT	(int)1
 
+///Parenthesis
+# define OFF	(int)0
+# define ON		(int)1
+
+///Iterator, Len, Flag
 # define I		(int)0
 # define L		(int)1
 # define F		(int)2
 
+///Type of struct: TK == token, BK == Block
 # define TK		(int)0
 # define BK		(int)1
 
+///Types of tokens: 
+////EOCL == End Of Command Line, RDHD == ReDirection Here Doc '<<',
+////PIPE == Pipe '|', RDAP == ReDirection APpend '>>',
+////RDI == ReDirection Input '<', AND == And '&&', 
+////RDO == ReDirection Output '>', OR == Or '||', 
+////OP == Open Parenthesis '(', ARG == Argument == 
+////Text {[A ... Z], [a ... z], [0 ... 9]}, CP == Close Parenthesis ')',
+////LOGIC == LOGIC operator {&&, ||}, RD == ReDirections == {<, >, <<, >>}
 # define EOCL	(int)0
 # define RDHD	(int)1
 # define PIPE	(int)2
@@ -52,7 +69,15 @@
 # define OP		(int)8
 # define ARG	(int)9
 # define CP		(int)10
+# define LOGIC	(int)11
+# define RD		(int)12
 
+///Type of node: MAIN == First Step, CMD == CoMmanD, STAIR == subshell/stair
+# define MAIN	(int)0
+# define CMD	(int)1
+# define STAIR	(int)2
+
+//Typedefs
 typedef struct s_redirect	t_redirect;
 typedef struct s_cmd		t_cmd;
 typedef struct s_kof		t_kof;
@@ -60,15 +85,26 @@ typedef struct s_token		t_token;
 typedef struct s_block		t_block;
 typedef struct s_env		t_env;
 typedef struct s_stair		t_stair;
+typedef struct s_lstt		t_lstt;
 typedef struct s_msh		t_msh;
 
+//Global variable
 t_msh						g_msh;
+
+//Structs
+struct s_lstt
+{
+	int		type;
+	void	*content;
+	t_lstt	*next;
+};
 
 struct s_stair
 {
 	int		type;
-	int		depth;
-	void	**content;
+	int		size;
+	int		final_index;
+	t_lstt	*node;
 	t_stair	*step;
 };
 
@@ -85,6 +121,7 @@ struct s_cmd
 	char			*cmd_n;
 	char			*cmd_path;
 	char			**cmd_args;
+	int				rd_num;
 	t_redirect		*redirect;
 };
 
@@ -97,14 +134,6 @@ struct s_token
 	int		idx;
 	t_token	*next;
 	t_token	*prev;
-};
-
-struct s_block
-{
-	t_token	*tk;
-	t_block	*next;
-	t_block	*child;
-	int		sep;
 };
 
 struct s_kof
@@ -128,30 +157,50 @@ struct s_env
 struct s_msh
 {
 	t_env	*env;
-	// t_block	*block;
-	t_stair	*step;
+	t_stair	*stair;
 	int		err;
 };
 
-//Debugging Tools
+//Function Declarations
+///Debugging Tools
 void	print_cmd(t_cmd *cmd, int lvl);
 
-//Parser: Tokens: Synthesize
+///Parser: Tokens: Synthesize
 t_token	*tokenizer(char *str);
 t_token	*tk_analyzer(char *str, int *i, int *shlvl, int idx);
 
-//Parser: Tokens: Utils
+///Parser: Tokens: Utils
 void	*tk_clean(t_token **tk);
-void	tk_bk_addback(void **tk, void *new, int type);
+void	tk_addback(t_token **tk, t_token *new);
 t_token	*tk_create(char *str, int type, int size, int subsh_lvl);
 int		check_tokens(t_token **tk);
+int		tk_tkcounter(t_token **tk, int type, int del, int skip_p);
+void	tk_cut(t_token **tk);
 
-//Enviroment: Create
+///Parser: Stair: Generate
+t_stair	*st_generate(t_token **tk);
+
+///Parser: Stair: Utils
+void	st_addfront(t_stair **stair, t_stair *top);
+void	*st_clean(t_stair **stair);
+t_stair	*st_create(t_lstt *node, int type, int size);
+
+///Parser: Lstt: Utils
+void	lstt_addback(t_lstt **list, t_lstt *bottom);
+
+///Parser: Cmd: Utils
+void	*cmd_clean(t_cmd **cmd);
+void	*rd_clean(t_redirect *redirect, int size);
+
+///Parser: Conversor
+t_lstt	*tk_to_lstt(t_token **tk, int type);
+
+///Enviroment: Create
 t_env	*node_create(char *key, char *value);
 void	addfront_env(t_env **msh_env, t_env *tmp);
 void	ft_env(char **env);
 
-// Enviroment: Utils
+///Enviroment: Utils
 char	**list_to_array(t_env **m_env);
 t_env	*env_search(t_env *list, char *key);
 void	env_unset_node(t_env *env, char	*node);
@@ -159,18 +208,18 @@ int		exec_unset(t_env **env, char *node);
 char	**sort_env(char **env);
 void	print_export(void);
 
-// Validate
+///Validate
 int		validate_input(char *input);
 int		check_syntax(char *input);
 int		check_paren(char *str);
 
-// Validate: Utils
+///Validate: Utils
 int		check_qp(t_kof *fok, char c);
 int		check_bb(char *str, int i);
 int		init_kof(t_kof *fok);
 char	*ft_strip(char *str);
 
-// Builtins
+///Builtins
 int		ft_echo(char **input);
 int		ft_echo_n(char **input);
 int		ft_pwd(char *input);
