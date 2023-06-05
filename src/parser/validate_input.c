@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:18:49 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/03 13:43:02 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/05 14:42:48 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,15 +108,27 @@ int	check_syntax(char *input)
 int	validate_input(char *input)
 {
 	char	*str;
+	t_token	*tk;
 	t_token	*tk_tmp;
 
 	str = ft_strip(input);
-	tk_tmp = tokenizer(str);
-	if (!tk_tmp)
+	if (!str)
+		return (1);
+	if (ft_strlen(str) == 0)
+		return (!!ft_free(&str, 2));
+	tk = tokenizer(str);
+	if (!tk)
 		return (ft_free(&str, 2) == NULL);
+	tk_tmp = tk_dup(&tk);
+	if (!tk_tmp)
+		return (tk_clean(&tk, NEXT) || ft_free(&str, 2) || 1);
+	g_msh.stair = st_generate(&tk_tmp);
+	if (!g_msh.stair)
+		return (tk_clean(&tk, NEXT) || ft_free(&str, 2) || 1);
+	print_stair(&g_msh.stair);
 	free(str);
 	return (0);
 }
 // while (tk_tmp)
 // 	(printf("line:%s: && type:%i: && sub_shlvl:%i:\n", 
-//	tk_tmp->line, tk_tmp->type, tk_tmp->sub_shlvl) && (tk_tmp = tk_tmp->next));
+// 	tk_tmp->line, tk_tmp->type, tk_tmp->sub_shlvl) && (tk_tmp = tk_tmp->next));

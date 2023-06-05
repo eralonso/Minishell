@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 11:40:07 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/03 12:55:49 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/05 14:23:04 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,16 @@ t_token	*tokenizer(char *str)
 		node = tk_analyzer(str, &i, &shlvl, idx);
 		(str[i] && ft_isspace(str[i]) && i++);
 		if (!node)
-			return (tk_clean(&tk));
+			return (tk_clean(&tk, NEXT));
 		tk_addback(&tk, node);
 		idx++;
 	}
 	node = tk_create(NULL, EOCL, 0, 0);
 	if (!node)
-		return (tk_clean(&tk));
+		return (tk_clean(&tk, NEXT));
 	node->idx = idx;
 	tk_addback(&tk, node);
 	if (check_tokens(&tk))
-		return (tk_clean(&tk));
+		return (tk_clean(&tk, NEXT));
 	return (tk);
 }

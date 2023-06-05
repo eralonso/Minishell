@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:04:35 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/05 10:28:17 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/05 14:26:56 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,25 @@ int	tk_isredirection(t_token *tk)
 	if (tk->type == RDHD)
 		return (2);
 	return (0);
+}
+
+t_token	*tk_dup(t_token **tk)
+{
+	t_token	*tmp;
+	t_token	*new;
+	t_token	*node;
+
+	if (!tk || !*tk)
+		return (NULL);
+	tmp = *tk;
+	new = NULL;
+	while (tmp && tmp->type != EOCL)
+	{
+		node = tk_copy(tmp);
+		if (!node)
+			return (tk_clean(&new, NEXT));
+		tk_addback(&new, node);
+		tmp = tmp->next;
+	}
+	return (new);
 }

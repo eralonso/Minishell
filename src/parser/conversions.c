@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 11:47:23 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/05 10:48:20 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/05 14:21:13 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,10 @@ t_lstt	*lstt_create(t_token **tk)
 	new->type = CMD;
 	if ((*tk)->type == OP)
 		new->type = STAIR;
-	if (tk_tkcounter(tk, RD, EOCL, ON))
+	new->redir_size = tk_tkcounter(tk, RD, EOCL, ON);
+	if (new->redir_size)
 	{
-		new->redirect = create_redirect(tk, ON);
+		new->redirect = create_redirect(tk, new->redir_size, ON);
 		if (!new->redirect)
 		{
 			free(new);
@@ -76,7 +77,7 @@ t_lstt	*tk_to_lstt(t_token **tk)
 		if (!tmp)
 			return (ft_free((char **)&node, 2));
 		node->content = st_generate(&tmp);
-		tk_clean(&tmp);
+		tk_clean(&tmp, NEXT);
 	}
 	else
 		node->content = tk_to_cmd(tk);

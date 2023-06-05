@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:00:02 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/05 10:48:49 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/05 14:21:08 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,10 @@
 ///Type of struct: TK == token, BK == Block
 # define TK		(int)0
 # define BK		(int)1
+
+///
+# define NEXT	(int)0
+# define PREV	(int)1
 
 ///Types of tokens: 
 ////EOCL == End Of Command Line, RDHD == ReDirection Here Doc '<<',
@@ -95,6 +99,7 @@ t_msh						g_msh;
 struct s_lstt
 {
 	int			type;
+	int			redir_size;
 	void		*content;
 	t_redirect	*redirect;
 	t_lstt		*next;
@@ -162,14 +167,14 @@ struct s_msh
 
 //Function Declarations
 ///Debugging Tools
-void		print_cmd(t_cmd *cmd, int lvl);
+void		print_stair(t_stair **stair);
 
 ///Parser: Tokens: Synthesize
 t_token		*tokenizer(char *str);
 t_token		*tk_analyzer(char *str, int *i, int *shlvl, int idx);
 
 ///Parser: Tokens: Utils
-void		*tk_clean(t_token **tk);
+void		*tk_clean(t_token **tk, int mode);
 void		tk_addback(t_token **tk, t_token *new);
 t_token		*tk_create(char *str, int type, int size, int subsh_lvl);
 int			check_tokens(t_token **tk);
@@ -178,6 +183,7 @@ t_token		*tk_copy(t_token *tk);
 int			tk_cut(t_token **tk);
 t_token		*tk_get_in_parenthesis(t_token **tk);
 int			tk_isredirection(t_token *tk);
+t_token		*tk_dup(t_token **tk);
 
 ///Parser: Stair: Generate
 t_stair		*st_generate(t_token **tk);
@@ -189,7 +195,7 @@ t_stair		*st_create(t_lstt *node, int type, int size);
 
 ///Parser: Lstt: Utils
 void		lstt_addback(t_lstt **list, t_lstt *bottom);
-t_redirect	*create_redirect(t_token **tk, int skip_p);
+t_redirect	*create_redirect(t_token **tk, int size, int skip_p);
 
 ///Parser: Cmd: Utils
 void		*cmd_clean(t_cmd **cmd);

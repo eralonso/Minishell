@@ -6,38 +6,52 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 18:03:45 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/05 10:31:48 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/05 14:41:17 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<msh.h>
 
-t_stair	*st_collect_step(t_token **tk, int type)
+static int	st_go_node(t_token **tmp, t_token *start, t_stair *step, int *type)
+{
+	t_lstt	*content;
+
+	*type = tk_cut(tmp);
+	content = tk_to_lstt(&start);
+	if (!content)
+		return (1);
+	lstt_addback(&step->node, content);
+	tk_clean(&start, NEXT);
+	return (0);
+}
+
+t_stair	*st_collect_step(t_token **tk, int *type)
 {
 	t_stair	*step;
 	t_token	*tmp;
 	t_token	*start;
-	t_lstt	*content;
 	int		paren;
 
 	if (!tk || !*tk)
 		return (NULL);
-	step = st_create(NULL, type, tk_tkcounter(tk, PIPE, LOGIC, ON) + 1);
+	step = st_create(NULL, *type, tk_tkcounter(tk, PIPE, LOGIC, ON) + 1);
 	if (!step)
 		return (NULL);
 	(1 && (tmp = *tk) && (start = tmp) && (paren = 0));
-	while (tmp && tmp->type != EOCL)
+	while (tmp && tmp->type != EOCL && tmp->type != OR && tmp->type != AND)
 	{
 		((tmp->type == OP && (paren++)) || (tmp->type == CP && (paren--)));
 		if (tmp->type == PIPE && paren == 0)
 		{
-			(tk_cut(&tmp) && (content = tk_to_lstt(&start)) && (start = tmp));
-			if (!content)
+			if (st_go_node(&tmp, start, step, type))
 				return (st_clean(&step));
-			lstt_addback(&step->node, content);
+			start = tmp;
 		}
 		(tmp && ((step->final_idx = tmp->idx) || 1) && (tmp = tmp->next));
 	}
+	if (st_go_node(&tmp, start, step, type))
+		return (st_clean(&step));
+	*tk = tmp;
 	return (step);
 }
 
@@ -53,15 +67,10 @@ t_stair	*st_generate(t_token **tk)
 	(0 || ((tmp = *tk) && 0) || (stair = NULL) || (type = MAIN));
 	while (tmp && tmp->type != EOCL)
 	{
-		step = st_collect_step(&tmp, type);
+		step = st_collect_step(&tmp, &type);
 		if (!step)
 			return (st_clean(&stair));
 		st_addfront(&stair, step);
-		while (tmp && tmp->type != EOCL && tmp->idx != step->final_idx)
-			tmp = tmp->next;
-		(tmp && tmp->type != EOCL && tmp->type != AND && tmp->type != OR \
-			&& (tmp = tmp->next));
-		(tmp && (type = tmp->type) && (tmp = tmp->next));
 	}
 	return (stair);
 }

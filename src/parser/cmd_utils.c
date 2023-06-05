@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 11:34:14 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/05 10:26:54 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/05 12:29:32 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	**cmd_getargs(t_token **tk)
 		return (NULL);
 	tmp = *tk;
 	i = 0;
-	args = (char **)ft_calloc(sizeof(char), cmd_countargs(tk) + 1);
+	args = (char **)ft_calloc(sizeof(char *), cmd_countargs(tk) + 1);
 	if (!args)
 		return (NULL);
 	while (tmp && tmp->type != EOCL)
@@ -71,6 +71,7 @@ char	*cmd_getcommand(t_token **tk)
 	{
 		if (tmp->type == ARG && !tk_isredirection(tmp->prev))
 			return (ft_strdup(tmp->line));
+		tmp = tmp->next;
 	}
 	return (ft_strdup(""));
 }

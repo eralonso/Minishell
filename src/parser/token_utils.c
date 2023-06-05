@@ -6,13 +6,13 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 13:11:52 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/05 10:07:59 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/05 14:36:16 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<msh.h>
 
-void	*tk_clean(t_token **tk)
+void	*tk_clean(t_token **tk, int mode)
 {
 	t_token	*tmp;
 	t_token	*tmp2;
@@ -22,11 +22,16 @@ void	*tk_clean(t_token **tk)
 	tmp = *tk;
 	while (tmp)
 	{
-		tmp2 = tmp->next;
+		if (mode == NEXT)
+			tmp2 = tmp->next;
+		else
+			tmp2 = tmp->prev;
 		free(tmp->line);
+		tmp->line = NULL;
 		free(tmp);
 		tmp = tmp2;
 	}
+	*tk = NULL;
 	return (NULL);
 }
 
