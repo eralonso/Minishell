@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 18:54:39 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/05 15:31:38 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/05 17:40:18 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	tk_cut(t_token **tk)
 	type = (*tk)->type;
 	tmp = (*tk)->next;
 	tmp2 = (*tk)->prev;
-	free((*tk)->line);	
+	free((*tk)->line);
 	free(*tk);
 	tmp2->next = NULL;
 	*tk = tmp;

@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 18:45:11 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/03 13:39:11 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/05 17:45:31 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	*st_clean(t_stair **stair)
 		while (tmp->node)
 		{
 			lstt_tmp = tmp->node->next;
+			rd_clean(tmp->node->redirect, tmp->node->redir_size);
 			if (tmp->node->type == STAIR)
 				st_clean((t_stair **)&tmp->node->content);
 			else

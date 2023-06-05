@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:00:02 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/05 14:21:08 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/05 17:45:44 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,6 +196,7 @@ t_stair		*st_create(t_lstt *node, int type, int size);
 ///Parser: Lstt: Utils
 void		lstt_addback(t_lstt **list, t_lstt *bottom);
 t_redirect	*create_redirect(t_token **tk, int size, int skip_p);
+void		*lstt_clean(t_lstt **lst);
 
 ///Parser: Cmd: Utils
 void		*cmd_clean(t_cmd **cmd);
