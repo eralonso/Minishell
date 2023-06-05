@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 13:11:52 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/03 19:10:01 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/05 10:07:59 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,13 @@ int	tk_tkcounter(t_token **tk, int type, int del, int skip_p)
 	while (tmp && (tmp->type != del || paren))
 	{
 		tk_type = tmp->type;
-		(tk_type == OP && (paren++));
-		(tk_type == CP && (paren--));
+		((tk_type == OP && (paren++)) || (tk_type == CP && (paren--)));
 		paren *= skip_p;
 		if ((tk_type == AND || tk_type == OR) && type == LOGIC && !paren)
 			count++;
 		else if (tk_type == type && !paren)
 			count++;
-		else if ((tk_type == RDI || tk_type == RDO || tk_type == RDAP \
-		|| tk_type == RDHD) && type == RD && !paren)
+		else if (tk_isredirection(tmp) && type == RD && !paren)
 			count++;
 		tmp = tmp->next;
 	}

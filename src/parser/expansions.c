@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lstt_utils.c                                       :+:      :+:    :+:   */
+/*   expansions.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/03 11:44:41 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/05 10:47:10 by eralonso         ###   ########.fr       */
+/*   Created: 2023/06/05 10:24:05 by eralonso          #+#    #+#             */
+/*   Updated: 2023/06/05 10:28:05 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<msh.h>
 
-void	lstt_addback(t_lstt **list, t_lstt *bottom)
+int	areexpansions(char *line)
 {
-	t_lstt	*tmp;
+	t_kof	fok;
+	int		i;
 
-	if (!list)
-		return ;
-	if (!*list)
+	if (!line)
+		return (0);
+	i = -1;
+	init_kof(&fok);
+	while (line[++i])
 	{
-		*list = bottom;
-		return ;
+		check_qp(&fok, line[i]);
+		if (fok.sq < 0 && line[i] == '$')
+			return (1);
+		if (fok.sq < 0 && fok.dq < 0 && line[i] == '*')
+			return (1);
 	}
-	tmp = *list;
-	while (tmp->next)
-		tmp = tmp->next;
-	tmp->next = bottom;
+	return (0);
 }

@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lstt_utils.c                                       :+:      :+:    :+:   */
+/*   token_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/03 11:44:41 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/05 10:47:10 by eralonso         ###   ########.fr       */
+/*   Created: 2023/06/05 10:04:35 by eralonso          #+#    #+#             */
+/*   Updated: 2023/06/05 10:28:17 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<msh.h>
 
-void	lstt_addback(t_lstt **list, t_lstt *bottom)
+int	tk_isredirection(t_token *tk)
 {
-	t_lstt	*tmp;
-
-	if (!list)
-		return ;
-	if (!*list)
-	{
-		*list = bottom;
-		return ;
-	}
-	tmp = *list;
-	while (tmp->next)
-		tmp = tmp->next;
-	tmp->next = bottom;
+	if (!tk)
+		return (0);
+	if (tk->type == RDI || tk->type == RDO || tk->type == RDAP)
+		return (1);
+	if (tk->type == RDHD)
+		return (2);
+	return (0);
 }

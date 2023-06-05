@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:00:02 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/03 19:17:52 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/05 10:48:49 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,8 +175,9 @@ t_token		*tk_create(char *str, int type, int size, int subsh_lvl);
 int			check_tokens(t_token **tk);
 int			tk_tkcounter(t_token **tk, int type, int del, int skip_p);
 t_token		*tk_copy(t_token *tk);
-void		tk_cut(t_token **tk);
+int			tk_cut(t_token **tk);
 t_token		*tk_get_in_parenthesis(t_token **tk);
+int			tk_isredirection(t_token *tk);
 
 ///Parser: Stair: Generate
 t_stair		*st_generate(t_token **tk);
@@ -188,11 +189,13 @@ t_stair		*st_create(t_lstt *node, int type, int size);
 
 ///Parser: Lstt: Utils
 void		lstt_addback(t_lstt **list, t_lstt *bottom);
-t_redirect	*lstt_redirect(t_token **tk, int skip_p);
+t_redirect	*create_redirect(t_token **tk, int skip_p);
 
 ///Parser: Cmd: Utils
 void		*cmd_clean(t_cmd **cmd);
 void		*rd_clean(t_redirect *redirect, int size);
+char		*cmd_getcommand(t_token **tk);
+char		**cmd_getargs(t_token **tk);
 
 ///Parser: Conversor
 t_lstt		*tk_to_lstt(t_token **tk);

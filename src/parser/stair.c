@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 18:03:45 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/03 17:37:21 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/05 10:31:48 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ t_stair	*st_collect_step(t_token **tk, int type)
 		((tmp->type == OP && (paren++)) || (tmp->type == CP && (paren--)));
 		if (tmp->type == PIPE && paren == 0)
 		{
-			tk_cut(&tmp);
-			(1 && (content = tk_to_lstt(&start)) && (start = tmp));
+			(tk_cut(&tmp) && (content = tk_to_lstt(&start)) && (start = tmp));
 			if (!content)
 				return (st_clean(&step));
 			lstt_addback(&step->node, content);
