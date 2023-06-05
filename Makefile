@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/22 10:08:41 by eralonso          #+#    #+#              #
-#    Updated: 2023/06/05 12:49:13 by eralonso         ###   ########.fr        #
+#    Updated: 2023/06/05 19:01:07 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,7 @@ FILES		:=	main validate_input parse_env echo utils \
 				validate_utils tokenizer token_utils tk_checker \
 				stair stair_utils lstt_utils conversions cmd_utils \
 				tk_cutter token_utils2 expansions redirections \
-				debug_stair
+				debug_stair debug_tokens
 
 #<--------------------------------->SRCS<----------------------------------->#
 SRCS		:=	$(addsuffix .c,$(FILES))

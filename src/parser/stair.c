@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 18:03:45 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/05 14:41:17 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/05 19:16:35 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static int	st_go_node(t_token **tmp, t_token *start, t_stair *step, int *type)
 {
 	t_lstt	*content;
 
+	(tmp && *tmp && (*tmp)->type != PIPE && printf("aaaaa\n"));
 	*type = tk_cut(tmp);
 	content = tk_to_lstt(&start);
 	if (!content)
@@ -40,7 +41,7 @@ t_stair	*st_collect_step(t_token **tk, int *type)
 	(1 && (tmp = *tk) && (start = tmp) && (paren = 0));
 	while (tmp && tmp->type != EOCL && tmp->type != OR && tmp->type != AND)
 	{
-		((tmp->type == OP && (paren++)) || (tmp->type == CP && (paren--)));
+		((tmp->type == OP && (paren++)) || (tmp->type == CP && (paren--))); 
 		if (tmp->type == PIPE && paren == 0)
 		{
 			if (st_go_node(&tmp, start, step, type))

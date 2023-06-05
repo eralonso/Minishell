@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:00:02 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/05 17:45:44 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/05 19:01:23 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,7 @@ struct s_msh
 //Function Declarations
 ///Debugging Tools
 void		print_stair(t_stair **stair);
+void		print_tokens(t_token **tk);
 
 ///Parser: Tokens: Synthesize
 t_token		*tokenizer(char *str);
