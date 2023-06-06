@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:18:49 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/06 14:04:13 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/06 16:29:17 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ int	validate_input(char *input)
 	tk_clean(&tk_tmp, NEXT);
 	if (!g_msh.stair)
 		return (tk_clean(&tk, NEXT) || ft_free(&str, 2) || 1);
-	print_stair(&g_msh.stair);
+	print_stair(&g_msh.stair, 0);
 	free(str);
 	return (0);
 }

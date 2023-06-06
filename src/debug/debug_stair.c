@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 11:13:56 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/06 14:04:22 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/06 16:32:47 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void	print_cmd(t_cmd *cmd)
 	printf("\n\n");
 }
 
-static void	print_nodes(t_lstt **lst)
+static void	print_nodes(t_lstt **lst, int depth)
 {
 	t_lstt	*node;
 	int		i;
@@ -57,13 +57,13 @@ static void	print_nodes(t_lstt **lst)
 	i = 0;
 	while (node)
 	{
-		printf("NODE %i\n", i);
+		printf("%i NODE %i\n", depth, i);
 		if (node->redir_size)
 			print_redirect(node->redirect, node->redir_size);
 		if (node->type == STAIR)
 		{
 			printf("STAIR: \n");
-			print_stair((t_stair **)&node->content);
+			print_stair((t_stair **)&node->content, depth + 1);
 		}
 		else
 			print_cmd((t_cmd *)node->content);
@@ -72,7 +72,7 @@ static void	print_nodes(t_lstt **lst)
 	}
 }
 
-void	print_stair(t_stair **stair)
+void	print_stair(t_stair **stair, int depth)
 {
 	t_stair	*tmp;
 
@@ -80,12 +80,12 @@ void	print_stair(t_stair **stair)
 		return ;
 	tmp = *stair;
 	if (tmp->type != MAIN)
-		print_stair(&tmp->step);
+		print_stair(&tmp->step, depth);
 	if (tmp->type == MAIN)
 		printf("TYPE of STAIR: MAIN\n");
 	else if (tmp->type == AND)
 		printf("TYPE of STAIR: AND\n");
 	else if (tmp->type == OR)
 		printf("TYPE of STAIR: OR\n");
-	print_nodes(&tmp->node);
+	print_nodes(&tmp->node, depth);
 }
