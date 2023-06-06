@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:00:02 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/06 11:05:17 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/06 12:14:06 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@
 # define RD		(int)12
 
 ///Type of node: MAIN == First Step, CMD == CoMmanD, STAIR == subshell/stair
-# define MAIN	(int)0
 # define CMD	(int)1
 # define STAIR	(int)2
+# define MAIN	(int)3
 
 //Typedefs
 typedef struct s_redirect	t_redirect;

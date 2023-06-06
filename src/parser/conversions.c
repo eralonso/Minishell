@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 11:47:23 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/06 11:56:50 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/06 14:03:14 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ t_lstt	*tk_to_lstt(t_token **tk)
 		return (NULL);
 	if (node->type == STAIR)
 	{
+		printf("tk_to_lstt: Stair: Pre\n");
 		tmp = tk_get_in_parenthesis(tk);
 		if (!tmp)
 		{
@@ -81,8 +82,10 @@ t_lstt	*tk_to_lstt(t_token **tk)
 			free(node);
 			return (NULL);
 		}
+		print_tokens(&tmp);
 		node->content = st_generate(tmp);
-		// tk_clean(&tmp, NEXT);
+		tk_clean(&tmp, NEXT);
+		printf("tk_to_lstt: Stair: Post: %p\n", node->content);
 	}
 	else
 		node->content = tk_to_cmd(tk);

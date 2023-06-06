@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 18:55:19 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/05 19:03:10 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/06 12:39:57 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	print_tokens(t_token **tk)
 	if (!tk || !*tk)
 		return ;
 	tmp = *tk;
-	while (tmp && tmp->type != EOCL)
+	while (tmp)
 	{
 		printf("type:");
 		((tmp->type == ARG) && printf(" ARG "));
@@ -32,6 +32,8 @@ void	print_tokens(t_token **tk)
 		((tmp->type == PIPE) && printf(" PIPE "));
 		((tmp->type == AND) && printf(" AND "));
 		((tmp->type == OR) && printf(" OR "));
+		((tmp->type == EOCL) && printf(" EOCL "));
 		printf("line :%s: subsh_lvl == %i\n", tmp->line, tmp->sub_shlvl);
+		(tmp && (tmp = tmp->next));
 	}
 }

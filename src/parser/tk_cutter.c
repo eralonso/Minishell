@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 18:54:39 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/06 12:06:37 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/06 13:59:49 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ int	tk_cut(t_token **tk)
 	t_token	*tmp2;
 	int		type;
 
-	if (!tk || !*tk || (*tk)->type == EOCL)
+	if (!tk || !*tk)
 		return (EOCL);
 	tmp = NULL;
 	tmp2 = NULL;
 	printf("(*tk)->line == %s\n", (*tk)->line);
-	printf("(*tk)->prev->line == %s\n", (*tk)->prev->line);
-	printf("(*tk)->next->line == %s\n", (*tk)->next->line);
+	// printf("(*tk)->prev->line == %s\n", (*tk)->prev->line);
+	// printf("(*tk)->next->line == %s\n", (*tk)->next->line);
 	type = (*tk)->type;
 	if ((*tk)->next)
 		tmp = (*tk)->next;
@@ -63,7 +63,7 @@ t_token	*tk_get_in_parenthesis(t_token **tk)
 		tk_addback(&trimed, add);
 		tmp = tmp->next;
 	}
-	add = t_;
+	add = tk_create(NULL, EOCL, 0, 0);
 	if (!add)
 		return (tk_clean(&trimed, NEXT));
 	tk_addback(&trimed, add);
