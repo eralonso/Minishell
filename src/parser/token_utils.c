@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 13:11:52 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/05 14:36:16 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/06 11:52:01 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,20 @@ void	*tk_clean(t_token **tk, int mode)
 	if (!tk || !*tk)
 		return (NULL);
 	tmp = *tk;
+	printf("START\n");
 	while (tmp)
 	{
 		if (mode == NEXT)
 			tmp2 = tmp->next;
 		else
 			tmp2 = tmp->prev;
+		printf("tmp->line == %s\n", tmp->line);
 		free(tmp->line);
 		tmp->line = NULL;
 		free(tmp);
 		tmp = tmp2;
 	}
+	printf("FINISH\n");
 	*tk = NULL;
 	return (NULL);
 }

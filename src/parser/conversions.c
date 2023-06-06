@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 11:47:23 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/05 18:34:58 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/06 11:56:50 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ t_lstt	*tk_to_lstt(t_token **tk)
 			free(node);
 			return (NULL);
 		}
-		node->content = st_generate(&tmp);
-		tk_clean(&tmp, NEXT);
+		node->content = st_generate(tmp);
+		// tk_clean(&tmp, NEXT);
 	}
 	else
 		node->content = tk_to_cmd(tk);

@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 18:54:39 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/05 17:40:18 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/06 12:06:37 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,24 @@ int	tk_cut(t_token **tk)
 	int		type;
 
 	if (!tk || !*tk || (*tk)->type == EOCL)
-		return (1);
+		return (EOCL);
+	tmp = NULL;
+	tmp2 = NULL;
+	printf("(*tk)->line == %s\n", (*tk)->line);
+	printf("(*tk)->prev->line == %s\n", (*tk)->prev->line);
+	printf("(*tk)->next->line == %s\n", (*tk)->next->line);
 	type = (*tk)->type;
-	tmp = (*tk)->next;
-	tmp2 = (*tk)->prev;
+	if ((*tk)->next)
+		tmp = (*tk)->next;
+	if ((*tk)->prev)
+		tmp2 = (*tk)->prev;
 	free((*tk)->line);
 	free(*tk);
-	tmp2->next = NULL;
+	if (tmp)
+		tmp->prev = NULL;
+	if (tmp2)
+		tmp2->next = NULL;
 	*tk = tmp;
-	(*tk)->prev = NULL;
 	return (type);
 }
 
@@ -54,5 +63,9 @@ t_token	*tk_get_in_parenthesis(t_token **tk)
 		tk_addback(&trimed, add);
 		tmp = tmp->next;
 	}
+	add = t_;
+	if (!add)
+		return (tk_clean(&trimed, NEXT));
+	tk_addback(&trimed, add);
 	return (trimed);
 }

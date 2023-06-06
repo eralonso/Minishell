@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:00:02 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/05 19:01:23 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/06 11:05:17 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,7 @@ int			tk_isredirection(t_token *tk);
 t_token		*tk_dup(t_token **tk);
 
 ///Parser: Stair: Generate
-t_stair		*st_generate(t_token **tk);
+t_stair		*st_generate(t_token *tk);
 
 ///Parser: Stair: Utils
 void		st_addfront(t_stair **stair, t_stair *top);
