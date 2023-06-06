@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:36:26 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/26 10:40:58 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/06 17:53:19 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ void	print_env(t_env *env)
 	while (tmp[++i])
 		printf("%s\n", tmp[i]);
 }
-
-// print_env(g_msh.env);
 
 int	main(int ac, char **av, char **env)
 {
@@ -44,21 +42,3 @@ int	main(int ac, char **av, char **env)
 	}
 	return (0);
 }
-// printf("first child line: :%s:\n", g_msh.block->child->line);
-// printf("first child line: :%s:\n", g_msh.block->child->next->child->
-// child->child->line);
-// printf("first child line: :%s:\n", g_msh.block->child->next->child->
-// child->child->next->line);
-// printf("first child line: :%s:\n", g_msh.block->child->next->child->
-// child->next->line);
-// printf("first child line: :%s:\n", g_msh.block->child->next->child->
-// next->line);
-// printf("first child line: :%s:\n", g_msh.block->child->next->next->line);
-// printf("first child: :%s:\n", g_msh.block->child->line);
-// printf("next first child: :%s:\n", g_msh.block->child->next->line);
-// printf("next first child child: :%s:\n", g_msh.block->child->next->
-// child->line);
-// printf("next first child child child: :%s:\n", g_msh.block->child->
-// next->child->child->line);
-// printf("next first child child child: :%s:\n", g_msh.block->child->
-// next->child->child->child->next->line);

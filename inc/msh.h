@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:00:02 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/06 16:29:55 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/06 17:52:32 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,6 @@ t_token		*tk_create(char *str, int type, int size, int subsh_lvl);
 int			check_tokens(t_token **tk);
 int			tk_tkcounter(t_token **tk, int type, int del, int skip_p);
 t_token		*tk_copy(t_token *tk);
-int			tk_cut(t_token **tk);
 t_token		*tk_get_in_parenthesis(t_token **tk);
 int			tk_isredirection(t_token *tk);
 t_token		*tk_dup(t_token **tk);
@@ -223,12 +222,9 @@ void		print_export(void);
 
 ///Validate
 int			validate_input(char *input);
-int			check_syntax(char *input);
-int			check_paren(char *str);
 
 ///Validate: Utils
 int			check_qp(t_kof *fok, char c);
-int			check_bb(char *str, int i);
 int			init_kof(t_kof *fok);
 char		*ft_strip(char *str);
 
