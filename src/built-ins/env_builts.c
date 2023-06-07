@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:30:26 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/05/27 12:59:08 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/07 13:39:04 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,6 @@ void	env_unset_node(t_env *env, char	*node)
 	if (env->value && *env->value)
 		free (env->value);
 	free(env);
-}
-
-int	ft_pwd(char *input)
-{
-	if (!ft_strncmp(&input[0], "PWD", ft_strlen(&input[0])))
-		if (print_one_env("PWD") == -1)
-			return (1);
-	return (0);
 }
 
 int	print_one_env(char *input)

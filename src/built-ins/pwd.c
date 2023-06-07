@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 17:47:59 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/05/26 10:51:06 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/07 13:40:03 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,4 @@ int	ft_pwd(char *input)
 		if (print_one_env("PWD") == -1)
 			return (1);
 	return (0);
-}
-
-int	print_one_env(char *input)
-{
-	while (g_msh.env && ft_strncmp(g_msh.env->key, input, \
-		ft_strlen(g_msh.env->key)))
-		g_msh.env = g_msh.env->next;
-	if (ft_strncmp(g_msh.env->key, input, ft_strlen(g_msh.env->key)))
-		return (-1);
-	return (ft_printf(1, "%s\n", g_msh.env->value));
 }

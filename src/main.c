@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:36:26 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/31 17:59:17 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/07 13:42:49 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ int	main(int ac, char **av, char **env)
 		exit(1);
 	ft_env(env);
 	set_null_node("OLDPWD", &g_msh.env);
+	init_signals(NORM);
 	while (42)
 	{
-		init_signals(NORM);
 		do_sigign(SIGQUIT);
 		line = readline("PESH + 🐚 > ");
 		do_sigign(SIGINT);
@@ -55,22 +55,3 @@ int	main(int ac, char **av, char **env)
 	}
 	return (0);
 }
-
-// printf("first child line: :%s:\n", g_msh.block->child->line);
-// printf("first child line: :%s:\n", g_msh.block->child->next->child->
-// child->child->line);
-// printf("first child line: :%s:\n", g_msh.block->child->next->child->
-// child->child->next->line);
-// printf("first child line: :%s:\n", g_msh.block->child->next->child->
-// child->next->line);
-// printf("first child line: :%s:\n", g_msh.block->child->next->child->
-// next->line);
-// printf("first child line: :%s:\n", g_msh.block->child->next->next->line);
-// printf("first child: :%s:\n", g_msh.block->child->line);
-// printf("next first child: :%s:\n", g_msh.block->child->next->line);
-// printf("next first child child: :%s:\n", g_msh.block->child->next->
-// child->line);
-// printf("next first child child child: :%s:\n", g_msh.block->child->
-// next->child->child->line);
-// printf("next first child child child: :%s:\n", g_msh.block->child->
-// next->child->child->child->next->line);
