@@ -3,14 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   expansions.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:24:05 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/07 18:49:02 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/07 19:12:19 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<msh.h>
+
+char	*expand_env_var(char *str)
+{
+	char	*post_env;
+
+	post_env = str;
+	return (post_env);
+}
+
+char	*expand_line(char *str, int f_pipe)
+{
+	char	*new;
+	char	*post_env;
+
+	post_env = expand_env_var(str);
+	if (!post_env)
+		return (NULL);
+	if (f_pipe)
+		return (NULL);
+	new = NULL;
+	return (new);
+}
+
+int	wdc_able(char *str)
+{
+	if (str)
+		return (1);
+	return (0);
+}
 
 int	are_expansions(char *line)
 {
@@ -33,24 +62,25 @@ int	are_expansions(char *line)
 	return (0);
 }
 
-void	expand(t_token **tk)
+int	expand(t_token **tk)
 {
 	int		f_pipe;
 	t_token	*tmp;
 	int		paren;
 
-	(0 || (f_pipe = 0) || (paren = 0) || (tmp = *tk));
+	(0 || ((tmp = *tk) && 0) || (f_pipe = 0) || (paren = 0));
 	while (tmp && tmp->type != EOCL)
 	{
-		if (tmp->type == ARG && are_extensions(tmp->line))
+		if (tmp->type == ARG && are_expansions(tmp->line))
 		{
 			tmp->line = expand_line(tmp->line, f_pipe);
 			if (!tmp->line)
-				return (NULL);
+				return (1);
 		}
-		(0 || (tmp->type = OP && paren++) || (tmp->type == CP && paren--));
+		((tmp->type == OP && (paren++)) || (tmp->type == CP && (paren--)));
 		if (!paren && tmp->type == PIPE)
 			f_pipe = 1;
 		tmp = tmp->next;
 	}
+	return (0);
 }
