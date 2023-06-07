@@ -1,6 +1,7 @@
 *.o
 *.so
 *.dylib
+*.dSYM
 *.d
 *.a
 *.m

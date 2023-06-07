@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+         #
+#    By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/22 10:08:41 by eralonso          #+#    #+#              #
-#    Updated: 2023/05/31 13:21:41 by pramos-m         ###   ########.fr        #
+#    Updated: 2023/06/06 17:48:33 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,8 +60,10 @@ SRC_DIRS	:=	$(subst $(SPACE),:,$(SRC_DIRS))
 
 #<--------------------------------->FILES<---------------------------------->#
 FILES		:=	main validate_input parse_env echo utils \
-				validate_utils debug_cmd export env_builts \
-				exit cd wildcard signals
+				validate_utils tokenizer token_utils tk_checker \
+				stair stair_utils lstt_utils conversions cmd_utils \
+				tk_cutter token_utils2 expansions redirections \
+				debug_stair debug_tokens
 
 #<--------------------------------->SRCS<----------------------------------->#
 SRCS		:=	$(addsuffix .c,$(FILES))
@@ -85,6 +87,19 @@ CC			:=	gcc
 vpath %.c $(SRC_DIRS)
 vpath %.d $(DEP_ROOT)
 
+#<-------------------------------->FUNCTIONS<-------------------------------->#
+
+define msg_creating
+	printf "\r$(3)$(1): $(YELLOW)$(2).$(DEF_COLOR)                                                                 \r"
+	sleep 0.1
+	printf "\r$(3)$(1): $(YELLOW)$(2)..$(DEF_COLOR)                                                                \r"
+	sleep 0.1
+	printf "\r$(3)$(1): $(YELLOW)$(2)...$(DEF_COLOR)                                                               \r"
+	sleep 0.1
+endef
+
+create_dir = $(shell $(MKD) $(1))
+
 #<--------------------------------->RULES<----------------------------------->#
 
 # TA GUAY  && printf "$(GREEN)SUCCESS$(DEF_COLOR)                               \r" && sleep 0.2 || (printf "$(RED)\n\tFAILURE: $(<F)\n$(DEF_COLOR)\n" && exit 1)
@@ -96,26 +111,13 @@ librarys :
 	$(MAKE) $(MKFLAGS) -C $(LIBFT_ROOT)
 	$(MAKE) $(MKFLAGS) rdline
 
-$(DEP_ROOT)%.d : %.c
-	mkdir -p $(@D)
-	printf "\r$(BLUE)Dependency: $(YELLOW)$(notdir $<).$(DEF_COLOR)                                                                 \r"
-	sleep 0.1
-	printf "\r$(BLUE)Dependency: $(YELLOW)$(notdir $<)..$(DEF_COLOR)                                                                \r"
-	sleep 0.1
-	printf "\r$(BLUE)Dependency: $(YELLOW)$(notdir $<)...$(DEF_COLOR)                                                               \r"
-	sleep 0.1
+$(DEP_ROOT)%.d : %.c | $(call create_dir,$(DEP_ROOT))
 	$(CC) $(CFLAGS) -MMD -MF $@ -DREADLINE_LIBRARY=1 $(INCLUDE) -c $< && rm -rf $(addsuffix .o,$*)
 	sed -i.tmp '1 s|:| $@ :|' $@ && rm -rf $(addsuffix .tmp,$@)
 	sed -i.tmp '1 s|^$*|$(OBJ_ROOT)$*|' $@ && rm -rf $(addsuffix .tmp,$@)
 
-$(OBJ_ROOT)%.o : %.c %.d $(LIB_A)
-	$(MKD) $(@D)
-	printf "\r$(PINK)Object: $(YELLOW)$(notdir $<).$(DEF_COLOR)                                                                     \r"
-	sleep 0.1
-	printf "\r$(PINK)Object: $(YELLOW)$(notdir $<)..$(DEF_COLOR)                                                                    \r"
-	sleep 0.1
-	printf "\r$(PINK)Object: $(YELLOW)$(notdir $<)...$(DEF_COLOR)                                                                   \r"
-	sleep 0.1
+$(OBJ_ROOT)%.o : %.c %.d $(LIB_A) | $(call create_dir,$(OBJ_ROOT))
+	$(call msg_creating,Object,$*,$(PINK))
 	$(CC) $(CFLAGS) -DREADLINE_LIBRARY=1 $(INCLUDE) -c $< -o $@
 
 $(NAME) : $(DEPS) $(OBJS)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_close.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 17:03:11 by eralonso          #+#    #+#             */
-/*   Updated: 2023/01/29 17:08:01 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/03 18:17:10 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_close(int *fd)
 {
-	if (*fd != 0 && close(*fd) == -1)
+	if (*fd > 0 && close(*fd) == -1)
 	{
 		*fd = 0;
 		return (-1);

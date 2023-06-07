@@ -1,33 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   lstt_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/23 12:03:27 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/05 12:14:17 by eralonso         ###   ########.fr       */
+/*   Created: 2023/06/03 11:44:41 by eralonso          #+#    #+#             */
+/*   Updated: 2023/06/05 17:45:15 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	<libft.h>
+#include	<msh.h>
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
+void	*lstt_clean(t_lstt **lst)
 {
-	unsigned char	*str1;
-	unsigned char	*str2;
-	int				i;
+	if (!lst || !*lst)
+		return (NULL);
+	rd_clean((*lst)->redirect, (*lst)->redir_size);
+	free((*lst));
+	return (NULL);
+}
 
-	str1 = (unsigned char *)s1;
-	str2 = (unsigned char *)s2;
-	i = 0;
-	if (!n)
-		return (0);
-	while (str1[i] && str2[i] && n-- > 0)
+void	lstt_addback(t_lstt **list, t_lstt *bottom)
+{
+	t_lstt	*tmp;
+
+	if (!list)
+		return ;
+	if (!*list)
 	{
-		if (str1[i] != str2[i])
-			return (str1[i] - str2[i]);
-		i++;
+		*list = bottom;
+		return ;
 	}
-	return (str1[i] - str2[i]);
+	tmp = *list;
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = bottom;
 }
