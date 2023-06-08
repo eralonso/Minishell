@@ -6,7 +6,7 @@
 #    By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/22 10:08:41 by eralonso          #+#    #+#              #
-#    Updated: 2023/06/07 13:37:54 by pramos-m         ###   ########.fr        #
+#    Updated: 2023/06/08 16:15:05 by pramos-m         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,7 +64,7 @@ FILES		:=	main validate_input parse_env echo utils \
 				stair stair_utils lstt_utils conversions cmd_utils \
 				tk_cutter token_utils2 expansions redirections \
 				debug_stair debug_tokens signals built_utils cd \
-				env_builts exit export pwd wildcard
+				env_builts exit export pwd wildcard expand_utils
 
 #<--------------------------------->SRCS<----------------------------------->#
 SRCS		:=	$(addsuffix .c,$(FILES))

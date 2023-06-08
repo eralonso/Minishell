@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_input.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:18:49 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/07 19:11:21 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/08 17:49:03 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int	validate_input(char *input)
 	if (!tk)
 		return (ft_free(&str, 2) == NULL);
 	tk_tmp = tk;
+	expand(&tk);
 	g_msh.stair = st_generate(tk);
 	tk_clean(&tk_tmp, NEXT);
 	if (!g_msh.stair)

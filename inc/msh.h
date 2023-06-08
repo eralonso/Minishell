@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:00:02 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/07 13:36:45 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/08 17:21:30 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,10 +158,10 @@ struct s_kof
 
 struct s_env
 {
-	char			*key;
-	char			*value;
-	struct s_env	*prev;
-	struct s_env	*next;
+	char	*key;
+	char	*value;
+	t_env	*prev;
+	t_env	*next;
 };
 
 struct s_msh
@@ -255,6 +255,17 @@ int			get_cd_dir(char **input, char **pwd);
 int			exec_changed(char *pwd, char *old_pwd);
 int			env_pwd_change(t_env **env, char *pwd, char *old_pwd);
 void		set_null_node(char *key, t_env **env);
+
+//Expand
+int			env_var_count(char *str);
+int			var_size(char *str);
+char		*expand_var(char *str, int f_pipe);
+char		**fill_env_vars(char *str, int f_pipe, int size);
+char		*expand_env_var(char *str, int f_pipe);
+char		*expand_line(char *str, int f_pipe);
+int			expand(t_token **tk);
+int			var_total_size(char *str, char **vars);
+char		*var_line(char *str, char **vars, int size);
 
 //Wildcard
 char		**get_wildcard(void);

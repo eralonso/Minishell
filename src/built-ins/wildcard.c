@@ -27,7 +27,6 @@ char	**get_wildcard(void)
 	{
 		if (entry->d_name[0] != '.')
 		{
-			printf("entry name:%s:\n", entry->d_name);
 			num_entries++;
 			names[num_entries - 1] = ft_strdup(entry->d_name);
 			if (!names[num_entries - 1])
