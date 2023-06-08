@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:36:26 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/08 17:25:43 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/08 18:48:50 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	main(int ac, char **av, char **env)
 	init_signals(NORM);
 	while (42)
 	{
+		g_msh.err = 1;
 		do_sigign(SIGQUIT);
 		line = readline("PESH + 🐚 > ");
 		do_sigign(SIGINT);
@@ -48,10 +49,10 @@ int	main(int ac, char **av, char **env)
 		}
 		input = calloc(sizeof(char *), 3);
 		input = get_wildcard();
+		add_history(line);
 		if (*line && validate_input(line))
 			printf("ERROR\nerr: %i\n", g_msh.err);
 		free(input);
-		g_msh.err = 0;
 	}
 	return (0);
 }

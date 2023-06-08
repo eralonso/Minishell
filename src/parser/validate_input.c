@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_input.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:18:49 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/08 17:49:03 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/08 18:55:20 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	validate_input(char *input)
 	if (ft_strlen(str) == 0)
 		return (!!ft_free(&str, 2));
 	if (check_syntax(str))
-		return (!ft_free(&str, 2));	
+		return (!ft_free(&str, 2));
 	tk = tokenizer(str);
 	if (!tk)
 		return (ft_free(&str, 2) == NULL);

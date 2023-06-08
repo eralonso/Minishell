@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansions.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:24:05 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/08 17:42:39 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/08 18:56:15 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ char	*expand_var(char *str, int f_pipe)
 	t_env	*node;
 
 	i = var_size(str);
-	printf("expand var: var_size == %i\n", i);
-	printf("expand var: pre str:%s:\n", str);
+	// printf("expand var: var_size == %i\n", i);
+	// printf("expand var: pre str:%s:\n", str);
 	tmp = str[i];
 	str[i] = '\0';
-	printf("expand var: post str:%s:\n", str);
+	// printf("expand var: post str:%s:\n", str);
 	node = env_search(&g_msh.env, &str[1]);
 	str[i] = tmp;
 	if (!node && str[1] != '?')
@@ -55,7 +55,7 @@ char	**fill_env_vars(char *str, int f_pipe, int size)
 		&& (ft_isalnum(str[i + 1]) || ft_strchr("_?", str[i + 1])))
 		{
 			vars[j] = expand_var(&str[i], f_pipe);
-			printf("fill env vars: vars[%i]:%s:\n", j, vars[j]);
+			// printf("fill env vars: vars[%i]:%s:\n", j, vars[j]);
 			if (!vars[j++])
 				return (ft_free(vars, 1));
 		}
@@ -90,10 +90,10 @@ char	*expand_line(char *str, int f_pipe)
 	char	*post_env;
 
 	post_env = expand_env_var(str, f_pipe);
-	// printf("\n%s\n", post_env);
+	printf("\n%s\n", post_env);
 	if (!post_env)
 		return (NULL);
-	new = NULL;
+	new = post_env;
 	return (new);
 }
 
@@ -113,7 +113,8 @@ int	expand(t_token **tk)
 				return (1);
 		}
 		((tmp->type == OP && (paren++)) || (tmp->type == CP && (paren--)));
-		if (!paren && tmp->type == PIPE)
+		if (!paren && (tmp->type == PIPE || tmp->type == AND \
+			|| tmp->type == OR))
 			f_pipe = 1;
 		tmp = tmp->next;
 	}
