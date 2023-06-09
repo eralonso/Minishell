@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+         #
+#    By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/22 10:08:41 by eralonso          #+#    #+#              #
-#    Updated: 2023/06/08 16:15:05 by pramos-m         ###   ########.fr        #
+#    Updated: 2023/06/09 11:49:15 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,8 +63,8 @@ FILES		:=	main validate_input parse_env echo utils \
 				validate_utils tokenizer token_utils tk_checker \
 				stair stair_utils lstt_utils conversions cmd_utils \
 				tk_cutter token_utils2 expansions redirections \
-				debug_stair debug_tokens signals built_utils cd \
-				env_builts exit export pwd wildcard expand_utils
+				debug_stair debug_tokens debug_str signals built_utils \
+				cd env_builts exit export pwd wildcard expand_utils
 
 #<--------------------------------->SRCS<----------------------------------->#
 SRCS		:=	$(addsuffix .c,$(FILES))

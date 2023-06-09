@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 18:01:19 by eralonso          #+#    #+#             */
-/*   Updated: 2023/01/31 13:01:38 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/09 11:58:29 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	*ft_free(char **split, int option)
 		*split = NULL;
 	}
 	split = NULL;
-	return (0);
+	return (NULL);
 }
 
 static char	*ft_create_word(char const *s, char c)

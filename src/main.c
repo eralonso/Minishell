@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:36:26 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/08 18:48:50 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/09 12:35:05 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	print_env(t_env **env)
 int	main(int ac, char **av, char **env)
 {
 	char	*line;
-	char	**input;
 
 	(void) av;
 	if (ac > 1)
@@ -36,9 +35,10 @@ int	main(int ac, char **av, char **env)
 	ft_env(env);
 	set_null_node("OLDPWD", &g_msh.env);
 	init_signals(NORM);
+	g_msh.err = 0;
+	g_msh.wild = get_wildcard(CURRENT_DIR);
 	while (42)
 	{
-		g_msh.err = 1;
 		do_sigign(SIGQUIT);
 		line = readline("PESH + 🐚 > ");
 		do_sigign(SIGINT);
@@ -47,12 +47,9 @@ int	main(int ac, char **av, char **env)
 			printf("exit");
 			return (0);
 		}
-		input = calloc(sizeof(char *), 3);
-		input = get_wildcard();
 		add_history(line);
 		if (*line && validate_input(line))
 			printf("ERROR\nerr: %i\n", g_msh.err);
-		free(input);
 	}
 	return (0);
 }

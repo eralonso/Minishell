@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:00:02 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/08 17:21:30 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/09 12:33:59 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@
 # define NORM		(int)1
 # define HEREDOC	(int)2
 # define N_INTERACT	(int)3
+
+///Directory
+# define CURRENT_DIR	(char *)"."
 
 ///Types of tokens: 
 ////EOCL == End Of Command Line, RDHD == ReDirection Here Doc '<<',
@@ -168,6 +171,7 @@ struct s_msh
 {
 	t_env	*env;
 	t_stair	*stair;
+	char	**wild;
 	int		err;
 };
 
@@ -175,6 +179,7 @@ struct s_msh
 ///Debugging Tools
 void		print_stair(t_stair **stair, int depth);
 void		print_tokens(t_token **tk);
+void		print_matrix(char **matrix);
 
 ///Parser: Tokens: Synthesize
 t_token		*tokenizer(char *str);
@@ -236,42 +241,54 @@ int			check_qp(t_kof *fok, char c);
 int			init_kof(t_kof *fok);
 char		*ft_strip(char *str);
 
-///Builtins
+///Builtins: Echo
 int			ft_echo(char **input);
 int			ft_echo_n(char **input);
+
+///Builtins: Pwd
 int			ft_pwd(char *input);
+
+///Builtins: Env
 void		print_env(t_env **env);
 int			print_one_env(char *input);
+
+///Builtins: Export
 int			export_add(char **input);
 int			exec_export(char **nodes);
+
+///Builtins: Exit
 int			exec_exit(char **exit);
+int			print_exit_error(char *data);
+
+///Builtins: Cd
+int			exec_cd(char **input);
+int			get_cd_dir(char **input, char **pwd);
+
+///Builtins: Utils
 int			validate_args(char **node, int *value);
 int			is_valid_num(char *data);
-int			print_exit_error(char *data);
-int			exec_cd(char **input);
 char		*env_node_value(t_env *env, char *key);
 int			create_add_node(char *key, char *value);
-int			get_cd_dir(char **input, char **pwd);
 int			exec_changed(char *pwd, char *old_pwd);
 int			env_pwd_change(t_env **env, char *pwd, char *old_pwd);
 void		set_null_node(char *key, t_env **env);
 
-//Expand
+///Expand
 int			env_var_count(char *str);
 int			var_size(char *str);
-char		*expand_var(char *str, int f_pipe);
-char		**fill_env_vars(char *str, int f_pipe, int size);
-char		*expand_env_var(char *str, int f_pipe);
-char		*expand_line(char *str, int f_pipe);
+char		*expand_var(char *str);
+char		**fill_env_vars(char *str, int size);
+char		*expand_env_var(char *str);
+char		*expand_line(char *str);
 int			expand(t_token **tk);
 int			var_total_size(char *str, char **vars);
 char		*var_line(char *str, char **vars, int size);
 
-//Wildcard
-char		**get_wildcard(void);
-int			ft_count_dir(DIR *dir);
+///Wildcard
+char		**get_wildcard(char *directory);
+int			ft_count_dir(char *directory);
 
-//Signals
+///Signals
 int			init_signals(int mode);
 void		norm_handler(int sig, siginfo_t *data, void *non_used_data);
 void		ninter_handler(int sig, siginfo_t *data, void *non_used_data);
