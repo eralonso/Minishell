@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:24:05 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/09 12:37:08 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/09 14:29:02 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,13 @@ char	*expand_line(char *str)
 	// printf("\n%s\n", post_env);
 	if (!post_env)
 		return (ft_free(&str, 2));
-	// new = expand_wildcard(post_env);
-	new = post_env;
+	new = expand_wildcard(str);
 	if (!new)
 	{
 		ft_free(&str, 2);
 		return (ft_free(&post_env, 2));
 	}
+	printf("expand line: post_env:%s:\n", new);
 	return (new);
 }
 

@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:00:02 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/09 12:33:59 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/09 14:30:00 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -283,6 +283,9 @@ char		*expand_line(char *str);
 int			expand(t_token **tk);
 int			var_total_size(char *str, char **vars);
 char		*var_line(char *str, char **vars, int size);
+
+///Expand: Wildcard
+char		*expand_wildcard(char *str);
 
 ///Wildcard
 char		**get_wildcard(char *directory);
