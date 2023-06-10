@@ -1,0 +1,42 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   subargs.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/10 12:58:52 by eralonso          #+#    #+#             */
+/*   Updated: 2023/06/10 13:37:03 by eralonso         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include	<msh.h>
+
+t_subarg	*extract_subarg(char *str, int *i, char def)
+{
+	t_subarg	*node;
+	int			quote;
+
+	((str[*i] == '\'' && (quote = '\'')) \
+	|| (str[*i] == '\"' && (quote = '\"')) || (quote = def));
+	
+	return (node);
+}
+
+t_subarg	*gen_subargs(char *str)
+{
+	t_subarg	*args;
+	t_subarg	*tmp;
+	int			i;
+
+	i = 0;
+	args = NULL;
+	while (str[i])
+	{
+		tmp = extract_subarg(str, &i, 0);
+		if (!tmp)
+			return (subarg_clean(&args));
+		subarg_addback(&args, tmp);
+	}
+	return (args);
+}

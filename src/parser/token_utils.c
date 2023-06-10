@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 13:11:52 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/06 17:38:50 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/10 13:33:19 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ void	*tk_clean(t_token **tk, int mode)
 			tmp2 = tmp->next;
 		else
 			tmp2 = tmp->prev;
-		free(tmp->line);
-		tmp->line = NULL;
+		if (tmp->line)
+			free(tmp->line);
+		if (tmp->type == ARG)
+			subarg_clean(&tmp->args);
 		free(tmp);
 		tmp = tmp2;
 	}
@@ -110,10 +112,19 @@ t_token	*tk_create(char *str, int type, int size, int subsh_lvl)
 	if (subsh_lvl > 0)
 		new->sub_sh = 1;
 	new->sub_shlvl = subsh_lvl;
-	if (type != EOCL)
+	if (type == EOCL)
+		return (new);
+	new->line = ft_substr(str, 0, size);
+	if (!new->line)
 	{
-		new->line = ft_substr(str, 0, size);
-		if (!new->line)
+		free(new);
+		return (NULL);
+	}
+	if (type == ARG)
+	{
+		new->args = gen_subargs(new->line);
+		ft_free(&new->args, 2);
+		if (!new->args)
 		{
 			free(new);
 			return (NULL);
