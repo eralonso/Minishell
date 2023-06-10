@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 16:00:02 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/09 14:30:00 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/10 11:45:20 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,13 @@
 # define LOGIC	(int)11
 # define RD		(int)12
 
+///Types of ARG: 
+////TXT == Text {[a ... z], [A ... Z], [0 ... 9]}
+////VAR == Enviroment variable '$', WILD == Wildcard '*'
+# define TXT	(int)1
+# define VAR	(int)2
+# define WILD	(int)3
+
 ///Type of node: MAIN == First Step, CMD == CoMmanD, STAIR == subshell/stair
 # define CMD	(int)1
 # define STAIR	(int)2
@@ -99,6 +106,7 @@ typedef struct s_block		t_block;
 typedef struct s_env		t_env;
 typedef struct s_stair		t_stair;
 typedef struct s_lstt		t_lstt;
+typedef struct s_subarg		t_subarg;
 typedef struct s_msh		t_msh;
 
 //Global variable
@@ -140,13 +148,23 @@ struct s_cmd
 
 struct s_token
 {
-	int		type;
-	char	*line;
-	int		sub_sh;
-	int		sub_shlvl;
-	int		idx;
-	t_token	*next;
-	t_token	*prev;
+	int			type;
+	char		*line;
+	int			sub_sh;
+	int			sub_shlvl;
+	int			idx;
+	t_subarg	*args;
+	t_token		*next;
+	t_token		*prev;
+};
+
+struct s_subarg
+{
+	int			type;
+	int			quote;
+	char		*str;
+	t_subarg	*expand;
+	t_subarg	*next;
 };
 
 struct s_kof
