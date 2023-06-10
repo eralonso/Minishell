@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 12:53:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/10 12:53:15 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/10 18:57:28 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,6 +213,15 @@ t_token		*tk_copy(t_token *tk);
 t_token		*tk_get_in_parenthesis(t_token **tk);
 int			tk_isredirection(t_token *tk);
 t_token		*tk_dup(t_token **tk);
+
+///Parser: Subargs: Generate
+t_subarg	*gen_subargs(char *str);
+t_subarg	*extract_subarg(char *str, int *i, char def);
+
+///Parser: Subargs: Utils
+t_subarg	*subarg_create(char *str, int size, char quote, char type);
+void		*subarg_clean(t_subarg **sub);
+void		subarg_addback(t_subarg **args, t_subarg *bottom);
 
 ///Parser: Stair: Generate
 t_stair		*st_generate(t_token *tk);

@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 15:35:23 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/10 13:28:08 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/10 16:11:41 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,17 @@ int	size_to_find(char *str)
 		while (str[i] && fok.sq < 0 && fok.dq < 0 && str[i] == '*')
 		{
 			check_qp(&fok, str[i]);
-			i++:
+			i++;
 		}
 		if (str[i] && !(str[i] == '\'' && str[i + 1] == '\'') \
-			&& !(str[i] == '\"' && str[i + 1] == '\"'))
-		{
+		&& !(str[i] == '\"' && str[i + 1] == '\"'))
 			size++;
-		}
 		while (str[i] && !(fok.sq < 0 && fok.dq < 0 && str[i] == '*'))
 		{
 			check_qp(&fok, str[i]);
-			i++:
+			i++;
 		}
-	}	
+	}
 	return (size);
 }
 
@@ -48,7 +46,7 @@ char	**ft_split_wildcard(char *str)
 	char	**to_find;
 	int		i;
 	int		size;
-	
+
 	i = 0;
 	size = size_to_find(str);
 	to_find = ft_calloc(sizeof(char *), size + 1);

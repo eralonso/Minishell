@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 12:58:52 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/10 13:37:03 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/10 16:19:26 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,21 @@ t_subarg	*extract_subarg(char *str, int *i, char def)
 {
 	t_subarg	*node;
 	int			quote;
+	int			start;
 
 	((str[*i] == '\'' && (quote = '\'')) \
 	|| (str[*i] == '\"' && (quote = '\"')) || (quote = def));
-	
+	(ft_strchr("\'\"", str[*i]) && ((*i)++));
+	start = *i;
+	while (str[*i] && str[*i] != quote)
+	{
+		if ((!quote && ft_strchr("\'\"", str[*i])) || (quote != '\'' \
+		&& str[*i] != '$') || (!quote && str[*i] == '*'))
+			break ;
+		(str[*i] && ((*i)++));
+	}
+	(quote && quote == str[*i] && ((*i)++));
+	node = subarg_create(&str[start], *i - (start - (quote)), quote, &str[*i]);
 	return (node);
 }
 

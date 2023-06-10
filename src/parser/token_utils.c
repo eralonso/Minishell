@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 13:11:52 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/10 13:33:19 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/10 16:14:07 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,19 +116,13 @@ t_token	*tk_create(char *str, int type, int size, int subsh_lvl)
 		return (new);
 	new->line = ft_substr(str, 0, size);
 	if (!new->line)
-	{
-		free(new);
-		return (NULL);
-	}
+		return (tk_clean(&new, NEXT));
 	if (type == ARG)
 	{
 		new->args = gen_subargs(new->line);
-		ft_free(&new->args, 2);
+		ft_free(&new->line, 2);
 		if (!new->args)
-		{
-			free(new);
-			return (NULL);
-		}
+			return (tk_clean(&new, NEXT));
 	}
 	return (new);
 }
