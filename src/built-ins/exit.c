@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 15:00:11 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/05/27 12:55:59 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/10 16:54:56 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,13 @@ int	exec_exit(char **exit_args)
 	value = g_msh.err;
 	if (write(2, "exit\n", 5) < 0)
 		exit(1);
+	if (!exit_args[0][0])
+		exit(g_msh.err);
 	if (!validate_args(exit_args, &value))
 	{
 		tmp_value = ft_atoi(exit_args[0]);
 		value = (int)tmp_value;
 	}
-	g_msh.err = value;
 	if (value == -1)
 		return (1);
 	clean_env(&g_msh.env, 0);
@@ -44,9 +45,8 @@ int	validate_args(char **node, int *value)
 	{
 		if (!is_valid_num(node[i]))
 		{
-			print_exit_error(node[i]);
-			*value = 255;
-			break ;
+			*value = print_exit_error(node[i]);
+			return (1);
 		}
 		i++;
 	}
@@ -81,8 +81,6 @@ int	is_valid_num(char *data)
 
 int	print_exit_error(char *data)
 {
-	write(2, "ba.sh: exit: ", 13);
-	write(2, data, ft_strlen(data));
-	write(2, ": numeric argument required\n", 28);
+	ft_printf(2, "Minishell: exit: %s: numeric argument required", data);
 	return (255);
 }

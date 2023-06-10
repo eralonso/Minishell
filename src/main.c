@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:36:26 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/09 12:35:05 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/10 18:05:28 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	print_env(t_env **env)
 int	main(int ac, char **av, char **env)
 {
 	char	*line;
-
 	(void) av;
+	char	**input = (char **)malloc(sizeof(char *) * 2);
 	if (ac > 1)
 		exit(1);
 	ft_env(env);
@@ -47,6 +47,10 @@ int	main(int ac, char **av, char **env)
 			printf("exit");
 			return (0);
 		}
+		input[0] = line;
+		input[1] = NULL;
+		exec_cd(input);
+		print_env(&g_msh.env);
 		add_history(line);
 		if (*line && validate_input(line))
 			printf("ERROR\nerr: %i\n", g_msh.err);

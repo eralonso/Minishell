@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 12:53:46 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/05/27 17:58:43 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/10 18:05:45 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ int	exec_cd(char **input)
 
 int	get_cd_dir(char **input, char **pwd)
 {
-	if (!input[0] && !env_search(&g_msh.env, "HOME"))
+	if (!input && !env_search(&g_msh.env, "HOME"))
 		return (1);
-	if (!input[0])
+	if (!input)
 	{
 		*pwd = env_node_value(g_msh.env, "HOME");
 		if (!*pwd)
@@ -69,24 +69,17 @@ int	env_pwd_change(t_env **env, char *pwd, char *old_pwd)
 {
 	t_env		*tmp;
 
-	tmp = *env;
 	if (!env || !pwd || !old_pwd)
 		return (1);
 	tmp = env_search(&g_msh.env, "PWD");
 	if (!tmp)
-	{
-		if (create_add_node("PWD", pwd))
-			return (1);
-	}
+		return (0);
 	else
 		tmp->value = pwd;
 	tmp = *env;
 	tmp = env_search(&g_msh.env, "OLDPWD");
 	if (!tmp)
-	{
-		if (create_add_node("OLDPWD", old_pwd))
-			return (1);
-	}
+		return (0);
 	else
 		tmp->value = old_pwd;
 	return (0);
