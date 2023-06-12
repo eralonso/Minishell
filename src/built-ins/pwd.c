@@ -6,16 +6,15 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 17:47:59 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/07 13:40:03 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/12 12:15:17 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include    <msh.h>
 
-int	ft_pwd(char *input)
+int	exec_pwd(void)
 {
-	if (!ft_strncmp(&input[0], "PWD", ft_strlen(&input[0])))
-		if (print_one_env("PWD") == -1)
-			return (1);
+	if (print_one_env("PWD") == -1)
+		return (1);
 	return (0);
 }

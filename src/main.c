@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:36:26 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/10 18:05:28 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/12 12:15:53 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ int	main(int ac, char **av, char **env)
 		}
 		input[0] = line;
 		input[1] = NULL;
-		exec_cd(input);
-		print_env(&g_msh.env);
+		if (!exec_cd(input))
+			print_env(&g_msh.env);
 		add_history(line);
 		if (*line && validate_input(line))
 			printf("ERROR\nerr: %i\n", g_msh.err);

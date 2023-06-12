@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 12:53:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/10 16:08:15 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/12 12:28:13 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,7 +262,7 @@ int			ft_echo(char **input);
 int			ft_echo_n(char **input);
 
 ///Builtins: Pwd
-int			ft_pwd(char *input);
+int			exec_pwd(void);
 
 ///Builtins: Env
 void		print_env(t_env **env);
@@ -282,15 +282,15 @@ int			print_exit_error(char *data);
 
 ///Builtins: Cd
 int			exec_cd(char **input);
-int			get_cd_dir(char **input, char **pwd);
+int			get_cd_dir(char **input, char **pwd,  int *flag);
+int			exec_changed(char *pwd, char *old_pwd, int	*flag);
+int			env_pwd_change(t_env **env, char *pwd, char *old_pwd, int *flag);
 
 ///Builtins: Utils
 int			validate_args(char **node, int *value);
 int			is_valid_num(char *data);
-char		*env_node_value(t_env *env, char *key);
+char		*env_node_value(t_env **env, char *key);
 int			create_add_node(char *key, char *value);
-int			exec_changed(char *pwd, char *old_pwd);
-int			env_pwd_change(t_env **env, char *pwd, char *old_pwd);
 void		set_null_node(char *key, t_env **env);
 
 ///Expand
