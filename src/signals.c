@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 13:20:26 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/07 13:16:08 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/12 16:51:12 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,23 @@ void	norm_handler(int sig, siginfo_t *data, void *non_used_data)
 	}
 	return ;
 }
+
+void	heredoc_handler(int sig, siginfo_t *data, void *non_used_data)
+{
+	(void) data;
+	(void) non_used_data;
+	if (sig == SIGINT)
+	{
+		// close(fd);
+		g_msh.err = 1;
+		rl_replace_line("", 1);
+		rl_on_new_line();
+		rl_redisplay();
+		write(1, "\n", 1);
+	}
+	return ;
+}
+
 
 void	ninter_handler(int sig, siginfo_t *data, void *non_used_data)
 {
