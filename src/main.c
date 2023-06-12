@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:36:26 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/12 12:15:53 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/12 14:11:09 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	print_env(t_env **env)
 	while (tmp)
 	{
 		if (tmp->key && tmp->value)
-			printf("%s=%s\n", tmp->key, tmp->value);
+			ft_printf(1, "%s=%s\n", tmp->key, tmp->value);
 		tmp = tmp->next;
 	}
 }

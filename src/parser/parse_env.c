@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:36:26 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/10 13:29:35 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/12 14:54:12 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ char	**list_to_array(t_env **m_env)
 t_env	*node_create(char *key, char *value)
 {
 	t_env	*node;
-
 
 	node = ft_calloc(sizeof(t_env), 1);
 	if (!node)

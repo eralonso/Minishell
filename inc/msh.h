@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 12:53:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/12 12:28:13 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/12 14:39:54 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -283,9 +283,8 @@ int			print_exit_error(char *data);
 ///Builtins: Cd
 int			exec_cd(char **input);
 int			get_cd_dir(char **input, char **pwd,  int *flag);
-int			exec_changed(char *pwd, char *old_pwd, int	*flag);
-int			env_pwd_change(t_env **env, char *pwd, char *old_pwd, int *flag);
-
+int			exec_changed(char *pwd, int	*flag);
+int			env_pwd_change(t_env **env, char *old_pwd, int *flag);
 ///Builtins: Utils
 int			validate_args(char **node, int *value);
 int			is_valid_num(char *data);
