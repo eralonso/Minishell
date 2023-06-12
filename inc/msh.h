@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 12:53:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/10 18:57:28 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/12 16:41:25 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,10 @@
 # define CMD	(int)1
 # define STAIR	(int)2
 # define MAIN	(int)3
+
+///Register of characters allows for variable environment
+# define ENV_CHARS	(char *)"_0123456789abcdefghijklmnopqrstuvwxyz\
+							ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 //Typedefs
 typedef struct s_redirect	t_redirect;
@@ -198,6 +202,7 @@ struct s_msh
 void		print_stair(t_stair **stair, int depth);
 void		print_tokens(t_token **tk);
 void		print_matrix(char **matrix);
+void		print_subargs(t_subarg **sub, int depth);
 
 ///Parser: Tokens: Synthesize
 t_token		*tokenizer(char *str);
@@ -216,10 +221,11 @@ t_token		*tk_dup(t_token **tk);
 
 ///Parser: Subargs: Generate
 t_subarg	*gen_subargs(char *str);
-t_subarg	*extract_subarg(char *str, int *i, char def);
+t_subarg	*extract_subarg(char *str, int *i, char del, int var);
 
 ///Parser: Subargs: Utils
-t_subarg	*subarg_create(char *str, int size, char quote, char type);
+t_subarg	*subarg_create(char *str, int size, char quote);
+t_subarg	*subarg_var_create(char *str, char del, int *i);
 void		*subarg_clean(t_subarg **sub);
 void		subarg_addback(t_subarg **args, t_subarg *bottom);
 
@@ -323,7 +329,6 @@ int			init_signals(int mode);
 void		norm_handler(int sig, siginfo_t *data, void *non_used_data);
 void		ninter_handler(int sig, siginfo_t *data, void *non_used_data);
 void		do_sigign(int signum);
-void 		eof_handler(int signum);
+void		eof_handler(int signum);
 
 #endif
-
