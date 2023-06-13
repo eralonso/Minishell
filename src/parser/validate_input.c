@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:18:49 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/12 16:16:53 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/13 12:26:29 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	validate_input(char *input)
 	t_token	*tk;
 	t_token	*tk_tmp;
 
+	add_history(input);
 	str = ft_strip(input);
 	free(input);
 	if (!str)

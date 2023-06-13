@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 13:20:26 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/07 13:16:08 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/13 12:29:54 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<msh.h>
 
+	// else if (mode == HEREDOC)
+	// 	signal.sa_sigaction = heredoc_handler;
 int	init_signals(int mode)
 {
 	struct sigaction	signal;
@@ -21,8 +23,6 @@ int	init_signals(int mode)
 		signal.sa_sigaction = norm_handler;
 	else if (mode == N_INTERACT)
 		signal.sa_sigaction = ninter_handler;
-	// else if (mode == HEREDOC)
-	// 	signal.sa_sigaction = heredoc_handler;
 	sigaction(SIGINT, &signal, NULL);
 	sigaction(SIGQUIT, &signal, NULL);
 	return (0);

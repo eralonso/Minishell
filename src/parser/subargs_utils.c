@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 13:11:12 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/12 18:47:11 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/13 12:29:28 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ t_subarg	*subarg_var_create(char *str, char del, int *i)
 	var = ft_calloc(sizeof(t_subarg), 1);
 	if (!var)
 		return (NULL);
-	printf("suba arg VAR create: str: :%s: && i:%i\n", str, *i);
 	var->type = VAR;
 	var->quote = del;
 	(*i)++;
@@ -74,7 +73,6 @@ t_subarg	*subarg_create(char *str, int size, char quote)
 	new = ft_calloc(sizeof(t_subarg), 1);
 	if (!new)
 		return (NULL);
-	printf("suba arg create: str: :%s: && size:%i\n", str, size);
 	new->quote = quote;
 	new->type = TXT;
 	if (size)
@@ -86,77 +84,5 @@ t_subarg	*subarg_create(char *str, int size, char quote)
 	return (new);
 }
 
-// t_subarg	*subarg_envar(char *str, char p_quote)
-// {
-// 	int			i;
-// 	int			quote;
-// 	t_subarg	*node;
-
-// 	i = 0;
-// 	((*str == '\'' && (quote = '\'')) || ((*str == '\"' && (quote = '\"'))) \
-// 	|| (quote = p_quote));
-// 	while (str[i])
-// 	{
-// 		if (str[i])
-// 		i++;
-// 	}
-// 	return (node);
-// }
-
-// t_subarg	*subarg_create(char *str, int size, char quote, int *i)
-// {
-// 	t_subarg	*new;
-
-// 	new = ft_calloc(sizeof(t_subarg), 1);
-// 	if (!new)
-// 		return (NULL);
-// 	new->quote = quote;
-// 	if ((!quote && !ft_strchr("$*\0", *str)) || (quote == '\"' && *str != '$'))
-// 	{
-// 		new->str = ft_substr(str, 0, size);
-// 		if (!new->str)
-// 			return (subarg_addback(&new));
-// 	}
-// 	else if (*str == '$')
-// 	{
-// 		new->next = ft_calloc(sizeof(t_subarg), 1);
-// 		if (!new->next)
-// 			return (subarg_clean(&new));
-// 		new->next->type = VAR;
-// 		new->next->quote = quote;
-// 		new->next->expand = subarg_envar(str, i);
-// 		if (!new->next->expand)
-// 			return (subarg_addback(&new));
-// 	}
-// 	return (new);
-// }
-
-// t_subarg	*subarg_create(char *str, int size, char quote, char *type)
-// {
-// 	t_subarg	*new;
-
-// 	new = ft_calloc(sizeof(t_subarg), 1);
-// 	if (!new)
-// 		return (NULL);
-// 	new->quote = quote;
-// 	((*type == '$' && (new->type = VAR)) \
-// 		|| (*type == '*' && (new->type = VAR)) || (new->type = TXT));
-// 	if (*type != '$' && *type != '*')
-// 	{
-// 		new->str = ft_substr(str, 0, size);
-// 		if (!new->str)
-// 			free(new);
-// 		if (!new->str)
-// 			return (NULL);
-// 	}
-// 	else if (*type == '$')
-// 	{
-// 		new->expand = subarg_envar(type);
-// 		if (!new->expand)
-// 			return (subarg_clean(&new));
-// 		if (quote)
-// 		{
-// 		}
-// 	}
-// 	return (new);
-// }
+	// printf("suba arg VAR create: str: :%s: && i:%i\n", str, *i);
+	// printf("suba arg create: str: :%s: && size:%i\n", str, size);

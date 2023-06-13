@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 13:11:52 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/12 16:16:10 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/13 12:32:43 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,8 @@ t_token	*tk_create(char *str, int type, int size, int subsh_lvl)
 		return (tk_clean(&new, NEXT));
 	if (type == ARG)
 	{
-		new->args = gen_subargs(new->line);
+		printf("ARG:\n\n");
+		new->args = gen_subargs(new->line, 0);
 		ft_free(&new->line, 2);
 		if (!new->args)
 			return (tk_clean(&new, NEXT));

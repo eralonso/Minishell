@@ -6,52 +6,29 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 12:58:52 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/12 19:20:34 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/13 11:56:46 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<msh.h>
-
-// t_subarg	*extract_subarg(char *str, int *i, char def, int var)
-// {
-// 	t_subarg	*node;
-// 	int			quote;
-// 	int			start;
-
-// 	((str[*i] == '\'' && (quote = '\'')) \
-// 	|| (str[*i] == '\"' && (quote = '\"')) || (quote = def));
-// 	(ft_strchr("\'\"", str[*i]) && ((*i)++));
-// 	start = *i;
-// 	while (str[*i] && str[*i] != quote)
-// 	{
-// 		if ((!quote && ft_strchr("\'\"", str[*i])) || (quote != '\'' \
-// 		&& str[*i] != '$') || (!quote && str[*i] == '*'))
-// 			break ;
-// 		(str[*i] && ((*i)++));
-// 	}
-// 	(quote && quote == str[*i] && ((*i)++));
-// 	node = subarg_create(&str[start], *i - (start - (quote)), quote, i);
-// 	return (node);
-// }
 
 int	subarg_var(char *str, int *i, char del, t_subarg **args)
 {
 	t_subarg	*tmp;
 	t_subarg	*tmp2;
 	t_subarg	**add;
-	int			in;
 
 	tmp = ft_calloc(sizeof(t_subarg), 1);
 	if (!tmp)
 		return (1);
 	(1 && (tmp->type = VAR) && (tmp->quote = del));
-	(1 && ((*i) += 1) && (add = &tmp) && (in = 0));
+	(1 && ((*i) += 1) && (add = &tmp) && (tmp->var_in = 0));
 	if (!del && (str[*i] == '\'' || str[*i] == '\"'))
-		(1 && (del = str[(*i)++]) && (in = 1));
-	tmp->expand = extract_subarg(str, i, del, !in);
+		(1 && (del = str[(*i)++]) && (tmp->var_in = 1));
+	tmp->expand = extract_subarg(str, i, del, !tmp->var_in);
 	if (!tmp->expand)
 		return (!subarg_clean(&tmp));
-	(in && (add = &tmp->expand));
+	(tmp->var_in && (add = &tmp->expand));
 	while (del && *i > 0 && str[(*i) - 1] != del)
 	{
 		tmp2 = extract_subarg(str, i, del, 0);
@@ -91,7 +68,7 @@ t_subarg	*extract_subarg(char *str, int *i, char del, int var)
 			break ;
 		(str[*i] && ((*i)++));
 	}
-	((var && str[0] == '?') && ((*i)++));
+	((var && str[start] == '?') && ((*i)++));
 	if (del != '\'' && !var && start == *i && str[*i] == '$')
 		node = subarg_var_create(str, del, i);
 	else
@@ -100,22 +77,21 @@ t_subarg	*extract_subarg(char *str, int *i, char del, int var)
 	return (node);
 }
 
-t_subarg	*gen_subargs(char *str)
+t_subarg	*gen_subargs(char *str, char del)
 {
 	t_subarg	*args;
 	t_subarg	*tmp;
 	int			i;
-	char		del;
+	int			err;
 
-	(0 || (i = 0) || (args = NULL) || (del = 0));
+	(0 || (i = 0) || (err = 0) || (args = NULL));
 	while (str[i])
 	{
 		(!del && (str[i] == '\'' || str[i] == '\"') && (del = str[i]) && (i++));
-		if (del != '\'' && str[i] == '$')
-		{
-			if (subarg_var(str, &i, del, &args))
-				return (subarg_clean(&args));
-		}
+		if (!del && str[i] == '*')
+			err = subarg_wild(str, &i, &args);
+		else if (del != '\'' && str[i] == '$')
+			err = subarg_var(str, &i, del, &args);
 		else
 		{
 			tmp = extract_subarg(str, &i, del, 0);
@@ -123,9 +99,9 @@ t_subarg	*gen_subargs(char *str)
 				return (subarg_clean(&args));
 			subarg_addback(&args, tmp);
 		}
-		(i > 0 && str[i - 1] == del && (del = 0));
-		if (!del && str[i] == '*' && subarg_wild(str, &i, &args))
+		if (err)
 			return (subarg_clean(&args));
+		(i > 0 && str[i - 1] == del && (del = 0));
 	}
 	print_subargs(&args, 0);
 	return (args);
