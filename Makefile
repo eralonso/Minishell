@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/22 10:08:41 by eralonso          #+#    #+#              #
-#    Updated: 2023/06/12 15:40:33 by eralonso         ###   ########.fr        #
+#    Updated: 2023/06/13 13:57:41 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,7 @@ HEADERS		+=	$(addsuffix $(INC_ROOT),$(LIBFT_ROOT))
 HEADERS		+=	$(RDLINE_ROOT)
 
 #<---------------------------------->DIRS<----------------------------------->#
-SRC_DIRS	:=	./:built-ins/:utils/:debug/:parser/
+SRC_DIRS	:=	./:built-ins/:utils/:debug/:parser/:exeggcute/
 SRC_DIRS	:=	$(subst :,$(SPACE),$(SRC_DIRS))
 SRC_DIRS	:=	$(addprefix $(SRC_ROOT),$(SRC_DIRS))
 SRC_DIRS	:=	$(subst $(SPACE),:,$(SRC_DIRS))
@@ -65,7 +65,7 @@ FILES		:=	main validate_input parse_env echo utils \
 				tk_cutter token_utils2 redirections debug_stair \
 				debug_tokens debug_str signals built_utils cd \
 				env_builts exit export pwd wildcard subargs subargs_utils \
-				debug_subargs
+				debug_subargs exeggutor
 
 #<--------------------------------->SRCS<----------------------------------->#
 SRCS		:=	$(addsuffix .c,$(FILES))

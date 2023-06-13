@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*   exeggutor.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/23 09:32:54 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/13 16:11:59 by eralonso         ###   ########.fr       */
+/*   Created: 2023/06/13 13:56:31 by eralonso          #+#    #+#             */
+/*   Updated: 2023/06/13 15:04:53 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	<libft.h>
+#include	<msh.h>
 
-void	*ft_memcpy(void *dst, const void *src, size_t n)
+int	executor(t_stair *st)
 {
-	size_t	i;
-
-	i = -1;
-	if (!dst || !src)
-		return (dst);
-	while (((unsigned char *)src)[++i] && i < n)
-		((unsigned char *)dst)[i] = ((unsigned char *)src)[i];
-	return (dst);
+	if (!st)
+		return (0);
+	if (st->type != MAIN)
+		executor(st->step);
+	if ((st->type == AND && g_msh.err) || (st->type == OR && !g_msh.err))
+		return (0);
+	// expand_lstt(&st->node);
+	// if (exec_pipe(&st->node))
+	// 	return (1);
+	return (0);
 }

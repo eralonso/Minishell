@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:18:49 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/13 12:26:29 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/13 14:12:26 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,16 @@ int	validate_input(char *input)
 	if (check_syntax(str))
 		return (!ft_free(&str, 2));
 	tk = tokenizer(str);
+	ft_free(&str, 2);
 	if (!tk)
-		return (ft_free(&str, 2) == NULL);
+		return (1);
 	tk_tmp = tk;
 	g_msh.stair = st_generate(tk);
 	tk_clean(&tk_tmp, NEXT);
 	if (!g_msh.stair)
-		return (!ft_free(&str, 2));
-	free(str);
+		return (1);
+	if (executor(g_msh.stair))
+		return (st_clean(&g_msh.stair), 1);
+	st_clean(&g_msh.stair);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:56:51 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/03 13:41:53 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/13 15:08:03 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,9 @@ int	check_tokens(t_token **tk)
 		(tmp->type == OP && check_op(tmp) && (err = 1));
 		(tmp->type == CP && check_cp(tmp) && (err = 1));
 		((tmp->type == AND || tmp->type == OR) && check_logo(tmp) && (err = 1));
-		((tmp->type == RDI || tmp->type == RDO || tmp->type == RDHD \
-			|| tmp->type == RDAP) && tmp->next->type != ARG && (err = 1));
+		((tmp->type == RDI || tmp->type == RDO || tmp->type == RDAP) \
+		&& tmp->next->type != ARG && (err = 1));
+		(tmp->type == RDHD && tmp->next->type != LIMITER && (err = 1));
 		tmp = tmp->next;
 	}
 	return (err);

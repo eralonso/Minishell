@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:06:33 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/08 17:15:01 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/13 15:38:54 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	ft_strcat(char *dst, const char *src)
 	int	i;
 	int	j;
 
+	if (!dst || !src)
+		return ;
 	j = 0;
 	i = ft_strlen(dst);
 	while (src[j])

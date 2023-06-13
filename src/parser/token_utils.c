@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 13:11:52 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/13 12:32:43 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/13 15:00:35 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ t_token	*tk_copy(t_token *tk)
 	cpy->type = tk->type;
 	cpy->sub_sh = tk->sub_sh;
 	cpy->sub_shlvl = tk->sub_shlvl;
-	cpy->idx = tk->idx;
 	cpy->line = ft_strdup(tk->line);
 	if (!cpy->line)
 	{

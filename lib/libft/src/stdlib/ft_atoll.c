@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoll.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 14:06:27 by eralonso          #+#    #+#             */
-/*   Updated: 2023/01/29 14:39:31 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/13 15:36:20 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,21 @@ long long	ft_atoll(char *str)
 {
 	long long	neg;
 	long long	res;
+	int			i;
 
-	neg = 1;
-	res = 0;
-	if (!str || !*str)
+	((res = 0) || (i = 0) || (neg = 1));
+	if (!str || !str[i])
 		return (0);
-	while (*str && ft_strchr("\t \n\t\r\v\f", *str))
-		str++;
-	if (*str && *str == '-')
+	while (str[i] && ft_isspace(str[i]))
+		i++;
+	if (str[i] && str[i] == '-')
 		neg = -1;
-	if (*str && ft_strchr("+-", *str))
-		str++;
-	while (*str && ft_isdigit(*str))
+	if (str[i] && ft_strchr("+-", str[i]))
+		i++;
+	while (str[i] && ft_isdigit(str[i]))
 	{
-		res = (*str - '0') + (res * 10);
-		str++;
+		res = (str[i] - '0') + (res * 10);
+		i++;
 	}
 	return (res * neg);
 }

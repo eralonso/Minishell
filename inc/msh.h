@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 12:53:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/13 12:30:01 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/13 15:11:29 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,19 +71,20 @@
 ////OP == Open Parenthesis '(', ARG == Argument == 
 ////Text {[A ... Z], [a ... z], [0 ... 9]}, CP == Close Parenthesis ')',
 ////LOGIC == LOGIC operator {&&, ||}, RD == ReDirections == {<, >, <<, >>}
-# define EOCL	(int)0
-# define RDHD	(int)1
-# define PIPE	(int)2
-# define RDAP	(int)3
-# define RDI	(int)4
-# define AND	(int)5
-# define RDO	(int)6
-# define OR		(int)7
-# define OP		(int)8
-# define ARG	(int)9
-# define CP		(int)10
-# define LOGIC	(int)11
-# define RD		(int)12
+# define EOCL		(int)0
+# define RDHD		(int)1
+# define PIPE		(int)2
+# define RDAP		(int)3
+# define RDI		(int)4
+# define AND		(int)5
+# define RDO		(int)6
+# define OR			(int)7
+# define OP			(int)8
+# define ARG		(int)9
+# define CP			(int)10
+# define LOGIC		(int)11
+# define RD			(int)12
+# define LIMITER	(int)13
 
 ///Types of ARG: 
 ////TXT == Text {[a ... z], [A ... Z], [0 ... 9]}
@@ -130,7 +131,6 @@ struct s_stair
 {
 	int		type;
 	int		size;
-	int		final_idx;
 	t_lstt	*node;
 	t_stair	*step;
 };
@@ -156,7 +156,6 @@ struct s_token
 	char		*line;
 	int			sub_sh;
 	int			sub_shlvl;
-	int			idx;
 	t_subarg	*args;
 	t_token		*next;
 	t_token		*prev;
@@ -205,9 +204,12 @@ void		print_tokens(t_token **tk);
 void		print_matrix(char **matrix);
 void		print_subargs(t_subarg **sub, int depth);
 
+///Execution: Main
+int			executor(t_stair *st);
+
 ///Parser: Tokens: Synthesize
 t_token		*tokenizer(char *str);
-t_token		*tk_analyzer(char *str, int *i, int *shlvl, int idx);
+t_token		*tk_analyzer(char *str, int *i, int *shlvl, int *limiter);
 
 ///Parser: Tokens: Utils
 void		*tk_clean(t_token **tk, int mode);

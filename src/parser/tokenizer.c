@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 11:40:07 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/05 14:23:04 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/13 15:14:50 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	catch_args(char *str, int *i)
 	return (len);
 }
 
-t_token	*tk_analyzer(char *str, int *i, int *shlvl, int idx)
+t_token	*tk_analyzer(char *str, int *i, int *shlvl, int *limiter)
 {
 	t_token	*node;
 	int		type;
@@ -47,35 +47,34 @@ t_token	*tk_analyzer(char *str, int *i, int *shlvl, int idx)
 	(type == ARG && (len = catch_args(str, i)));
 	(type != ARG && (len += (type % 2)));
 	(type == CP && ((*shlvl)--));
+	(*limiter == 1 && type == ARG && (type = LIMITER) && (*limiter = 0));
+	(type == RDHD && (*limiter = 1));
 	node = tk_create(&str[(*i)], type, len, *shlvl);
 	(type == OP && ((*shlvl)++));
 	*i += len;
-	node->idx = idx;
 	return (node);
 }
 
 t_token	*tokenizer(char *str)
 {
 	int		i;
+	int		limiter;
 	int		shlvl;
-	int		idx;
 	t_token	*tk;
 	t_token	*node;
 
-	(0 || (i = 0) || (idx = 0) || (shlvl = 0) || (tk = NULL));
+	(0 || (i = 0) || (limiter = 0) || (shlvl = 0) || (tk = NULL));
 	while (str[i] && i != -1)
 	{
-		node = tk_analyzer(str, &i, &shlvl, idx);
+		node = tk_analyzer(str, &i, &shlvl, &limiter);
 		(str[i] && ft_isspace(str[i]) && i++);
 		if (!node)
 			return (tk_clean(&tk, NEXT));
 		tk_addback(&tk, node);
-		idx++;
 	}
 	node = tk_create(NULL, EOCL, 0, 0);
 	if (!node)
 		return (tk_clean(&tk, NEXT));
-	node->idx = idx;
 	tk_addback(&tk, node);
 	if (check_tokens(&tk))
 		return (tk_clean(&tk, NEXT));

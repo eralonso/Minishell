@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 13:08:41 by eralonso          #+#    #+#             */
-/*   Updated: 2023/01/29 19:01:27 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/13 15:45:48 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,19 +47,21 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
 	size_t	i;
 	char	*tmp;
+	int		len_hay;
 
 	if (!haystack || !needle)
 		return (NULL);
 	if (!*needle)
 		return ((char *)haystack);
 	tmp = (char *)haystack;
-	while (tmp && *tmp && ft_strlen(haystack) - ft_strlen(tmp) <= len)
+	len_hay = ft_strlen(haystack);
+	while (tmp && *tmp && len_hay - ft_strlen(tmp) <= len)
 	{
 		i = 0;
 		tmp = ft_strchr(tmp, needle[0]);
 		while (tmp && tmp[i] && needle[i] && tmp[i] == needle[i])
 			i++;
-		if (!needle[i] && ft_strlen(haystack) + i - ft_strlen(tmp) <= len)
+		if (!needle[i] && len_hay + i - ft_strlen(tmp) <= len)
 			return (tmp);
 		if (tmp && *tmp)
 			tmp++;
