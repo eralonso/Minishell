@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:30:26 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/07 13:39:04 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/10 16:07:45 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ t_env	*env_search(t_env **env, char *key)
 {
 	t_env	*tmp;
 
-	tmp = *env;
-	if (!env || !key || !(*key) || !tmp)
+	if (!env || !key || !(*key))
 		return (NULL);
+	tmp = *env;
 	while (tmp)
 	{
 		if (!ft_strncmp(tmp->key, key, 0xffffffff))
@@ -28,40 +28,45 @@ t_env	*env_search(t_env **env, char *key)
 	return (NULL);
 }
 
-int	exec_unset(t_env **env, char *node)
+int	exec_unset(t_env **env, char **input)
 {
-	t_env	*tmp;
+	int		j;
 
-	tmp = *env;
-	env_unset_node(tmp, node);
+	j = -1;
+	while (++j < ft_matrixlen(input))
+	{
+		if (!check_unset(input[j]))
+			return (1);
+		env_unset_node(env, input[j]);
+		printf("entro\n");
+	}
 	return (0);
 }
 
-void	env_unset_node(t_env *env, char	*node)
+void	env_unset_node(t_env **env, char *node)
 {
-	env = env_search(&env, node);
-	if (env == NULL)
+	t_env	*tmp;
+
+	tmp = env_search(env, node);
+	if (tmp == NULL)
 		return ;
-	else
+	if (tmp->next && tmp->prev)
 	{
-		if (env->next && env->prev)
-		{
-			env->prev->next = env->next;
-			env->next->prev = env->prev;
-		}
-		else if (env->next && !env->prev)
-		{
-			g_msh.env = env->next;
-			g_msh.env->prev = NULL;
-		}
-		else
-			env->prev->next = NULL;
+		tmp->prev->next = tmp->next;
+		tmp->next->prev = tmp->prev;
 	}
-	if (env->key)
-		free (env->key);
-	if (env->value && *env->value)
-		free (env->value);
-	free(env);
+	else if (tmp->next && !tmp->prev)
+	{
+		g_msh.env = tmp->next;
+		g_msh.env->prev = NULL;
+	}
+	else
+		tmp->prev->next = NULL;
+	if (tmp->key)
+		free (tmp->key);
+	if (tmp->value && *tmp->value)
+		free (tmp->value);
+	free(tmp);
 }
 
 int	print_one_env(char *input)

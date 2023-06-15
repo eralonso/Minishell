@@ -3,17 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 13:20:26 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/13 12:29:54 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/15 16:35:24 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<msh.h>
 
-	// else if (mode == HEREDOC)
-	// 	signal.sa_sigaction = heredoc_handler;
 int	init_signals(int mode)
 {
 	struct sigaction	signal;
@@ -23,6 +21,8 @@ int	init_signals(int mode)
 		signal.sa_sigaction = norm_handler;
 	else if (mode == N_INTERACT)
 		signal.sa_sigaction = ninter_handler;
+	else if (mode == HEREDOC)
+		signal.sa_sigaction = heredoc_handler;
 	sigaction(SIGINT, &signal, NULL);
 	sigaction(SIGQUIT, &signal, NULL);
 	return (0);
@@ -53,6 +53,26 @@ void	norm_handler(int sig, siginfo_t *data, void *non_used_data)
 	}
 	return ;
 }
+
+void	heredoc_handler(int sig, siginfo_t *data, void *non_used_data)
+{
+	(void) data;
+	(void) non_used_data;
+
+	
+	if (sig == SIGINT)
+	{
+		// close(fd);
+		g_msh.err = 1;
+		rl_replace_line("", 1);
+		rl_on_new_line();
+		rl_redisplay();
+		write(1, "\n", 1);
+		exit(1);
+	}
+	return ;
+}
+
 
 void	ninter_handler(int sig, siginfo_t *data, void *non_used_data)
 {

@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 12:53:46 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/05/27 17:58:43 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/12 14:51:36 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,31 +14,33 @@
 
 int	exec_cd(char **input)
 {
-	char	*old_pwd;
 	char	*pwd;
+	int		flag;
 
-	if (env_search(&g_msh.env, "PWD"))
-	{
-		old_pwd = env_node_value(g_msh.env, "PWD");
-		if (!old_pwd)
-			return (1);
-	}
-	if (get_cd_dir(input, &pwd))
+	flag = 0;
+	if (get_cd_dir(input, &pwd, &flag))
 		return (1);
-	if (exec_changed(pwd, old_pwd))
+	if (exec_changed(pwd, &flag))
 		return (1);
 	return (0);
 }
 
-int	get_cd_dir(char **input, char **pwd)
+int	get_cd_dir(char **input, char **pwd, int *flag)
 {
-	if (!input[0] && !env_search(&g_msh.env, "HOME"))
+	if (!input && !env_search(&g_msh.env, "HOME"))
 		return (1);
-	if (!input[0])
+	if (!input)
 	{
-		*pwd = env_node_value(g_msh.env, "HOME");
+		*pwd = env_node_value(&g_msh.env, "HOME");
 		if (!*pwd)
 			return (1);
+	}
+	else if (input[0] && !ft_strncmp(input[0], "-", 0XFFFFFF))
+	{
+		if (!env_node_value(&g_msh.env, "OLDPWD"))
+			return (ft_printf(2, "Minishell: cd: OLDPWD not set\n"));
+		*pwd = env_node_value(&g_msh.env, "OLDPWD");
+		*flag = 1;
 	}
 	else if (input[0])
 	{
@@ -47,60 +49,72 @@ int	get_cd_dir(char **input, char **pwd)
 	return (0);
 }
 
-int	exec_changed(char *pwd, char *old_pwd)
+int	exec_changed(char *pwd, int	*flag)
 {
 	t_env	*tmp;
+	char	*old_pwd;
 
 	tmp = g_msh.env;
+	old_pwd = getcwd(NULL, PATH_MAX);
+	if (!old_pwd)
+		return (1);
 	if (chdir(pwd) == -1)
 	{
-		printf("invalid path");
-		exit(1);
+		if (access(pwd, F_OK))
+			ft_printf(2, "Minishell: cd: %s: No such file or directory\n", pwd);
+		else if (access(pwd, R_OK))
+			ft_printf(2, "Minishell: cd: %s: Permission denied\n", pwd);
+		else
+			ft_printf(2, "Minishell: cd: %s: Not a directory\n", pwd);
+		ft_free(&old_pwd, 2);
+		return (1);
 	}
 	else
 	{
-		if (env_pwd_change(&g_msh.env, pwd, old_pwd))
-			exit(1);
+		if (env_pwd_change(&g_msh.env, old_pwd, flag))
+			return (ft_free(&old_pwd, 2), 1);
 	}
 	return (0);
 }
 
-int	env_pwd_change(t_env **env, char *pwd, char *old_pwd)
+int	env_pwd_change(t_env **env, char *old_pwd, int *flag)
 {
 	t_env		*tmp;
+	char		*pwd;
 
-	tmp = *env;
-	if (!env || !pwd || !old_pwd)
+	if (!env || !old_pwd)
 		return (1);
+	pwd = getcwd(NULL, PATH_MAX);
+	if (!pwd)
+		return (ft_free(&old_pwd, 2), 1);
+	if (*flag)
+		ft_printf(1, "%s\n", pwd);
 	tmp = env_search(&g_msh.env, "PWD");
 	if (!tmp)
-	{
-		if (create_add_node("PWD", pwd))
-			return (1);
-	}
+		return (ft_free(&pwd, 2), ft_free(&old_pwd, 2), 1);
 	else
 		tmp->value = pwd;
 	tmp = *env;
 	tmp = env_search(&g_msh.env, "OLDPWD");
 	if (!tmp)
-	{
-		if (create_add_node("OLDPWD", old_pwd))
-			return (1);
-	}
+		return (ft_free(&pwd, 2), ft_free(&old_pwd, 2), 1);
 	else
 		tmp->value = old_pwd;
 	return (0);
 }
 
-char	*env_node_value(t_env *env, char *key)
+char	*env_node_value(t_env **env, char *key)
 {
+	t_env	*tmp;
+
 	if (!env || !key || !(*key))
 		return (NULL);
-	while (env && env->next)
+	tmp = *env;
+	while (tmp)
 	{
-		if (!ft_strncmp(env->key, key, 0xffffffff))
-			return (env->value);
-		env = env->next;
+		if (!ft_strncmp(tmp->key, key, 0xffffffff))
+			return (tmp->value);
+		tmp = tmp->next;
 	}
 	return (NULL);
 }
