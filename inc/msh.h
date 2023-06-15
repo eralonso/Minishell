@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 12:53:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/15 14:00:45 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/15 16:38:33 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -280,7 +280,8 @@ int			clean_env(t_env **list, int ret);
 void		env_set_value(t_env **list, char *name, char *value);
 
 ///Validate
-int			validate_input(char *input);
+char		*validate_input(char *input, int *err);
+int			start(char *input);
 
 ///Validate: Utils
 int			check_qp(t_kof *fok, char c);

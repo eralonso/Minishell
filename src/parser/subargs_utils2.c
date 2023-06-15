@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 13:27:18 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/15 13:46:25 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/15 16:20:16 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_subarg	*subarg_copy(t_subarg *sub)
 {
 	t_subarg	*cpy;
-	
+
 	cpy = ft_calloc(sizeof(t_subarg), 1);
 	if (!cpy)
 		return (NULL);

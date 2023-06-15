@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:18:49 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/13 14:12:26 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/15 16:44:16 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,23 +37,19 @@ static int	check_syntax(char *input)
 	return (0);
 }
 
-int	validate_input(char *input)
+int	start(char *input)
 {
 	char	*str;
 	t_token	*tk;
 	t_token	*tk_tmp;
+	int		err;
 
 	add_history(input);
-	str = ft_strip(input);
-	free(input);
-	if (!str)
-		return (1);
-	if (ft_strlen(str) == 0)
-		return (!!ft_free(&str, 2));
-	if (check_syntax(str))
-		return (!ft_free(&str, 2));
+	str = validate_input(input, &err);
+	if (err >= 0)
+		return (err);
 	tk = tokenizer(str);
-	ft_free(&str, 2);
+	(ft_free(&input, 2) || ft_free(&str, 2));
 	if (!tk)
 		return (1);
 	tk_tmp = tk;
@@ -65,4 +61,30 @@ int	validate_input(char *input)
 		return (st_clean(&g_msh.stair), 1);
 	st_clean(&g_msh.stair);
 	return (0);
+}
+
+char	*validate_input(char *input, int *err)
+{
+	char	*str;
+
+	*err = -1;
+	str = ft_strip(input);
+	if (!str)
+	{
+		*err = 1;
+		return (NULL);
+	}
+	if (ft_strlen(str) == 0)
+	{
+		ft_free(&str, 2);
+		*err = 0;
+		return (NULL);
+	}
+	if (check_syntax(str))
+	{
+		ft_free(&str, 2);
+		*err = 1;
+		return (NULL);
+	}
+	return (str);
 }

@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 11:34:14 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/15 13:45:34 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/15 16:57:37 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ t_token	*cmd_getargs_tk(t_token **tk)
 	if (!tk || !*tk)
 		return (NULL);
 	tmp = *tk;
-	i = 0;
-	args = NULL;
+	(0 || (i = 0) || (args = NULL));
 	while (tmp && tmp->type != EOCL)
 	{
 		if (tk_isredirection(tmp))
@@ -37,6 +36,8 @@ t_token	*cmd_getargs_tk(t_token **tk)
 		}
 		tmp = tmp->next;
 	}
+	if (!args)
+		args = tk_create("", ARG, 1, (*tk)->sub_shlvl);
 	return (args);
 }
 

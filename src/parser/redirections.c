@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:45:30 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/15 14:12:00 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/15 16:59:56 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,8 @@ static int	check_redirect(t_token *tmp, t_redirect *redir, int i)
 		redir[i].file = remove_quotes(redir[i].file_tk->line);
 		if (!redir[i].file)
 			return (-1);
-		redir[i].fd[0] = create_hdoc(redir[i].file);
-		if (redir[i].fd[0] <= 0)
+		redir[i].fd[IN] = create_hdoc(redir[i].file);
+		if (redir[i].fd[IN] <= 0)
 			return (-1);
 	}
 	return (ret);

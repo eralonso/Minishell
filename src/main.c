@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:36:26 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/13 18:25:38 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/15 16:36:55 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	main(int ac, char **av, char **env)
 			printf("exit");
 			return (0);
 		}
-		if (*line && validate_input(line))
+		if (*line && start(line))
 			printf("ERROR\nerr: %i\n", g_msh.err);
 	}
 	return (0);
