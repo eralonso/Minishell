@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:45:30 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/05 12:40:55 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/15 16:34:37 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,17 @@ void	do_here_doc(char *limiter, int fd_here_doc[2])
 {
 	char	*str;
 
-	if (ft_printf(1, "> ") == -1)
-		exit(ft_close(&fd_here_doc[0]) || ft_close(&fd_here_doc[1]) || 1);
-	str = get_next_line(0);
-	if (str[ft_strlen(str) - 1] == '\n')
-		str[ft_strlen(str) - 1] = '\0';
+	init_signals(HEREDOC);
+	do_sigign(SIGQUIT);
+	str = readline("> ");
 	while (str && ft_strncmp(str, limiter, 0xFFFF))
 	{
 		if (ft_printf(fd_here_doc[1], str) == -1)
 			exit((ft_free(&str, 2) || ft_close(&fd_here_doc[0]) \
 					|| ft_close(&fd_here_doc[1])) || 1);
 		ft_free(&str, 2);
-		if (ft_printf(1, "> ") == -1)
-			exit(ft_close(&fd_here_doc[0]) || ft_close(&fd_here_doc[1]) || 1);
-		str = get_next_line(0);
-		if (str[ft_strlen(str) - 1] == '\n')
-			str[ft_strlen(str) - 1] = '\0';
+		do_sigign(SIGQUIT);
+		str = readline("> ");
 	}
 	ft_free(&str, 2);
 	if (ft_close(&fd_here_doc[1]) == -1 || ft_close(&fd_here_doc[0]) == -1)

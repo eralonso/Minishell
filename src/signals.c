@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 13:20:26 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/12 16:51:12 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/15 16:35:24 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	init_signals(int mode)
 		signal.sa_sigaction = norm_handler;
 	else if (mode == N_INTERACT)
 		signal.sa_sigaction = ninter_handler;
-	// else if (mode == HEREDOC)
-	// 	signal.sa_sigaction = heredoc_handler;
+	else if (mode == HEREDOC)
+		signal.sa_sigaction = heredoc_handler;
 	sigaction(SIGINT, &signal, NULL);
 	sigaction(SIGQUIT, &signal, NULL);
 	return (0);
@@ -58,6 +58,8 @@ void	heredoc_handler(int sig, siginfo_t *data, void *non_used_data)
 {
 	(void) data;
 	(void) non_used_data;
+
+	
 	if (sig == SIGINT)
 	{
 		// close(fd);
@@ -66,6 +68,7 @@ void	heredoc_handler(int sig, siginfo_t *data, void *non_used_data)
 		rl_on_new_line();
 		rl_redisplay();
 		write(1, "\n", 1);
+		exit(1);
 	}
 	return ;
 }

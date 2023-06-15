@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 12:53:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/12 14:39:54 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/15 17:06:00 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -282,7 +282,7 @@ int			print_exit_error(char *data);
 
 ///Builtins: Cd
 int			exec_cd(char **input);
-int			get_cd_dir(char **input, char **pwd,  int *flag);
+int			get_cd_dir(char **input, char **pwd, int *flag);
 int			exec_changed(char *pwd, int	*flag);
 int			env_pwd_change(t_env **env, char *old_pwd, int *flag);
 ///Builtins: Utils
@@ -314,8 +314,7 @@ int			ft_count_dir(char *directory);
 int			init_signals(int mode);
 void		norm_handler(int sig, siginfo_t *data, void *non_used_data);
 void		ninter_handler(int sig, siginfo_t *data, void *non_used_data);
+void		heredoc_handler(int sig, siginfo_t *data, void *non_used_data);
 void		do_sigign(int signum);
-void 		eof_handler(int signum);
 
 #endif
-
