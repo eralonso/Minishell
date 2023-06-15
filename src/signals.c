@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 13:20:26 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/15 16:35:24 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/15 18:32:35 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,8 @@ void	heredoc_handler(int sig, siginfo_t *data, void *non_used_data)
 {
 	(void) data;
 	(void) non_used_data;
-
-	
 	if (sig == SIGINT)
 	{
-		// close(fd);
 		g_msh.err = 1;
 		rl_replace_line("", 1);
 		rl_on_new_line();
@@ -72,7 +69,6 @@ void	heredoc_handler(int sig, siginfo_t *data, void *non_used_data)
 	}
 	return ;
 }
-
 
 void	ninter_handler(int sig, siginfo_t *data, void *non_used_data)
 {

@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:45:30 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/15 16:59:56 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/15 18:25:02 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	*rd_clean(t_redirect *redirect, int size)
 	i = -1;
 	while (++i < size)
 	{
-		tk_clean(&redirect->file_tk, NEXT);
+		tk_clean(&redirect[i].file_tk, NEXT);
 		free(redirect[i].file);
 	}
 	free(redirect);
@@ -32,18 +32,25 @@ void	do_here_doc(char *limiter, int fd_here_doc[2])
 {
 	char	*str;
 
+	init_signals(HEREDOC);
+	do_sigign(SIGQUIT);
 	str = readline("> ");
 	while (str && ft_strncmp(str, limiter, 0xFFFF))
 	{
 		if (ft_printf(fd_here_doc[1], str) == -1)
-			exit((ft_free(&str, 2) || ft_close(&fd_here_doc[0]) \
-					|| ft_close(&fd_here_doc[1])) || 1);
+		{
+			ft_free(&str, 2);
+			ft_close(&fd_here_doc[0]);
+			ft_close(&fd_here_doc[1]);
+			exit(2);
+		}
 		ft_free(&str, 2);
+		do_sigign(SIGQUIT);
 		str = readline("> ");
 	}
 	ft_free(&str, 2);
 	if (ft_close(&fd_here_doc[1]) == -1 || ft_close(&fd_here_doc[0]) == -1)
-		exit(1);
+		exit(2);
 	exit(0);
 }
 
@@ -52,6 +59,7 @@ int	create_hdoc(char *limiter)
 	pid_t	hd;
 	int		status;
 	int		fd_here_doc[2];
+	int		err;
 
 	if (pipe(fd_here_doc) == -1)
 		return (-1);
@@ -64,8 +72,14 @@ int	create_hdoc(char *limiter)
 		return (kill(hd, SIGTERM));
 	if (waitpid(hd, &status, 0) == -1)
 		return (ft_close(&fd_here_doc[0]));
-	if (WIFEXITED(status) && WEXITSTATUS(status) != 0)
-		return (-1);
+	if (WIFEXITED(status))
+	{
+		err = WEXITSTATUS(status);
+		if (err == 1)
+			g_msh.ctrl_c = 1;
+		else if (err == 2)
+			return (-1);
+	}
 	return (fd_here_doc[0]);
 }
 
@@ -108,7 +122,7 @@ t_redirect	*create_redirect(t_token **tk, int size, int skip_p)
 	redir = (t_redirect *)ft_calloc(sizeof(t_redirect), size);
 	if (!redir)
 		return (NULL);
-	while (tmp && tmp->next && tmp->type != EOCL)
+	while (!g_msh.ctrl_c && tmp && tmp->next && tmp->type != EOCL)
 	{
 		((tmp->type == OP && (paren++)) || (tmp->type == CP && (paren--)));
 		(0 || (ret = 0) || (paren *= skip_p));

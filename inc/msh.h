@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 12:53:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/15 16:38:33 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/15 18:04:31 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,7 +196,7 @@ struct s_msh
 {
 	t_env	*env;
 	t_stair	*stair;
-	char	**wild;
+	int		ctrl_c;
 	int		err;
 };
 
@@ -272,10 +272,8 @@ void		ft_env(char **env);
 ///Enviroment: Utils
 char		**list_to_array(t_env **m_env);
 t_env		*env_search(t_env **env, char *key);
-void		env_unset_node(t_env *env, char	*node);
-int			exec_unset(t_env **env, char *node);
 char		**sort_env(char **env);
-void		print_export(void);
+int			print_export(void);
 int			clean_env(t_env **list, int ret);
 void		env_set_value(t_env **list, char *name, char *value);
 
@@ -292,15 +290,19 @@ int			ft_echo(char **input);
 int			ft_echo_n(char **input);
 
 ///Builtins: Pwd
-int			ft_pwd(char *input);
+int			exec_pwd(void);
 
 ///Builtins: Env
 void		print_env(t_env **env);
 int			print_one_env(char *input);
 
-///Builtins: Export
+///Builtins: Export && Unset
 int			export_add(char **input);
 int			exec_export(char **nodes);
+int			check_export(char *key, char *value);
+void		env_unset_node(t_env **env, char *node);
+int			exec_unset(t_env **env, char **input);
+int			check_unset(char *node);
 
 ///Builtins: Exit
 int			exec_exit(char **exit);
@@ -308,15 +310,15 @@ int			print_exit_error(char *data);
 
 ///Builtins: Cd
 int			exec_cd(char **input);
-int			get_cd_dir(char **input, char **pwd);
+int			get_cd_dir(char **input, char **pwd, int *flag);
+int			exec_changed(char *pwd, int *flag);
+int			env_pwd_change(t_env **env, char *old_pwd, int *flag);
 
 ///Builtins: Utils
 int			validate_args(char **node, int *value);
 int			is_valid_num(char *data);
-char		*env_node_value(t_env *env, char *key);
+char		*env_node_value(t_env **env, char *key);
 int			create_add_node(char *key, char *value);
-int			exec_changed(char *pwd, char *old_pwd);
-int			env_pwd_change(t_env **env, char *pwd, char *old_pwd);
 void		set_null_node(char *key, t_env **env);
 
 ///Expand
@@ -342,6 +344,6 @@ int			init_signals(int mode);
 void		norm_handler(int sig, siginfo_t *data, void *non_used_data);
 void		ninter_handler(int sig, siginfo_t *data, void *non_used_data);
 void		do_sigign(int signum);
-void		eof_handler(int signum);
+void		heredoc_handler(int sig, siginfo_t *data, void *non_used_data);
 
 #endif

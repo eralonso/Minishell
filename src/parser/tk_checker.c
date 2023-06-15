@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:56:51 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/13 15:08:03 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/15 18:31:31 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static int	check_pipe(t_token *tk)
 	(prev && (p_type = tk->prev->type));
 	return ((n_type == PIPE || n_type == CP || n_type == AND \
 			|| n_type == OR || n_type == EOCL) || \
-			(!prev || (p_type != ARG && p_type != CP)));
+			(!prev || (p_type != ARG && p_type != LIMITER && p_type != CP)));
 }
 
 int	check_tokens(t_token **tk)

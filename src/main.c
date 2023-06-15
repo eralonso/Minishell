@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:36:26 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/15 16:36:55 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/15 18:11:56 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ int	main(int ac, char **av, char **env)
 	ft_env(env);
 	set_null_node("OLDPWD", &g_msh.env);
 	g_msh.err = 0;
-	g_msh.wild = get_wildcard(CURRENT_DIR);
 	while (42)
 	{
+		g_msh.ctrl_c = 0;
 		init_signals(NORM);
 		do_sigign(SIGQUIT);
 		line = readline("PESH + 🐚 > ");
