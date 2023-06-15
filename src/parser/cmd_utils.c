@@ -6,61 +6,41 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 11:34:14 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/13 15:11:22 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/15 13:45:34 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<msh.h>
 
-static int	cmd_countargs(t_token **tk)
+t_token	*cmd_getargs_tk(t_token **tk)
 {
+	t_token	*args;
 	t_token	*tmp;
-	int		count;
-
-	if (!tk || !*tk || (*tk)->type == EOCL)
-		return (0);
-	tmp = *tk;
-	count = 0;
-	while (tmp && tmp->type != EOCL)
-	{
-		if (tk_isredirection(tmp))
-			tmp = tmp->next;
-		else if (tmp->type == ARG)
-			count++;
-		tmp = tmp->next;
-	}
-	return (count);
-}
-
-char	**cmd_getargs(t_token **tk)
-{
-	char	**args;
+	t_token	*node;
 	int		i;
-	t_token	*tmp;
 
 	if (!tk || !*tk)
 		return (NULL);
 	tmp = *tk;
 	i = 0;
-	args = (char **)ft_calloc(sizeof(char *), cmd_countargs(tk) + 1);
-	if (!args)
-		return (NULL);
+	args = NULL;
 	while (tmp && tmp->type != EOCL)
 	{
 		if (tk_isredirection(tmp))
 			tmp = tmp->next;
 		else if (tmp->type == ARG)
 		{
-			args[i] = ft_strdup(tmp->line);
-			if (!args[i++])
-				return (ft_free(args, 1));
+			node = tk_copy(tmp);
+			if (!node)
+				return (tk_clean(&args, NEXT));
+			tk_addback(&args, node);
 		}
 		tmp = tmp->next;
 	}
 	return (args);
 }
 
-char	*cmd_getcommand(t_token **tk)
+t_token	*cmd_getname_tk(t_token **tk)
 {
 	t_token	*tmp;
 
@@ -70,10 +50,10 @@ char	*cmd_getcommand(t_token **tk)
 	while (tmp && tmp->type != EOCL)
 	{
 		if (tmp->type == ARG && !tk_isredirection(tmp->prev))
-			return (ft_strdup(tmp->line));
+			return (tk_copy(tmp));
 		tmp = tmp->next;
 	}
-	return (ft_strdup(""));
+	return (tk_create("", ARG, 1, (*tk)->sub_shlvl));
 }
 
 void	*cmd_clean(t_cmd **cmd)
@@ -83,6 +63,8 @@ void	*cmd_clean(t_cmd **cmd)
 	if (!cmd || !*cmd)
 		return (NULL);
 	tmp = *cmd;
+	tk_clean(&tmp->cmd_n_tk, NEXT);
+	tk_clean(&tmp->cmd_args_tk, NEXT);
 	ft_free(&tmp->cmd_n, 2);
 	ft_free(&tmp->cmd_path, 2);
 	ft_free(tmp->cmd_args, 1);

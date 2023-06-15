@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:45:30 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/13 15:23:44 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/15 14:12:00 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ void	*rd_clean(t_redirect *redirect, int size)
 		return (NULL);
 	i = -1;
 	while (++i < size)
+	{
+		tk_clean(&redirect->file_tk, NEXT);
 		free(redirect[i].file);
+	}
 	free(redirect);
 	return (NULL);
 }
@@ -29,22 +32,14 @@ void	do_here_doc(char *limiter, int fd_here_doc[2])
 {
 	char	*str;
 
-	if (ft_printf(1, "> ") == -1)
-		exit(ft_close(&fd_here_doc[0]) || ft_close(&fd_here_doc[1]) || 1);
-	str = get_next_line(0);
-	if (str[ft_strlen(str) - 1] == '\n')
-		str[ft_strlen(str) - 1] = '\0';
+	str = readline("> ");
 	while (str && ft_strncmp(str, limiter, 0xFFFF))
 	{
 		if (ft_printf(fd_here_doc[1], str) == -1)
 			exit((ft_free(&str, 2) || ft_close(&fd_here_doc[0]) \
 					|| ft_close(&fd_here_doc[1])) || 1);
 		ft_free(&str, 2);
-		if (ft_printf(1, "> ") == -1)
-			exit(ft_close(&fd_here_doc[0]) || ft_close(&fd_here_doc[1]) || 1);
-		str = get_next_line(0);
-		if (str[ft_strlen(str) - 1] == '\n')
-			str[ft_strlen(str) - 1] = '\0';
+		str = readline("> ");
 	}
 	ft_free(&str, 2);
 	if (ft_close(&fd_here_doc[1]) == -1 || ft_close(&fd_here_doc[0]) == -1)
@@ -76,19 +71,22 @@ int	create_hdoc(char *limiter)
 
 static int	check_redirect(t_token *tmp, t_redirect *redir, int i)
 {
-	int	ret;
+	int		ret;
 
 	ret = 0;
 	if (tk_isredirection(tmp))
 	{
 		ret = 1;
 		redir[i].type = tmp->type;
-		redir[i].file = ft_strdup(tmp->next->line);
-		if (!redir[i].file)
+		redir[i].file_tk = tk_copy(tmp->next);
+		if (!redir[i].file_tk)
 			return (-1);
 	}
 	if (tk_isredirection(tmp) == 2)
 	{
+		redir[i].file = remove_quotes(redir[i].file_tk->line);
+		if (!redir[i].file)
+			return (-1);
 		redir[i].fd[0] = create_hdoc(redir[i].file);
 		if (redir[i].fd[0] <= 0)
 			return (-1);
@@ -117,7 +115,7 @@ t_redirect	*create_redirect(t_token **tk, int size, int skip_p)
 		if (!paren && tk_isredirection(tmp))
 			ret = check_redirect(tmp, redir, i);
 		if (ret == -1)
-			return (rd_clean(redir, tk_tkcounter(tk, RD, EOCL, ON)));
+			return (rd_clean(redir, size));
 		(ret == 1 && (tmp = tmp->next) && (i++));
 		tmp = tmp->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 11:47:23 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/12 19:13:08 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/15 13:55:53 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,12 @@ t_cmd	*tk_to_cmd(t_token **tk)
 	cmd = (t_cmd *)ft_calloc(sizeof(t_cmd), 1);
 	if (!cmd)
 		return (NULL);
-	cmd->cmd_n = cmd_getcommand(tk);
-	if (!cmd->cmd_n)
-	{
-		free(cmd);
-		return (NULL);
-	}
-	cmd->cmd_args = cmd_getargs(tk);
-	if (!cmd->cmd_args)
-	{
-		ft_free(&cmd->cmd_n, 2);
-		free(cmd);
-		return (NULL);
-	}
+	cmd->cmd_n_tk = cmd_getname_tk(tk);
+	if (!cmd->cmd_n_tk)
+		return (cmd_clean(&cmd));
+	cmd->cmd_args_tk = cmd_getargs_tk(tk);
+	if (!cmd->cmd_args_tk)
+		return (cmd_clean(&cmd));
 	return (cmd);
 }
 

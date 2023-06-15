@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 13:11:52 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/13 15:00:35 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/15 13:53:12 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,17 @@ t_token	*tk_copy(t_token *tk)
 	cpy->type = tk->type;
 	cpy->sub_sh = tk->sub_sh;
 	cpy->sub_shlvl = tk->sub_shlvl;
-	cpy->line = ft_strdup(tk->line);
-	if (!cpy->line)
+	if (cpy->type != ARG)
 	{
-		free(cpy);
-		return (NULL);
+		cpy->line = ft_strdup(tk->line);
+		if (!cpy->line)
+			return (tk_clean(&cpy, NEXT));
+	}
+	else
+	{
+		cpy->args = subarg_dup(&tk->args);
+		if (!cpy->args)
+			return (tk_clean(&cpy, NEXT));
 	}
 	return (cpy);
 }
@@ -119,10 +125,14 @@ t_token	*tk_create(char *str, int type, int size, int subsh_lvl)
 	if (type == ARG)
 	{
 		printf("ARG:\n\n");
-		new->args = gen_subargs(new->line, 0);
+		if (!str || !*str)
+			new->args = subarg_create("", 1, 0);
+		else
+			new->args = gen_subargs(new->line, 0);
 		ft_free(&new->line, 2);
 		if (!new->args)
 			return (tk_clean(&new, NEXT));
+		print_subargs(&new->args, 0);
 	}
 	return (new);
 }

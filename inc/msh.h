@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 12:53:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/13 15:11:29 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/15 14:00:45 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@
 # define TK		(int)0
 # define BK		(int)1
 
-///Direction
+///Direction to clean
 # define NEXT	(int)0
 # define PREV	(int)1
 
@@ -138,6 +138,7 @@ struct s_stair
 struct s_redirect
 {
 	int		type;
+	t_token	*file_tk;
 	char	*file;
 	int		fd[2];
 	int		tmp_fd[2];
@@ -145,6 +146,8 @@ struct s_redirect
 
 struct s_cmd
 {
+	t_token	*cmd_n_tk;
+	t_token	*cmd_args_tk;
 	char	*cmd_n;
 	char	*cmd_path;
 	char	**cmd_args;
@@ -207,6 +210,11 @@ void		print_subargs(t_subarg **sub, int depth);
 ///Execution: Main
 int			executor(t_stair *st);
 
+//UTILS
+char		*ft_strip(char *str);
+int			rmqt_size(char *str);
+char		*remove_quotes(char *str);
+
 ///Parser: Tokens: Synthesize
 t_token		*tokenizer(char *str);
 t_token		*tk_analyzer(char *str, int *i, int *shlvl, int *limiter);
@@ -231,6 +239,8 @@ t_subarg	*subarg_create(char *str, int size, char quote);
 t_subarg	*subarg_var_create(char *str, char del, int *i);
 void		*subarg_clean(t_subarg **sub);
 void		subarg_addback(t_subarg **args, t_subarg *bottom);
+t_subarg	*subarg_dup(t_subarg **sub);
+t_subarg	*subarg_copy(t_subarg *sub);
 
 ///Parser: Stair: Generate
 t_stair		*st_generate(t_token *tk);
@@ -248,8 +258,8 @@ void		*lstt_clean(t_lstt **lst);
 ///Parser: Cmd: Utils
 void		*cmd_clean(t_cmd **cmd);
 void		*rd_clean(t_redirect *redirect, int size);
-char		*cmd_getcommand(t_token **tk);
-char		**cmd_getargs(t_token **tk);
+t_token		*cmd_getname_tk(t_token **tk);
+t_token		*cmd_getargs_tk(t_token **tk);
 
 ///Parser: Conversor
 t_lstt		*tk_to_lstt(t_token **tk);
@@ -275,7 +285,6 @@ int			validate_input(char *input);
 ///Validate: Utils
 int			check_qp(t_kof *fok, char c);
 int			init_kof(t_kof *fok);
-char		*ft_strip(char *str);
 
 ///Builtins: Echo
 int			ft_echo(char **input);
