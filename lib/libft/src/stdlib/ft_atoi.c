@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 10:21:00 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/13 15:34:43 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/15 17:02:45 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_atoi(const char *str)
 	int		i;
 	char	*base;
 
-	((i = 0) || (res = 0) || (sign = 1));
+	(0 || (i = 0) || (res = 0) || (sign = 1));
 	base = B10;
 	while (str[i] && ft_isspace(str[i]))
 		i++;
