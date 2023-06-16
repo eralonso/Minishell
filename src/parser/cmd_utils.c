@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 11:34:14 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/15 16:57:37 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/16 16:48:49 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,24 +37,8 @@ t_token	*cmd_getargs_tk(t_token **tk)
 		tmp = tmp->next;
 	}
 	if (!args)
-		args = tk_create("", ARG, 1, (*tk)->sub_shlvl);
+		args = tk_create(NULL, ARG, 1, (*tk)->sub_shlvl);
 	return (args);
-}
-
-t_token	*cmd_getname_tk(t_token **tk)
-{
-	t_token	*tmp;
-
-	if (!tk || !*tk)
-		return (NULL);
-	tmp = *tk;
-	while (tmp && tmp->type != EOCL)
-	{
-		if (tmp->type == ARG && !tk_isredirection(tmp->prev))
-			return (tk_copy(tmp));
-		tmp = tmp->next;
-	}
-	return (tk_create("", ARG, 1, (*tk)->sub_shlvl));
 }
 
 void	*cmd_clean(t_cmd **cmd)
@@ -64,7 +48,6 @@ void	*cmd_clean(t_cmd **cmd)
 	if (!cmd || !*cmd)
 		return (NULL);
 	tmp = *cmd;
-	tk_clean(&tmp->cmd_n_tk, NEXT);
 	tk_clean(&tmp->cmd_args_tk, NEXT);
 	ft_free(&tmp->cmd_n, 2);
 	ft_free(&tmp->cmd_path, 2);

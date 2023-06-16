@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 12:53:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/15 18:04:31 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/16 16:45:59 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,6 @@ struct s_redirect
 
 struct s_cmd
 {
-	t_token	*cmd_n_tk;
 	t_token	*cmd_args_tk;
 	char	*cmd_n;
 	char	*cmd_path;

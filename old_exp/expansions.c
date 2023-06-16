@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:24:05 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/10 13:03:59 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/16 16:20:27 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,8 @@ char	*expand_var(char *str)
 	t_env	*node;
 
 	i = var_size(str);
-	// printf("expand var: var_size == %i\n", i);
-	// printf("expand var: pre str:%s:\n", str);
 	tmp = str[i];
 	str[i] = '\0';
-	// printf("expand var: post str:%s:\n", str);
 	node = env_search(&g_msh.env, &str[1]);
 	str[i] = tmp;
 	if (!node && str[1] != '?')
@@ -53,7 +50,6 @@ char	**fill_env_vars(char *str, int size)
 		&& (ft_isalnum(str[i + 1]) || ft_strchr("_?", str[i + 1])))
 		{
 			vars[j] = expand_var(&str[i]);
-			// printf("fill env vars: vars[%i]:%s:\n", j, vars[j]);
 			if (!vars[j++])
 				return (ft_free(vars, 1));
 		}

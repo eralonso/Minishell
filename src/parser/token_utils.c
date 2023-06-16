@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 13:11:52 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/15 16:20:32 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/16 16:57:11 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,15 +119,12 @@ t_token	*tk_create(char *str, int type, int size, int subsh_lvl)
 	new->sub_shlvl = subsh_lvl;
 	if (type == EOCL)
 		return (new);
-	new->line = ft_substr(str, 0, size);
-	if (!new->line)
+	(str && (new->line = ft_substr(str, 0, size)));
+	if (str && !new->line)
 		return (tk_clean(&new, NEXT));
-	if (type == ARG)
+	if (type == ARG && str)
 	{
-		if (!str || !*str)
-			new->args = subarg_create("", 1, 0);
-		else
-			new->args = gen_subargs(new->line, 0);
+		new->args = gen_subargs(new->line, 0);
 		ft_free(&new->line, 2);
 		if (!new->args)
 			return (tk_clean(&new, NEXT));

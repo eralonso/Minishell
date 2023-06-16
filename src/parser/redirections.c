@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 10:45:30 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/15 18:25:02 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/16 17:13:48 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	do_here_doc(char *limiter, int fd_here_doc[2])
 	str = readline("> ");
 	while (str && ft_strncmp(str, limiter, 0xFFFF))
 	{
-		if (ft_printf(fd_here_doc[1], str) == -1)
+		if (ft_printf(fd_here_doc[1], "%s", str) == -1)
 		{
 			ft_free(&str, 2);
 			ft_close(&fd_here_doc[0]);
