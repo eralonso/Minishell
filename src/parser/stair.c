@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 18:03:45 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/15 16:53:35 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/16 18:14:29 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static int	st_fill(t_token **tk, t_token **start, int *type, t_stair **stair)
 	}
 	if (st_go_node(tk, start, *stair, type))
 		return (1);
+	(*stair)->size++;
 	return (0);
 }
 

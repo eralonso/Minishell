@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+         #
+#    By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/18 12:39:13 by eralonso          #+#    #+#              #
-#    Updated: 2023/06/08 17:13:37 by pramos-m         ###   ########.fr        #
+#    Updated: 2023/06/16 17:42:42 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,7 @@ FILES =	ft_memset ft_bzero ft_memcpy ft_memmove \
 		ft_lstdelone ft_lstiter ft_lstmap \
 		get_next_line ft_nbrlen_base ft_matrixlen ft_isnumdup \
 		ft_isint ft_isnum ft_atoll ft_close ft_isspace \
-		ft_strchri ft_strcat \
+		ft_strchri ft_strcat ft_isblank \
 		ft_flags_checker ft_checker ft_printf ft_chars_utils \
 		ft_nbrs_utils ft_ptr_utils
 

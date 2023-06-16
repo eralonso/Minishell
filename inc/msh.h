@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 12:53:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/16 16:45:59 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/16 18:13:41 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,7 +201,7 @@ struct s_msh
 
 //Function Declarations
 ///Debugging Tools
-void		print_stair(t_stair **stair, int depth);
+void		print_stairs(t_stair **stair, int depth);
 void		print_tokens(t_token **tk);
 void		print_matrix(char **matrix);
 void		print_subargs(t_subarg **sub, int depth);
@@ -213,6 +213,7 @@ int			executor(t_stair *st);
 char		*ft_strip(char *str);
 int			rmqt_size(char *str);
 char		*remove_quotes(char *str);
+int			ft_isempty(char *str);
 
 ///Parser: Tokens: Synthesize
 t_token		*tokenizer(char *str);

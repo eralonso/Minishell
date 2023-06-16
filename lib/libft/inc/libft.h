@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 18:50:15 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/08 17:15:27 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/16 17:42:29 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int			ft_isascii(int c);
 int			ft_isdigit(int c);
 int			ft_isprint(int c);
 int			ft_isspace(int c);
+int			ft_isblank(int c);
 
 //CHAR: CONVERSOR
 int			ft_tolower(int c);

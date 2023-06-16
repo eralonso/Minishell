@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 11:13:56 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/06 16:32:47 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/16 18:39:30 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static void	print_redirect(t_redirect *redirect, int size)
 	int		i;
 
 	i = -1;
+	if (!redirect)
+		return ;
 	printf("Redirections:\n\t");
 	while (++i < size)
 	{
@@ -39,10 +41,15 @@ static void	print_cmd(t_cmd *cmd)
 	int		i;
 
 	i = -1;
-	printf("\tCMD: cmd_n: %s ", cmd->cmd_n);
-	printf("cmd_args:|");
-	while (cmd->cmd_args[++i])
-		printf("%s|", cmd->cmd_args[i]);
+	if (!cmd)
+		return ;
+	printf("\tCMD: ");
+	if (cmd->cmd_args)
+	{
+		printf("cmd_args:|");
+		while (cmd->cmd_args[++i])
+			printf("%s|", cmd->cmd_args[i]);
+	}
 	printf("\n\n");
 }
 
@@ -63,7 +70,7 @@ static void	print_nodes(t_lstt **lst, int depth)
 		if (node->type == STAIR)
 		{
 			printf("STAIR: \n");
-			print_stair((t_stair **)&node->content, depth + 1);
+			print_stairs((t_stair **)&node->content, depth + 1);
 		}
 		else
 			print_cmd((t_cmd *)node->content);
@@ -72,7 +79,7 @@ static void	print_nodes(t_lstt **lst, int depth)
 	}
 }
 
-void	print_stair(t_stair **stair, int depth)
+void	print_stairs(t_stair **stair, int depth)
 {
 	t_stair	*tmp;
 
@@ -80,12 +87,13 @@ void	print_stair(t_stair **stair, int depth)
 		return ;
 	tmp = *stair;
 	if (tmp->type != MAIN)
-		print_stair(&tmp->step, depth);
+		print_stairs(&tmp->step, depth);
 	if (tmp->type == MAIN)
 		printf("TYPE of STAIR: MAIN\n");
 	else if (tmp->type == AND)
 		printf("TYPE of STAIR: AND\n");
 	else if (tmp->type == OR)
 		printf("TYPE of STAIR: OR\n");
+	printf("SIZE: %i\n", tmp->size);
 	print_nodes(&tmp->node, depth);
 }

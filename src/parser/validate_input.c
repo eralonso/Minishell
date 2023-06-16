@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_input.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:18:49 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/16 16:51:41 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/16 18:18:54 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int	start(char *input)
 	tk_clean(&tk_tmp, NEXT);
 	if (!g_msh.stair)
 		return (1);
+	print_stairs(&g_msh.stair, 0);
 	if (!g_msh.ctrl_c && executor(g_msh.stair))
 		return (st_clean(&g_msh.stair), 1);
 	st_clean(&g_msh.stair);
@@ -74,7 +75,7 @@ char	*validate_input(char *input, int *err)
 		*err = 1;
 		return (NULL);
 	}
-	if (ft_strlen(str) == 0)
+	if (ft_isempty(str))
 	{
 		ft_free(&str, 2);
 		*err = 0;
