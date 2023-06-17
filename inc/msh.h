@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 12:53:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/17 11:59:11 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/17 14:24:57 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@
 # define NEXT	(int)0
 # define PREV	(int)1
 
-///Signals Macros
+///Signals modes
 # define NORM		(int)1
 # define HEREDOC	(int)2
 # define N_INTERACT	(int)3
@@ -288,14 +288,14 @@ int			check_qp(t_kof *fok, char c);
 int			init_kof(t_kof *fok);
 
 ///Builtins: Echo
-int			ft_echo(char **input);
+int			exec_echo(char **input);
 int			ft_echo_n(char **input);
 
 ///Builtins: Pwd
 int			exec_pwd(void);
 
 ///Builtins: Env
-void		print_env(t_env **env);
+int			print_env(t_env **env);
 int			print_one_env(char *input);
 
 ///Builtins: Export && Unset
@@ -315,6 +315,7 @@ int			exec_cd(char **input);
 int			get_cd_dir(char **input, char **pwd, int *flag);
 int			exec_changed(char *pwd, int *flag);
 int			env_pwd_change(t_env **env, char *old_pwd, int *flag);
+int			exec_builtins(t_cmd *cmd);
 
 ///Builtins: Utils
 int			validate_args(char **node, int *value);
@@ -322,6 +323,7 @@ int			is_valid_num(char *data);
 char		*env_node_value(t_env **env, char *key);
 int			create_add_node(char *key, char *value);
 void		set_null_node(char *key, t_env **env);
+int			is_builtin(char *cmd);
 
 ///Expand
 int			env_var_count(char *str);

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:36:26 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/15 18:11:56 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/17 14:20:04 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<msh.h>
 
-void	print_env(t_env **env)
+int	print_env(t_env **env)
 {
 	t_env	*tmp;
 
@@ -20,9 +20,11 @@ void	print_env(t_env **env)
 	while (tmp)
 	{
 		if (tmp->key && tmp->value)
-			printf("%s=%s\n", tmp->key, tmp->value);
+			if (printf("%s=%s\n", tmp->key, tmp->value) == -1)
+				return (1);
 		tmp = tmp->next;
 	}
+	return (0);
 }
 
 int	main(int ac, char **av, char **env)

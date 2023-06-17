@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exeggutor.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 13:56:31 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/17 12:44:52 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/17 14:25:16 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	kill_childs(pid_t *pids, int size)
 {
 	int	i;
-	
+
 	i = -1;
 	while (++i < size)
 		kill(pids[i], SIGTERM);
@@ -35,7 +35,7 @@ int	wait_childs(pid_t *pids, int size)
 	last = 0;
 	while (++i < size)
 	{
-		aux = waitpid(-1, &status, NULL);
+		aux = wait_pid(-1, &status, NULL);
 		if (aux == -1)
 			return (kill_childs(pids, size));
 		if (WIFEXITED(status) && aux == pids[size - 1])
@@ -55,7 +55,26 @@ pid_t	exec_node(t_lstt *node, int idx, int end)
 {
 	pid_t	child;
 
-	expand_redir(&node);
+	redirect_parser(&node);
+	do_redirections(&node);
+	init_signals(N_INTERACT);
+	if (node->type == STAIR)
+	{
+		child = fork();
+		if (child < 0)
+			return (ERR_NODE);
+		if (child == 0)
+		{
+			executor(node->content);
+			exit(g_msh.err);
+		}
+		return (child);
+	}
+	exapand_commands();
+	if (idx == 0 && end && is_built_in(node->content->cmd_args[0]))
+		return (exec_builtins(node->content));
+	//Si exec node no tiene que hacer fork, devuelve 0.
+	// Devuelve ERR_NODE en caso de fallar
 	child = fork();
 	if (child < 0)
 		return (ERR_NODE);
