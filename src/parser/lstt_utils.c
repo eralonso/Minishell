@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lstt_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 11:44:41 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/07 18:27:41 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/17 17:26:30 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,5 @@ void	lstt_addback(t_lstt **list, t_lstt *bottom)
 	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = bottom;
+	bottom->prev = tmp;
 }

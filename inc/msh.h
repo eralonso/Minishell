@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 12:53:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/17 14:24:57 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/17 19:06:28 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,8 @@ struct s_lstt
 	void		*content;
 	t_redirect	*redirect;
 	t_lstt		*next;
+	t_lstt		*prev;
+	int			fd[2];
 };
 
 struct s_stair
@@ -172,6 +174,7 @@ struct s_subarg
 	int			quote;
 	char		*str;
 	int			var_in;
+	int			n_wilds;
 	t_subarg	*expand;
 	t_subarg	*next;
 };
@@ -212,7 +215,16 @@ void		print_subargs(t_subarg **sub, int depth);
 ///Execution: Main
 int			executor(t_stair *st);
 
-//UTILS
+///Execution: Expansions
+char		*subarg_join(t_subarg **sub);
+char		*expand_dollar(t_subarg *expand, int var_in);
+int			expand_vars(t_subarg **args);
+char		*subarg_expand(t_token *tk);
+int			redirect_parser(t_redirect *redir, int size);
+int			arewildcard(t_subarg **sub);
+int			expand_wilds(t_token *tk);
+
+///UTILS
 char		*ft_strip(char *str);
 int			rmqt_size(char *str);
 char		*remove_quotes(char *str);

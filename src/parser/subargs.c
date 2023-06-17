@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 12:58:52 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/15 13:52:37 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/17 18:50:13 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,16 @@ int	subarg_wild(char *str, int *i, t_subarg **args)
 		return (1);
 	tmp->type = WILD;
 	while (str[*i] == '*')
+	{
+		tmp->n_wilds++;
 		(*i)++;
+	}
+	tmp->str = ft_strwnchr('*', tmp->n_wilds);
+	if (!tmp->str)
+	{
+		free(tmp);
+		return (1);
+	}
 	subarg_addback(args, tmp);
 	return (0);
 }

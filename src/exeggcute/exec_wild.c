@@ -1,29 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strwnchr.c                                      :+:      :+:    :+:   */
+/*   exec_wild.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/17 10:32:55 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/17 15:59:26 by eralonso         ###   ########.fr       */
+/*   Created: 2023/06/17 18:27:56 by eralonso          #+#    #+#             */
+/*   Updated: 2023/06/17 19:03:59 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	<libft.h>
+#include	<msh.h>
 
-char	*ft_strwnchr(char c, int size)
+int	arewildcard(t_subarg **sub)
 {
-	char	*str;
-	int		i;
+	t_subarg	*tmp;
 
-	i = -1;
-	if (size < 0)
-		return (NULL);
-	str = ft_calloc(sizeof(char), size + 1);
-	if (!str)
-		return (NULL);
-	while (++i < size)
-		str[i] = c;
-	return (str);
+	if (!sub || !*sub)
+		return (0);
+	tmp = *sub;
+	while (tmp)
+	{
+		if (tmp->type == WILD)
+			return (1);
+		tmp = tmp->next;
+	}
+	return (0);
+}
+
+int	expand_wilds(t_token *tk)
+{
+	return (tk == NULL);
 }

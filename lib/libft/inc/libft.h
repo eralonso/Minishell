@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 18:50:15 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/17 10:37:08 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/17 16:00:09 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,8 @@
 # define SUFFIX	(int)1
 
 //Typedefs
-typedef struct s_list t_list;
-
-typedef struct s_gnl t_gnl;
+typedef struct s_list	t_list;
+typedef struct s_gnl	t_gnl;
 
 //Structs
 ///Struct: list

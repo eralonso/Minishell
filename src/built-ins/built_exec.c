@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42barcel>       +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 14:23:30 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/17 14:31:08 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/17 17:02:15 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,25 @@ int	exec_builtins(t_cmd *cmd)
 	if (ft_strncmp("echo", cmd->cmd_args[0], 0XFFFFFF))
 		if (exec_echo(cmd->cmd_args))
 			return (ERR_NODE);
-	else if (ft_strncmp("cd", cmd->cmd_args[0], 0XFFFFFF))
+	if (ft_strncmp("cd", cmd->cmd_args[0], 0XFFFFFF))
 		if (exec_cd(cmd->cmd_args))
 			return (ERR_NODE);
-	else if (ft_strncmp("pwd", cmd->cmd_args[0], 0XFFFFFF))
+	if (ft_strncmp("pwd", cmd->cmd_args[0], 0XFFFFFF))
 		if (exec_pwd())
 			return (ERR_NODE);
-	else if (ft_strncmp("export", cmd->cmd_args[0], 0XFFFFFF))
+	if (ft_strncmp("export", cmd->cmd_args[0], 0XFFFFFF))
 		if (exec_export(cmd->cmd_args))
 			return (ERR_NODE);
-	else if (ft_strncmp("unset", cmd->cmd_args[0], 0XFFFFFF))
-		if (exec_unset(g_msh.env, cmd->cmd_args))
+	if (ft_strncmp("unset", cmd->cmd_args[0], 0XFFFFFF))
+		if (exec_unset(&g_msh.env, cmd->cmd_args))
 			return (ERR_NODE);
-	else if (ft_strncmp("env", cmd->cmd_args[0], 0XFFFFFF))
-		if (print_env(g_msh.env))
+	if (ft_strncmp("env", cmd->cmd_args[0], 0XFFFFFF))
+		if (print_env(&g_msh.env))
 			return (ERR_NODE);
-	else if (ft_strncmp("exit", cmd->cmd_args[0], 0XFFFFFF))
+	if (ft_strncmp("exit", cmd->cmd_args[0], 0XFFFFFF))
 		if (exec_exit(cmd->cmd_args))
 			return (ERR_NODE);
-	else
-		return (0);
+	return (0);
 }
 
 int	is_builtin(char *cmd)
