@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/18 12:39:13 by eralonso          #+#    #+#              #
-#    Updated: 2023/06/16 17:42:42 by eralonso         ###   ########.fr        #
+#    Updated: 2023/06/17 10:40:11 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ OBJ_ROOT := .objs/
 HEADERS := $(INC_ROOT)
 
 #----------------------------------->DIRS<-------------------------------------#
-SRC_DIRS	:=	./:ctype/:lists/:matrix/:stdio/:stdlib/:$\
+SRC_DIRS	:=	./:ctype/:stype/:lists/:matrix/:stdio/:stdlib/:$\
 				strings/:string/:unistd/:stdio/ft_printf/
 				
 SRC_DIRS	:=	$(subst :,$(SPACE),$(SRC_DIRS))
@@ -59,7 +59,8 @@ FILES =	ft_memset ft_bzero ft_memcpy ft_memmove \
 		ft_lstdelone ft_lstiter ft_lstmap \
 		get_next_line ft_nbrlen_base ft_matrixlen ft_isnumdup \
 		ft_isint ft_isnum ft_atoll ft_close ft_isspace \
-		ft_strchri ft_strcat ft_isblank \
+		ft_strchri ft_strcat ft_isblank ft_strchrjoin \
+		ft_strwnchr  ft_isempty \
 		ft_flags_checker ft_checker ft_printf ft_chars_utils \
 		ft_nbrs_utils ft_ptr_utils
 

@@ -6,36 +6,52 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 18:50:15 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/16 17:42:29 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/17 10:37:08 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
+//Includes
 # include	<stdlib.h>
 # include	<unistd.h>
 # include	<fcntl.h>
 # include	<limits.h>
 
+//Defines
+///Define: Bases for a numbers
 # define B10 (char *)"0123456789"
 # define BL16 (char *)"0123456789abcdef"
 # define BU16 (char *)"0123456789ABCDEF"
 
-typedef struct s_list
+///Define: ft_strchrjoin: Type of mode
+# define PREFIX	(int)0
+# define SUFFIX	(int)1
+
+//Typedefs
+typedef struct s_list t_list;
+
+typedef struct s_gnl t_gnl;
+
+//Structs
+///Struct: list
+struct s_list
 {
 	void			*content;
 	struct s_list	*next;
-}				t_list;
+};
 
-typedef struct s_gnl {
+///Struct: gnl: struct for management of get_next_line
+struct s_gnl {
 	char	*buffer;
 	char	*line;
 	int		fd;
 	int		err;
-}			t_gnl;
+};
 
-//MEM
+//Functions
+///Functions: MEM
 void		*ft_calloc(size_t count, size_t size);
 void		ft_bzero(void *s, size_t n);
 void		*ft_memchr(const void *s, int c, size_t n);
@@ -44,18 +60,18 @@ void		*ft_memmove(void *dst, const void *src, size_t len);
 void		*ft_memset(void *b, int c, size_t len);
 void		*ft_memcpy(void *dst, const void *src, size_t n);
 
-//NUM
+///Functions: NUM
 int			ft_atoi(const char *str);
 char		*ft_itoa(int n);
 long long	ft_atoll(char *str);
 size_t		ft_nbrlen_base(long long nbr, long long len);
 
-//IS: NUM
+///Functions: IS: NUM
 int			ft_isnum(char *input);
 int			ft_isnumdup(char **input, int num, int index);
 int			ft_isint(char *num);
 
-//IS: CHAR
+///Functions: IS: CHAR
 int			ft_isalnum(int c);
 int			ft_isalpha(int c);
 int			ft_isascii(int c);
@@ -64,11 +80,14 @@ int			ft_isprint(int c);
 int			ft_isspace(int c);
 int			ft_isblank(int c);
 
-//CHAR: CONVERSOR
+///Functions: IS: STR
+int			ft_isempty(char *str);
+
+///Functions: CHAR: CONVERSOR
 int			ft_tolower(int c);
 int			ft_toupper(int c);
 
-//STR: EDIT
+///Functions: STR: EDIT
 char		*ft_strjoin(char const *s1, char const *s2);
 size_t		ft_strlcat(char *dst, const char *src, size_t size);
 size_t		ft_strlcpy(char *dst, const char *src, size_t size);
@@ -79,8 +98,10 @@ char		**ft_split(char const *s, char c);
 char		*ft_strdup(const char *s1);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 void		ft_strcat(char *dst, const char *src);
+char		*ft_strchrjoin(char *str, char c, int mode);
+char		*ft_strwnchr(char c, int size);
 
-//STR: UTILS
+///Functions: STR: UTILS
 size_t		ft_strlen(const char *s);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 int			ft_strrncmp(const char *s1, const char *s2, size_t n);
@@ -90,17 +111,17 @@ int			ft_strchri(const char *s, int c);
 char		*ft_strnstr(const char *haystack, const char *needle,
 				size_t len);
 
-//MATRIX: UTILS
+///Functions: MATRIX: UTILS
 void		*ft_free(char **str, int option);
 int			ft_matrixlen(char **matrix);
 
-//PRINT
+///Functions: PRINT
 void		ft_putchar_fd(char c, int fd);
 void		ft_putendl_fd(char *s, int fd);
 void		ft_putnbr_fd(int n, int fd);
 void		ft_putstr_fd(char *s, int fd);
 
-//LIST
+///Functions: LIST
 t_list		*ft_lstnew(void *content);
 int			ft_lstsize(t_list *lst);
 t_list		*ft_lstlast(t_list *lst);
@@ -111,14 +132,14 @@ void		ft_lstclear(t_list **lst, void (*del)(void*));
 void		ft_lstiter(t_list *lst, void (*f)(void*));
 t_list		*ft_lstmap(t_list *lst, void *(*f)(void*), void (*del)(void *));
 
-//GET_NEXT_LINE
+///Functions: GET_NEXT_LINE
 void		ft_read_file(t_gnl *gnl);
 void		ft_get_line(t_gnl *gnl);
 void		ft_clean_buffer(t_gnl *gnl);
 char		*get_next_line(int fd);
 char		*ft_malloc_strjoin(char *s1, char *s2);
 
-//STDLIB
+///Functions: STDLIB
 int			ft_close(int *fd);
 
 #endif

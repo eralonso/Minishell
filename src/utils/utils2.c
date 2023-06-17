@@ -6,23 +6,11 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 12:26:22 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/16 17:43:56 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/17 10:39:14 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<msh.h>
-
-int	ft_isempty(char *str)
-{
-	int	i;
-
-	if (!str)
-		return (1);
-	i = 0;
-	while (ft_isblank(str[i]))
-		i++;
-	return (str[i] == '\0');
-}
 
 int	rmqt_size(char *str)
 {

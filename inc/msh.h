@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 12:53:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/16 18:13:41 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/17 11:59:11 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@
 # include	<sys/stat.h>
 
 //Defines
+///Errors: Value
+# define ERR_NODE	(int)-1
+
 ///FD
 # define IN		(int)0
 # define OUT	(int)1
@@ -213,7 +216,6 @@ int			executor(t_stair *st);
 char		*ft_strip(char *str);
 int			rmqt_size(char *str);
 char		*remove_quotes(char *str);
-int			ft_isempty(char *str);
 
 ///Parser: Tokens: Synthesize
 t_token		*tokenizer(char *str);
