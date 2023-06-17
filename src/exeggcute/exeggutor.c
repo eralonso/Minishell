@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 13:56:31 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/17 12:03:10 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/17 12:44:52 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,24 @@ int	wait_childs(pid_t *pids, int size)
 	int		status;
 	int		aux;
 	int		i;
+	int		last;
 
+	if (pids[0] == 0)
+		return (0);
 	i = -1;
+	last = 0;
 	while (++i < size)
 	{
 		aux = waitpid(-1, &status, NULL);
 		if (aux == -1)
 			return (kill_childs(pids, size));
 		if (WIFEXITED(status) && aux == pids[size - 1])
-			g_msh.err = WEXITSTATUS(status);
+			(1 && (last = 1) && (g_msh.err = WEXITSTATUS(status)));
 		else if (WIFSIGNALED(status))
 		{
-			if (WTERMSIG(status) == SIGINT)
+			if (!last && WTERMSIG(status) == SIGINT)
 				g_msh.err = 130;
-			else if (WTERMSIG(status) == SIGQUIT)
+			else if (!last && WTERMSIG(status) == SIGQUIT)
 				g_msh.err = 131;
 		}
 	}
