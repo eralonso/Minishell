@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 11:01:58 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/16 15:56:59 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/18 19:06:50 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	exec_export(char **nodes)
 {
-	if (!nodes)
+	if (!nodes[0])
 	{
 		if (print_export())
 			return (1);

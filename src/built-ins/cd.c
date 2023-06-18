@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 12:53:46 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/18 18:11:32 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/18 19:17:44 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,8 @@ int	get_cd_dir(char **input, char **pwd, int *flag)
 
 int	exec_changed(char *pwd, int	*flag)
 {
-	t_env	*tmp;
 	char	*old_pwd;
 
-	tmp = g_msh.env;
 	old_pwd = getcwd(NULL, PATH_MAX);
 	if (!old_pwd)
 		return (1);
@@ -84,18 +82,22 @@ int	env_pwd_change(t_env **env, char *old_pwd, int *flag)
 		return (1);
 	pwd = getcwd(NULL, PATH_MAX);
 	if (!pwd)
-		return (ft_free(&old_pwd, 2), 1);
+		return (1);
 	if (*flag)
 		ft_printf(1, "%s\n", pwd);
 	tmp = env_search(&g_msh.env, "PWD");
 	if (!tmp)
-		return (ft_free(&pwd, 2), ft_free(&old_pwd, 2), 1);
+		return (ft_free(&pwd, 2), 1);
 	else
 		tmp->value = pwd;
 	tmp = *env;
+	dprintf(2, "pwd == %s\n", pwd);
 	tmp = env_search(&g_msh.env, "OLDPWD");
+	dprintf(2, "tmp == %p\n", tmp);
+	if (tmp)
+		dprintf(2, "tmp->value == %s\n", tmp->value);
 	if (!tmp)
-		return (ft_free(&pwd, 2), ft_free(&old_pwd, 2), 1);
+		return (ft_free(&pwd, 2), 1);
 	else
 		tmp->value = old_pwd;
 	return (0);

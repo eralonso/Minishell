@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 13:56:31 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/18 16:57:01 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/18 19:11:29 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,6 @@ pid_t	exec_node(t_lstt *node, int idx, int end)
 		return (ERR_NODE);
 	if (idx == 0 && end && is_builtin(((t_cmd *)node->content)->args[0]))
 		return (exec_builtins(node->content));
-	//Si exec node no tiene que hacer fork, devuelve 0.
-	// Devuelve ERR_NODE en caso de fallar
 	// child = fork();
 	// if (child < 0)
 	// 	return (ERR_NODE);
