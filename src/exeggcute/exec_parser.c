@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:39:37 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/17 19:07:28 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/18 12:53:44 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*subarg_join(t_subarg **sub)
 	tmp = *sub;
 	while (tmp)
 	{
-		ft_malloc_strjoin(str, tmp->str);
+		str = ft_malloc_strjoin(str, tmp->str);
 		if (!str)
 			return (NULL);
 		tmp = tmp->next;
@@ -89,18 +89,4 @@ char	*subarg_expand(t_token *tk)
 	}
 	str = subarg_join(&tk->args);
 	return (str);
-}
-
-int	redirect_parser(t_redirect *redir, int size)
-{
-	int	i;
-
-	i = -1;
-	while (++i < size)
-	{
-		redir[i].file = subarg_expand(redir[i].file_tk);
-		if (!redir[i].file)
-			return (1);
-	}
-	return (0);
 }

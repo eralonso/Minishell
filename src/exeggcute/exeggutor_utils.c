@@ -1,25 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isempty.c                                       :+:      :+:    :+:   */
+/*   exeggutor_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/17 10:37:48 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/18 11:26:01 by eralonso         ###   ########.fr       */
+/*   Created: 2023/06/18 12:21:50 by eralonso          #+#    #+#             */
+/*   Updated: 2023/06/18 12:56:16 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	<libft.h>
+#include	<msh.h>
 
-int	ft_isempty(char *str)
+int	redir_std(int dst[2], const int src[2])
 {
-	int	i;
+	int	err;
+	int	tmp;
 
-	i = 0;
-	if (!str)
-		return (1);
-	while (ft_isblank(str[i]))
-		i++;
-	return (str[i] == '\0');
+	err = 0;
+	tmp = dup2(dst[0], src[0]);
+	if (tmp < 0)
+		err = tmp;
+	tmp = dup2(dst[1], src[1]);
+	if (tmp < 0)
+		err = tmp;
+	tmp = ft_close(&dst[0]);
+	if (tmp < 0)
+		err = tmp;
+	tmp = ft_close(&dst[1]);
+	if (tmp < 0)
+		err = tmp;
+	return (err);
 }

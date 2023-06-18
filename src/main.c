@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:36:26 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/17 14:20:04 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/18 11:23:41 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	main(int ac, char **av, char **env)
 			return (0);
 		}
 		if (*line && start(line))
-			printf("ERROR\nerr: %i\n", g_msh.err);
+			printf("ERROR\n\tg_msh.err: %i\n", g_msh.err);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 12:53:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/17 19:06:28 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/18 12:54:27 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,12 +215,18 @@ void		print_subargs(t_subarg **sub, int depth);
 ///Execution: Main
 int			executor(t_stair *st);
 
+///Execution: Utils
+int			redir_std(int dst[2], const int src[2]);
+
+///Executions: Redirections
+int			redirect_node(t_lstt *node);
+int			redirect_parser(t_redirect *redir, int size);
+
 ///Execution: Expansions
 char		*subarg_join(t_subarg **sub);
 char		*expand_dollar(t_subarg *expand, int var_in);
 int			expand_vars(t_subarg **args);
 char		*subarg_expand(t_token *tk);
-int			redirect_parser(t_redirect *redir, int size);
 int			arewildcard(t_subarg **sub);
 int			expand_wilds(t_token *tk);
 
