@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/22 10:08:41 by eralonso          #+#    #+#              #
-#    Updated: 2023/06/18 12:53:33 by eralonso         ###   ########.fr        #
+#    Updated: 2023/06/18 16:48:20 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,7 +66,7 @@ FILES		:=	main validate_input parse_env echo utils \
 				debug_tokens debug_str signals built_utils cd \
 				env_builts exit export pwd built_exec wildcard subargs \
 				subargs_utils debug_subargs exeggutor utils2 subargs_utils2 \
-				exec_parser exec_wild exeggutor_utils exec_redir
+				exec_parser exec_wild exeggutor_utils exec_redir cmd_exegg
 
 #<--------------------------------->SRCS<----------------------------------->#
 SRCS		:=	$(addsuffix .c,$(FILES))

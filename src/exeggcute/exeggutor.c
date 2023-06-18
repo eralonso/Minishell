@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 13:56:31 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/18 12:58:47 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/18 16:57:01 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,29 +64,27 @@ pid_t	exec_node(t_lstt *node, int idx, int end)
 	if (redirect_parser(node->redirect, node->redir_size))
 		return (ERR_NODE);
 	if (redirect_node(node))
-		return (ERR_NODE);	
+		return (ERR_NODE);
 	child = 0;
 	(void) idx;
 	(void) end;
-	// redirect_parser(&node);
-	// do_redirections(&node);
+	if (node->type == STAIR)
+	{
+		child = fork();
+		if (child < 0)
+			return (ERR_NODE);
+		if (child == 0)
+		{
+			executor(node->content);
+			exit(g_msh.err);
+		}
+		return (child);
+	}
 	// init_signals(N_INTERACT);
-	// if (node->type == STAIR)
-	// {
-	// 	child = fork();
-	// 	if (child < 0)
-	// 		return (ERR_NODE);
-	// 	if (child == 0)
-	// 	{
-	// 		executor(node->content);
-	// 		exit(g_msh.err);
-	// 	}
-	// 	return (child);
-	// }
-	// exapand_commands();
-	// if (idx == 0 && end && is_builtin(((t_cmd *)node->content)->cmd_args[0]))
-	// 	return (1);
-		// return (exec_builtins(node->content));
+	if (expand_args((t_cmd *)node->content, &((t_cmd *)node->content)->args_tk))
+		return (ERR_NODE);
+	if (idx == 0 && end && is_builtin(((t_cmd *)node->content)->args[0]))
+		return (exec_builtins(node->content));
 	//Si exec node no tiene que hacer fork, devuelve 0.
 	// Devuelve ERR_NODE en caso de fallar
 	// child = fork();
@@ -114,10 +112,10 @@ int	exec_nodes(t_lstt **node, int size, const int std_fd[2])
 	while (tmp)
 	{
 		if (pipe(tmp->fd) == -1)
-			return (kill_childs(pids, size), free(pids), 1);
+			return (exec_clean(tmp_fd, std_fd, pids, size));
 		pids[i] = exec_node(tmp, i, i == (size - 1));
 		if (pids[i++] == ERR_NODE)
-			return (kill_childs(pids, size), free(pids), 1);
+			return (exec_clean(tmp_fd, std_fd, pids, size));
 		tmp = tmp->next;
 	}
 	(((redir_std(tmp_fd, std_fd) || wait_childs(pids, size)) \

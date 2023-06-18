@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 12:53:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/18 12:54:27 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/18 16:51:27 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,10 +151,10 @@ struct s_redirect
 
 struct s_cmd
 {
-	t_token	*cmd_args_tk;
-	char	*cmd_n;
-	char	*cmd_path;
-	char	**cmd_args;
+	t_token	*args_tk;
+	char	*name;
+	char	*path;
+	char	**args;
 };
 
 struct s_token
@@ -207,6 +207,9 @@ struct s_msh
 
 //Function Declarations
 ///Debugging Tools
+void		print_redirect(t_redirect *redirect, int size);
+void		print_cmd(t_cmd *cmd);
+void		print_nodes(t_lstt **lst, int depth);
 void		print_stairs(t_stair **stair, int depth);
 void		print_tokens(t_token **tk);
 void		print_matrix(char **matrix);
@@ -216,7 +219,13 @@ void		print_subargs(t_subarg **sub, int depth);
 int			executor(t_stair *st);
 
 ///Execution: Utils
+int			kill_childs(pid_t *pids, int size);
 int			redir_std(int dst[2], const int src[2]);
+int			exec_clean(int tmp_fd[2], const int std_fd[2], \
+			pid_t *pids, int size);
+
+///Execution: Command
+int			expand_args(t_cmd *cmd, t_token **tk);
 
 ///Executions: Redirections
 int			redirect_node(t_lstt *node);

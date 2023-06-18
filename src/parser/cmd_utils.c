@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 11:34:14 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/16 16:48:49 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/18 16:41:08 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ void	*cmd_clean(t_cmd **cmd)
 	if (!cmd || !*cmd)
 		return (NULL);
 	tmp = *cmd;
-	tk_clean(&tmp->cmd_args_tk, NEXT);
-	ft_free(&tmp->cmd_n, 2);
-	ft_free(&tmp->cmd_path, 2);
-	ft_free(tmp->cmd_args, 1);
+	tk_clean(&tmp->args_tk, NEXT);
+	ft_free(&tmp->name, 2);
+	ft_free(&tmp->path, 2);
+	ft_free(tmp->args, 1);
 	free(tmp);
 	return (NULL);
 }

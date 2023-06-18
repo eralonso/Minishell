@@ -6,13 +6,13 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 11:13:56 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/16 18:39:30 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/18 16:50:50 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<msh.h>
 
-static void	print_redirect(t_redirect *redirect, int size)
+void	print_redirect(t_redirect *redirect, int size)
 {
 	int		i;
 
@@ -36,7 +36,7 @@ static void	print_redirect(t_redirect *redirect, int size)
 	printf("\n");
 }
 
-static void	print_cmd(t_cmd *cmd)
+void	print_cmd(t_cmd *cmd)
 {
 	int		i;
 
@@ -44,16 +44,16 @@ static void	print_cmd(t_cmd *cmd)
 	if (!cmd)
 		return ;
 	printf("\tCMD: ");
-	if (cmd->cmd_args)
+	if (cmd->args)
 	{
-		printf("cmd_args:|");
-		while (cmd->cmd_args[++i])
-			printf("%s|", cmd->cmd_args[i]);
+		printf("args:|");
+		while (cmd->args[++i])
+			printf("%s|", cmd->args[i]);
 	}
 	printf("\n\n");
 }
 
-static void	print_nodes(t_lstt **lst, int depth)
+void	print_nodes(t_lstt **lst, int depth)
 {
 	t_lstt	*node;
 	int		i;
