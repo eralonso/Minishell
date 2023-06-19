@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 11:01:58 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/19 19:01:15 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/19 19:10:36 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,18 +68,12 @@ int	export_add(char **input)
 			if (!res[1])
 				clean_env(&g_msh.env, ft_free(&res[0], 2) == NULL);
 		}
-		if (!check_export(res[0], res[1]) && ft_free(&res[0], 2) == ft_free(&res[1], 2))
-			continue ;
-		if (node_update(res[0], res[1]))
+		if (check_export(res[0], input[j]) && node_update(res[0], res[1]))
 			return (clean_env(&g_msh.env, 0), free(res[0]), free(res[1]), 1);
 		(ft_free(&res[0], 2) || ft_free(&res[1], 2) || ((++i) && (++j)));
 	}
 	return (0);
 }
-		// tmp = node_create(res[0], res[1]);
-		// if (!tmp || !check_export(res[0], res[1]))
-		// 	clean_env(&g_msh.env, !ft_free(&res[0], 2) | !ft_free(&res[1], 2));
-		// addfront_env(&g_msh.env, tmp);
 
 char	**sort_env(char **env)
 {

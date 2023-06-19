@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 12:53:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/19 18:01:56 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/19 19:10:22 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -341,7 +341,7 @@ int			node_update(char *key, char *value);
 ///Builtins: Export && Unset
 int			export_add(char **input);
 int			exec_export(char **nodes);
-int			check_export(char *key, char *value);
+int			check_export(char *key, char *str);
 void		env_unset_node(t_env **env, char *node);
 int			exec_unset(t_env **env, char **input);
 int			check_unset(char *node);
