@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 12:53:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/19 12:43:56 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/19 14:43:29 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,10 @@
 ///FD
 # define IN		(int)0
 # define OUT	(int)1
+
+///CTRL C
+# define UNSET	(int)0
+# define SET	(int)1
 
 ///Parenthesis
 # define OFF	(int)0
@@ -115,12 +119,20 @@ typedef struct s_env		t_env;
 typedef struct s_stair		t_stair;
 typedef struct s_lstt		t_lstt;
 typedef struct s_subarg		t_subarg;
+typedef struct s_wild		t_wild;
 typedef struct s_msh		t_msh;
 
 //Global variable
 t_msh						g_msh;
 
 //Structs
+struct s_wild
+{
+	char	**wilds;
+	int		*idxs;
+	int		size;
+};
+
 struct s_lstt
 {
 	int			type;
@@ -213,6 +225,7 @@ void		print_nodes(t_lstt **lst, int depth);
 void		print_stairs(t_stair **stair, int depth);
 void		print_tokens(t_token **tk);
 void		print_matrix(char **matrix);
+void		print_matrix_size(char **matrix, int size);
 void		print_subargs(t_subarg **sub, int depth);
 
 ///Execution: Main

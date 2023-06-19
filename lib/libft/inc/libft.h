@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 18:50:15 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/17 16:00:09 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/19 14:08:47 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void		*ft_memset(void *b, int c, size_t len);
 void		*ft_memcpy(void *dst, const void *src, size_t n);
 
 ///Functions: NUM
-int			ft_atoi(const char *str);
+int			ft_atoi(char *str);
 char		*ft_itoa(int n);
 long long	ft_atoll(char *str);
 size_t		ft_nbrlen_base(long long nbr, long long len);
@@ -102,13 +102,13 @@ char		*ft_strwnchr(char c, int size);
 
 ///Functions: STR: UTILS
 size_t		ft_strlen(const char *s);
-int			ft_strncmp(const char *s1, const char *s2, size_t n);
-int			ft_strrncmp(const char *s1, const char *s2, size_t n);
+int			ft_strncmp(char *s1, char *s2, size_t n);
+int			ft_strrncmp(char *s1, char *s2, size_t n);
 char		*ft_strchr(const char *s, int c);
 char		*ft_strrchr(const char *s, int c);
 int			ft_strchri(const char *s, int c);
-char		*ft_strnstr(const char *haystack, const char *needle,
-				size_t len);
+char		*ft_strnstr(char *haystack, char *needle, size_t len);
+int			ft_strnstri(char *haystack, char *needle, size_t len);
 
 ///Functions: MATRIX: UTILS
 void		*ft_free(char **str, int option);

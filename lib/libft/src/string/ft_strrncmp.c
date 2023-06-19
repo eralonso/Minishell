@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_strrncmp.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 12:03:27 by eralonso          #+#    #+#             */
-/*   Updated: 2023/01/25 09:50:44 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/19 14:43:57 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<libft.h>
 
-int	ft_strrncmp(const char *s1, const char *s2, size_t n)
+int	ft_strrncmp(char *s1, char *s2, size_t n)
 {
 	int	s1_len;
 	int	s2_len;

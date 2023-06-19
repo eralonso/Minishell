@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 11:47:29 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/09 11:53:01 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/19 14:55:11 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,21 @@ void	print_matrix(char **matrix)
 	while (matrix[i])
 	{
 		printf("matrix[%i]:%s:\n", i, matrix[i]);
+		i++;
+	}	
+}
+
+void	print_matrix_size(char **matrix, int size)
+{
+	int	i;
+
+	i = 0;
+	if (!matrix)
+		return ;
+	while (i < size)
+	{
+		if (matrix[i])
+			printf("matrix[%i]:%s:\n", i, matrix[i]);
 		i++;
 	}	
 }

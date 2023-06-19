@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 15:00:11 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/10 16:54:56 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/19 13:23:03 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	exec_exit(char **exit_args)
 	value = g_msh.err;
 	if (write(2, "exit\n", 5) < 0)
 		exit(1);
-	if (!exit_args[0][0])
+	if (!exit_args[0])
 		exit(g_msh.err);
 	if (!validate_args(exit_args, &value))
 	{

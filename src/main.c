@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:36:26 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/19 11:27:35 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/19 13:24:07 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,34 @@ int	print_env(t_env **env)
 	return (0);
 }
 
+void	ctrl_c(int mode)
+{
+	struct termios	tc;
+
+	tcgetattr(0, &tc);
+	if (mode == UNSET)
+		tc.c_lflag = ~ECHOCTL;
+	else if (mode == SET)
+		tc.c_lflag = ECHOCTL;
+	tcsetattr(0, TCSANOW, &tc);
+}
+
+void	set_up(char **env)
+{
+	ft_env(env);
+	set_null_node("OLDPWD", &g_msh.env);
+	ctrl_c(UNSET);
+	g_msh.err = 0;
+}
+
 int	main(int ac, char **av, char **env)
 {
-	char	*line;
+	char			*line;
 
 	(void) av;
 	if (ac > 1)
 		exit(1);
-	ft_env(env);
-	set_null_node("OLDPWD", &g_msh.env);
-	g_msh.err = 0;
+	set_up(env);
 	while (42)
 	{
 		g_msh.ctrl_c = 0;
@@ -47,10 +65,12 @@ int	main(int ac, char **av, char **env)
 		if (!line)
 		{
 			printf("exit");
+			ctrl_c(SET);
 			return (0);
 		}
 		if (*line && start(line))
 			printf("ERROR\n\tg_msh.err: %i\n", g_msh.err);
 	}
+	ctrl_c(SET);
 	return (0);
 }

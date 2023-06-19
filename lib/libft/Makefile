@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/18 12:39:13 by eralonso          #+#    #+#              #
-#    Updated: 2023/06/17 10:40:11 by eralonso         ###   ########.fr        #
+#    Updated: 2023/06/19 14:15:15 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,7 @@ FILES =	ft_memset ft_bzero ft_memcpy ft_memmove \
 		get_next_line ft_nbrlen_base ft_matrixlen ft_isnumdup \
 		ft_isint ft_isnum ft_atoll ft_close ft_isspace \
 		ft_strchri ft_strcat ft_isblank ft_strchrjoin \
-		ft_strwnchr  ft_isempty \
+		ft_strwnchr  ft_isempty ft_strnstri \
 		ft_flags_checker ft_checker ft_printf ft_chars_utils \
 		ft_nbrs_utils ft_ptr_utils
 
