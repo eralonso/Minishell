@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:30:26 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/10 16:07:45 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/19 14:52:22 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,13 @@ void	env_unset_node(t_env **env, char *node)
 
 int	print_one_env(char *input)
 {
-	while (g_msh.env && ft_strncmp(g_msh.env->key, input, \
-		ft_strlen(g_msh.env->key)))
-		g_msh.env = g_msh.env->next;
-	if (ft_strncmp(g_msh.env->key, input, ft_strlen(g_msh.env->key)))
+	t_env	*tmp;
+
+	tmp = g_msh.env;
+	while (tmp && ft_strncmp(tmp->key, input, \
+		ft_strlen(tmp->key)))
+		tmp = tmp->next;
+	if (ft_strncmp(tmp->key, input, ft_strlen(tmp->key)))
 		return (-1);
-	return (ft_printf(1, "%s\n", g_msh.env->value));
+	return (ft_printf(1, "%s\n", tmp->value));
 }

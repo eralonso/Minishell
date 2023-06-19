@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:39:37 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/19 12:43:03 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/19 13:10:50 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ char	*subarg_expand(t_token *tk)
 		return (NULL);
 	if (arewildcard(&tk->args))
 	{
-		if (expand_wilds(tk, &tk->args))
-			return (NULL);
+		// if (expand_wilds(tk, &tk->args))
+		// 	return (NULL);
 		if (tk->line)
 			return (tk->line);
 	}

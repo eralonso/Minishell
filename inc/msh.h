@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 12:53:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/19 12:43:56 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/19 13:10:14 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,7 +237,7 @@ char		*expand_dollar(t_subarg *expand, int var_in);
 int			expand_vars(t_subarg **args);
 char		*subarg_expand(t_token *tk);
 int			arewildcard(t_subarg **sub);
-int			expand_wilds(t_token *tk, t_subarg **args);
+// int			expand_wilds(t_token *tk, t_subarg **args);
 
 ///UTILS
 char		*ft_strip(char *str);
