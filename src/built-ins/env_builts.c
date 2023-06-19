@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_builts.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:30:26 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/10 16:07:45 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/19 17:38:20 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,15 @@ t_env	*env_search(t_env **env, char *key)
 int	exec_unset(t_env **env, char **input)
 {
 	int		j;
+	int		size;
 
 	j = -1;
-	while (++j < ft_matrixlen(input))
+	size = ft_matrixlen(input);
+	while (++j < size)
 	{
 		if (!check_unset(input[j]))
 			return (1);
 		env_unset_node(env, input[j]);
-		printf("entro\n");
 	}
 	return (0);
 }

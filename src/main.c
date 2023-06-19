@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:36:26 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/19 13:24:07 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/19 17:18:38 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,9 @@ void	ctrl_c(int mode)
 	struct termios	tc;
 
 	tcgetattr(0, &tc);
-	if (mode == UNSET)
-		tc.c_lflag = ~ECHOCTL;
-	else if (mode == SET)
-		tc.c_lflag = ECHOCTL;
+	tc.c_lflag &= ~ECHOCTL;
+	if (mode == SET)
+		tc.c_lflag |= ECHOCTL;
 	tcsetattr(0, TCSANOW, &tc);
 }
 
