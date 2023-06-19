@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_parser.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:39:37 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/18 12:53:44 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/19 12:43:03 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char	*subarg_expand(t_token *tk)
 		return (NULL);
 	if (arewildcard(&tk->args))
 	{
-		if (expand_wilds(tk))
+		if (expand_wilds(tk, &tk->args))
 			return (NULL);
 		if (tk->line)
 			return (tk->line);

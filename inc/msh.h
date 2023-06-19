@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 12:53:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/18 16:51:27 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/19 12:43:56 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,7 +237,7 @@ char		*expand_dollar(t_subarg *expand, int var_in);
 int			expand_vars(t_subarg **args);
 char		*subarg_expand(t_token *tk);
 int			arewildcard(t_subarg **sub);
-int			expand_wilds(t_token *tk);
+int			expand_wilds(t_token *tk, t_subarg **args);
 
 ///UTILS
 char		*ft_strip(char *str);
@@ -287,7 +287,6 @@ void		*lstt_clean(t_lstt **lst);
 ///Parser: Cmd: Utils
 void		*cmd_clean(t_cmd **cmd);
 void		*rd_clean(t_redirect *redirect, int size);
-t_token		*cmd_getname_tk(t_token **tk);
 t_token		*cmd_getargs_tk(t_token **tk);
 
 ///Parser: Conversor
