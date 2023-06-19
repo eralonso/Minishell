@@ -31,7 +31,7 @@ PACKAGE_TARNAME = readline
 srcdir = .
 
 top_srcdir = .
-BUILD_DIR = /Users/eralonso/Documents/github/Minishell/lib/readline
+BUILD_DIR = /Users/pramos-m/Documents/GitHub/Minishell/lib/readline
 
 INSTALL = /usr/bin/install -c
 INSTALL_PROGRAM = ${INSTALL}

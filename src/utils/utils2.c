@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 12:26:22 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/19 16:48:53 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/19 18:42:00 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,11 @@ int	node_update(char *key, char *value)
 		return (0);
 	}
 	ft_free(&tmp->value, 2);
-	tmp->value = ft_strdup(value);
-	if (!tmp->value)
-		return (1);
+	if (value)
+	{
+		tmp->value = ft_strdup(value);
+		if (!tmp->value)
+			return (1);
+	}
 	return (0);
 }

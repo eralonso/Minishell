@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:36:26 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/19 15:43:38 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/19 18:46:28 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 char	**list_to_array(t_env **m_env)
 {
 	char		**res;
-	static char	equal[2] = {'=', '\0'};
 	int			i;
 	t_env		*tmp;
 
@@ -29,7 +28,7 @@ char	**list_to_array(t_env **m_env)
 	i = -1;
 	while (tmp && ++i >= 0)
 	{
-		res[i] = ft_strjoin(tmp->key, equal);
+		res[i] = ft_strchrjoin(tmp->key, '=' * (tmp->value != NULL), SUFFIX);
 		if (!res[i])
 			return (ft_free(res, 1));
 		res[i] = ft_malloc_strjoin(res[i], tmp->value);

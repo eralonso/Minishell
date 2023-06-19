@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 11:01:58 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/19 17:59:21 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/19 19:01:15 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,12 @@ int	print_export(void)
 	while (tmp[++i])
 	{
 		pos = ft_strchri(tmp[i], '=');
-		tmp[i][pos] = '\0';
-		ft_printf(1, "declare -x %s=\"%s\"\n", tmp[i], &tmp[i][pos + 1]);
-		tmp[i][pos] = '=';
+		(pos > 0 && (tmp[i][pos] = '\0'));
+		if (pos > 0)
+			ft_printf(1, "declare -x %s=\"%s\"\n", tmp[i], &tmp[i][pos + 1]);
+		else
+			ft_printf(1, "declare -x %s\n", tmp[i]);
+		(pos > 0 && (tmp[i][pos] = '='));
 	}
 	ft_free(tmp, 1);
 	return (0);
@@ -51,27 +54,32 @@ int	export_add(char **input)
 	int		j;
 	int		k;
 	int		i;
-	t_env	*tmp;
 
-	j = -1;
-	i = 0;
-	while (++j < ft_matrixlen(input))
+	(0 || (j = 0) || (i = 0) || (res[0] = NULL) || (res[1] = NULL));
+	while (j < ft_matrixlen(input))
 	{
 		k = ft_strchri(input[i], '=');
 		res[0] = ft_substr(input[j], 0, k);
 		if (!res[0])
 			clean_env(&g_msh.env, 0);
-		res[1] = ft_substr(input[i], k + 1, ft_strlen(input[i]) - (k + 1));
-		if (!res[1])
-			clean_env(&g_msh.env, ft_free(&res[0], 2) == NULL);
-		tmp = node_create(res[0], res[1]);
-		if (!tmp || !check_export(res[0], res[1]))
-			clean_env(&g_msh.env, !ft_free(&res[0], 2) | !ft_free(&res[1], 2));
-		addfront_env(&g_msh.env, tmp);
-		i++;
+		if (k > 0)
+		{
+			res[1] = ft_substr(input[i], k + 1, ft_strlen(input[i]) - (k + 1));
+			if (!res[1])
+				clean_env(&g_msh.env, ft_free(&res[0], 2) == NULL);
+		}
+		if (!check_export(res[0], res[1]) && ft_free(&res[0], 2) == ft_free(&res[1], 2))
+			continue ;
+		if (node_update(res[0], res[1]))
+			return (clean_env(&g_msh.env, 0), free(res[0]), free(res[1]), 1);
+		(ft_free(&res[0], 2) || ft_free(&res[1], 2) || ((++i) && (++j)));
 	}
 	return (0);
 }
+		// tmp = node_create(res[0], res[1]);
+		// if (!tmp || !check_export(res[0], res[1]))
+		// 	clean_env(&g_msh.env, !ft_free(&res[0], 2) | !ft_free(&res[1], 2));
+		// addfront_env(&g_msh.env, tmp);
 
 char	**sort_env(char **env)
 {

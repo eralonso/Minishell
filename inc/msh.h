@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 12:53:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/19 14:43:29 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/19 18:01:56 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -336,6 +336,7 @@ int			exec_pwd(void);
 ///Builtins: Env
 int			print_env(t_env **env);
 int			print_one_env(char *input);
+int			node_update(char *key, char *value);
 
 ///Builtins: Export && Unset
 int			export_add(char **input);
