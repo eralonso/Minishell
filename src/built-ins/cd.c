@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 12:53:46 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/19 14:58:17 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/19 16:49:21 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,12 @@ int	exec_changed(char *pwd, int	*flag)
 		if (env_pwd_change(&g_msh.env, old_pwd, flag))
 			return (ft_free(&old_pwd, 2), 1);
 	}
+	free(old_pwd);
 	return (0);
 }
 
 int	env_pwd_change(t_env **env, char *old_pwd, int *flag)
 {
-	t_env		*tmp;
 	char		*pwd;
 
 	if (!env || !old_pwd)
@@ -86,16 +86,14 @@ int	env_pwd_change(t_env **env, char *old_pwd, int *flag)
 		return (1);
 	if (*flag)
 		ft_printf(1, "%s\n", pwd);
-	tmp = env_search(&g_msh.env, "PWD");
-	if (!tmp)
-		return (ft_free(&pwd, 2), 1);
-	else
-		tmp->value = pwd;
-	tmp = *env;
-	if (!tmp)
-		return (ft_free(&pwd, 2), 1);
-	else
-		tmp->value = old_pwd;
+	if (node_update("PWD", pwd))
+	{
+		free(pwd);
+		return (1);
+	}
+	free(pwd);
+	if (node_update("OLDPWD", old_pwd))
+		return (1);
 	return (0);
 }
 

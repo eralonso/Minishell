@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 17:47:59 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/12 12:15:17 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/19 16:40:47 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,14 @@
 
 int	exec_pwd(void)
 {
-	if (print_one_env("PWD") == -1)
+	char	*pwd;
+
+	pwd = getcwd(NULL, PATH_MAX);
+	if (ft_printf(1, "%s\n", pwd) == -1)
+	{
+		free(pwd);
 		return (1);
+	}
+	free(pwd);
 	return (0);
 }

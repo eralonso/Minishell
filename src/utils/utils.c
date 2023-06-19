@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 18:10:43 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/29 12:30:03 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/19 16:27:57 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,14 @@ int	create_add_node(char *key, char *value)
 	char	*tmp2;
 
 	tmp = ft_strdup(key);
+	if (!tmp)
+		return (1);
 	tmp2 = ft_strdup(value);
+	if (!tmp2)
+		return (free(tmp), 1);
 	env = node_create(tmp, tmp2);
 	if (!env)
-		return ((clean_env(&env, 1) && ft_free(&tmp, 2)));
+		return (free(tmp), free(tmp2), 1);
 	addfront_env(&g_msh.env, env);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:30:26 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/19 14:52:22 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/19 15:54:12 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	exec_unset(t_env **env, char **input)
 		if (!check_unset(input[j]))
 			return (1);
 		env_unset_node(env, input[j]);
-		printf("entro\n");
 	}
 	return (0);
 }
@@ -74,10 +73,9 @@ int	print_one_env(char *input)
 	t_env	*tmp;
 
 	tmp = g_msh.env;
-	while (tmp && ft_strncmp(tmp->key, input, \
-		ft_strlen(tmp->key)))
+	while (tmp && ft_strncmp(tmp->key, input, 0XFFFFFF))
 		tmp = tmp->next;
-	if (ft_strncmp(tmp->key, input, ft_strlen(tmp->key)))
+	if (tmp && ft_printf(1, "%s\n", tmp->value) == -1)
 		return (-1);
-	return (ft_printf(1, "%s\n", tmp->value));
+	return (0);
 }
