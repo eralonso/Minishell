@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exeggutor.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 13:56:31 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/20 10:09:34 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/20 14:17:36 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,89 @@ pid_t	exec_node(t_lstt *node, int idx, int end)
 		return (ERR_NODE);
 	if (idx == 0 && end && is_builtin(((t_cmd *)node->content)->args[0]))
 		return (exec_builtins(node->content));
-	// child = fork();
-	// if (child < 0)
-	// 	return (ERR_NODE);
-	// if (child == 0)
-	// 	exec_cmd(node->content);
+	child = fork();
+	if (child < 0)
+		return (ERR_NODE);
+	if (child == 0)
+		exec_cmd((t_cmd *)node->content);
 	return (child);
+}
+
+void	exec_cmd(t_cmd *cmd)
+{
+	int		err;
+
+	if (is_builtin(cmd->args[0]))
+		exec_builtins(cmd);
+	cmd->path = search_cmd_path(cmd, &err);
+	if (err)
+		exit (1);
+	// if (cmd->path)
+		// execve();
+}
+
+char	*search_cmd_path(t_cmd *cmd, int *err)
+{
+	char	*path;
+	char	*env;
+
+	env = env_node_value(&g_msh.env, "PATH");
+	if (env && !ft_strchr(cmd->args[0], '/'))
+		path = x_path(cmd, env, err);
+	// if (ft_strchr(cmd->args[0], '/'))
+	// {
+		
+	// }
+	return (path);
+}
+
+char	*x_path(t_cmd *cmd, char *env, int *err)
+{
+	char	**paths;
+	char	*path;
+	int		i;
+
+	(1 && (i = -1) && (paths = path_split(cmd, env)));
+	if (!paths)
+		return ((*err = 2), NULL);
+	while (paths[++i])
+	{
+		path = ft_strjoin(paths[i], cmd->args[0]);
+		if (!path)
+			return ((*err = 2), ft_free(paths, 1));
+		if (!access(path, F_OK))
+		{
+			if (access(path, X_OK))
+			{
+				ft_printf(2, "Minishell: %s: Permission denied\n", path);
+				*err = 1;
+				return (ft_free(paths, 1), ft_free(&path, 2));
+			}
+			return (ft_free(paths, 1), path);
+		}
+		ft_free(&path, 2);
+	}
+	return ((*err = 1), ft_free(paths, 1));
+}
+
+char	**path_split(t_cmd *cmd, char *env)
+{
+	char	**ret;
+	char	*tmp;
+	int		i;
+
+	(1 && (i = -1) && (ret = ft_split(env, ':')));
+	if (!ret)
+		return (NULL);
+	while (ret[++i])
+	{
+		tmp = ft_strchrjoin(ret[i], '/', SUFFIX);
+		if (!tmp)
+			return (ft_free(ret, 1));
+		ft_free(&ret[i], 2);
+		ret[i] = tmp;
+	}
+	return (ret);
 }
 
 int	exec_nodes(t_lstt **node, int size, const int std_fd[2])
