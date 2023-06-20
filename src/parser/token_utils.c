@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 13:11:52 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/16 16:57:11 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/20 10:41:28 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	*tk_clean(t_token **tk, int mode)
 		else
 			tmp2 = tmp->prev;
 		if (tmp->line)
-			free(tmp->line);
+			ft_free(&tmp->line, 2);
 		if (tmp->type == ARG)
 			subarg_clean(&tmp->args);
 		free(tmp);

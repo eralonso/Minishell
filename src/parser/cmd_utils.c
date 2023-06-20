@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 11:34:14 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/18 16:41:08 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/20 10:43:36 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	*cmd_clean(t_cmd **cmd)
 	ft_free(&tmp->name, 2);
 	ft_free(&tmp->path, 2);
 	ft_free(tmp->args, 1);
+	tmp->args = NULL;
 	free(tmp);
 	return (NULL);
 }

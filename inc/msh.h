@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 12:53:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/19 19:10:22 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/20 11:52:16 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ struct s_wild
 	char	**wilds;
 	int		*idxs;
 	int		size;
+	int		rem;
 };
 
 struct s_lstt
@@ -250,7 +251,7 @@ char		*expand_dollar(t_subarg *expand, int var_in);
 int			expand_vars(t_subarg **args);
 char		*subarg_expand(t_token *tk);
 int			arewildcard(t_subarg **sub);
-int			expand_wilds(t_token *tk, t_subarg **args);
+char		*expand_wilds(t_subarg **args, int *err);
 
 ///UTILS
 char		*ft_strip(char *str);

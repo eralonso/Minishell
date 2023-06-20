@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 18:50:15 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/19 14:08:47 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/20 11:25:32 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,11 @@ int			ft_strnstri(char *haystack, char *needle, size_t len);
 
 ///Functions: MATRIX: UTILS
 void		*ft_free(char **str, int option);
+void		*ft_free_size(char **matrix, int size);
 int			ft_matrixlen(char **matrix);
+char		*ft_matrixjoin(char **matrix, char c);
+char		*ft_matrixjoin_size(char **matrix, char c, int size);
+int			ft_matrix_remainder(char **matrix, int size);
 
 ///Functions: PRINT
 void		ft_putchar_fd(char c, int fd);

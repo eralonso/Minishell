@@ -6,35 +6,11 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 18:01:19 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/09 11:58:29 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/20 10:31:41 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<libft.h>
-
-void	*ft_free(char **split, int option)
-{
-	int	i;
-
-	if (split && option == 1)
-	{
-		i = 0;
-		while (split[i])
-		{
-			free(split[i]);
-			split[i] = NULL;
-			i++;
-		}
-		free(split);
-	}
-	else if (split && *split && option == 2)
-	{
-		free(*split);
-		*split = NULL;
-	}
-	split = NULL;
-	return (NULL);
-}
 
 static char	*ft_create_word(char const *s, char c)
 {

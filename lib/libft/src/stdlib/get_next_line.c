@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 19:50:46 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/19 18:55:10 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/20 11:42:31 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*ft_malloc_strjoin(char *s1, char *s2)
 		s1 = ft_strdup("");
 	if (!s1)
 		return (NULL);
-	str = ft_calloc((ft_strlen(s1) + ft_strlen(s2) + 1),  sizeof(char));
+	str = ft_calloc((ft_strlen(s1) + ft_strlen(s2) + 1), sizeof(char));
 	if (!str)
 		return (ft_free(&s1, 2));
 	i = -1;
