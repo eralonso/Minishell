@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 13:56:31 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/20 14:21:17 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/20 16:06:13 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,6 @@ int	wait_childs(pid_t *pids, int size)
 		}
 	}
 	return (0);
-}
-
-void	exec_cmd(t_cmd *cmd)
-{
-	exec_builtins(cmd);
-	exit(0);
 }
 
 pid_t	exec_node(t_lstt *node, int idx, int end, int tmp_fd[2])
