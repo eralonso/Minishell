@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 12:52:36 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/18 16:32:58 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/20 12:52:30 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ int	last_redirect(t_redirect *redir, int size, int last_fd[2])
 			mode = IN;
 		if (redir[i].type != RDHD)
 			redir[i].fd[mode] = check_file(redir[i].file, redir[i].type, mode);
+		if (last_fd[mode] > 1 && last_fd[mode] != g_msh.std_fd[mode])
+			ft_close(&last_fd[mode]);
 		last_fd[mode] = redir[i].fd[mode];
 		if (last_fd[mode] < 0)
 			return (1);
@@ -75,20 +77,20 @@ int	last_redirect(t_redirect *redir, int size, int last_fd[2])
 	return (0);
 }
 
-int	redirect_node(t_lstt *node)
+int	redirect_node(t_lstt *node, int tmp_fd[2])
 {
 	int			last_fd[2];
 	const int	std_fd[2] = {0, 1};
 
-	last_fd[IN] = std_fd[IN];
-	last_fd[OUT] = std_fd[OUT];
+	last_fd[IN] = tmp_fd[IN];
+	last_fd[OUT] = tmp_fd[OUT];
 	if (node->prev)
 		last_fd[IN] = node->prev->fd[IN];
 	if (node->next)
 		last_fd[OUT] = node->fd[OUT];
 	if (last_redirect(node->redirect, node->redir_size, last_fd))
 		return (1);
-	if (redir_std(last_fd, std_fd))
+	if (redir_std(last_fd, std_fd, 0))
 		return (1);
 	return (0);
 }

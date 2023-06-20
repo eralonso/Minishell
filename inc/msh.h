@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 12:53:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/20 11:52:16 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/20 13:14:08 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,6 +215,7 @@ struct s_msh
 	t_env	*env;
 	t_stair	*stair;
 	int		ctrl_c;
+	int		std_fd[2];
 	int		err;
 };
 
@@ -229,12 +230,15 @@ void		print_matrix(char **matrix);
 void		print_matrix_size(char **matrix, int size);
 void		print_subargs(t_subarg **sub, int depth);
 
+///Termcap
+void		ctrl_c(int mode);
+
 ///Execution: Main
 int			executor(t_stair *st);
 
 ///Execution: Utils
 int			kill_childs(pid_t *pids, int size);
-int			redir_std(int dst[2], const int src[2]);
+int			redir_std(int dst[2], const int src[2], int end);
 int			exec_clean(int tmp_fd[2], const int std_fd[2], \
 			pid_t *pids, int size);
 
@@ -242,7 +246,7 @@ int			exec_clean(int tmp_fd[2], const int std_fd[2], \
 int			expand_args(t_cmd *cmd, t_token **tk);
 
 ///Executions: Redirections
-int			redirect_node(t_lstt *node);
+int			redirect_node(t_lstt *node, int fd[2]);
 int			redirect_parser(t_redirect *redir, int size);
 
 ///Execution: Expansions

@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 13:56:31 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/20 10:09:34 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/20 14:21:17 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,19 @@ int	wait_childs(pid_t *pids, int size)
 	return (0);
 }
 
-pid_t	exec_node(t_lstt *node, int idx, int end)
+void	exec_cmd(t_cmd *cmd)
+{
+	exec_builtins(cmd);
+	exit(0);
+}
+
+pid_t	exec_node(t_lstt *node, int idx, int end, int tmp_fd[2])
 {
 	pid_t	child;
 
 	if (redirect_parser(node->redirect, node->redir_size))
 		return (ERR_NODE);
-	if (redirect_node(node))
+	if (redirect_node(node, tmp_fd))
 		return (ERR_NODE);
 	child = 0;
 	(void) idx;
@@ -80,16 +86,17 @@ pid_t	exec_node(t_lstt *node, int idx, int end)
 		}
 		return (child);
 	}
+	ctrl_c(SET);
 	init_signals(N_INTERACT);
 	if (expand_args((t_cmd *)node->content, &((t_cmd *)node->content)->args_tk))
 		return (ERR_NODE);
 	if (idx == 0 && end && is_builtin(((t_cmd *)node->content)->args[0]))
 		return (exec_builtins(node->content));
-	// child = fork();
-	// if (child < 0)
-	// 	return (ERR_NODE);
-	// if (child == 0)
-	// 	exec_cmd(node->content);
+	child = fork();
+	if (child < 0)
+		return (ERR_NODE);
+	if (child == 0)
+		exec_cmd(node->content);
 	return (child);
 }
 
@@ -98,28 +105,31 @@ int	exec_nodes(t_lstt **node, int size, const int std_fd[2])
 	t_lstt		*tmp;
 	pid_t		*pids;
 	int			i;
-	int			tmp_fd[2];
 
 	pids = ft_calloc(sizeof(pid_t), size);
 	if (!node || !*node || !pids)
 		return (1);
 	(1 && (tmp = *node) && (i = 0));
-	(1 && (tmp_fd[0] = dup(std_fd[0])) && (tmp_fd[1] = dup(std_fd[1])));
-	if (tmp_fd[0] == -1 || tmp_fd[1] == -1)
+	(1 && (g_msh.std_fd[0] = dup(IN)) && (g_msh.std_fd[1] = dup(OUT)));
+	if (g_msh.std_fd[0] == -1 || g_msh.std_fd[1] == -1)
 		return (free(pids), 1);
 	while (tmp)
 	{
 		if (pipe(tmp->fd) == -1)
-			return (exec_clean(tmp_fd, std_fd, pids, size));
-		pids[i] = exec_node(tmp, i, i == (size - 1));
+			return (exec_clean(g_msh.std_fd, std_fd, pids, size));
+		pids[i] = exec_node(tmp, i, i == (size - 1), g_msh.std_fd);
 		if (pids[i++] == ERR_NODE)
-			return (exec_clean(tmp_fd, std_fd, pids, size));
+			return (exec_clean(g_msh.std_fd, std_fd, pids, size));
 		tmp = tmp->next;
 	}
-	(((redir_std(tmp_fd, std_fd) || wait_childs(pids, size)) \
+	(((redir_std(g_msh.std_fd, std_fd, 1) || wait_childs(pids, size)) \
 	&& (i = kill_childs(pids, size))) || (i = 0));
 	return (free(pids), i);
 }
+// dprintf(2, "g_msh.std_fd[0] == %i && g_msh.std_fd[1] == %i\n\n", 
+// g_msh.std_fd[0], g_msh.std_fd[1]);
+// dprintf(2, "cmd[%i]: pipe: fd[0] == %i && fd[1] == %i\n", i, 
+// tmp->fd[0], tmp->fd[1]);
 
 int	executor(t_stair *st)
 {

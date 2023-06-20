@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:18:49 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/18 11:57:57 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/20 13:15:58 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int	start(char *input)
 	if (!g_msh.ctrl_c && executor(g_msh.stair))
 		return (st_clean(&g_msh.stair), 1);
 	st_clean(&g_msh.stair);
+	ctrl_c(UNSET);
 	return (0);
 }
 
