@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 13:56:31 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/20 14:17:36 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/20 16:02:38 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,14 +96,20 @@ pid_t	exec_node(t_lstt *node, int idx, int end)
 void	exec_cmd(t_cmd *cmd)
 {
 	int		err;
+	char	**env;
 
+	err = 0;
 	if (is_builtin(cmd->args[0]))
 		exec_builtins(cmd);
 	cmd->path = search_cmd_path(cmd, &err);
 	if (err)
 		exit (1);
-	// if (cmd->path)
-		// execve();
+	env = list_to_array(&g_msh.env);
+	if (!env)
+		exit(1);
+	execve(cmd->path, cmd->args, env);
+	ft_printf(2, "Minishell: execve error\n");
+	exit (1);
 }
 
 char	*search_cmd_path(t_cmd *cmd, int *err)
@@ -111,14 +117,20 @@ char	*search_cmd_path(t_cmd *cmd, int *err)
 	char	*path;
 	char	*env;
 
+	path = NULL;
 	env = env_node_value(&g_msh.env, "PATH");
 	if (env && !ft_strchr(cmd->args[0], '/'))
 		path = x_path(cmd, env, err);
-	// if (ft_strchr(cmd->args[0], '/'))
-	// {
-		
-	// }
-	return (path);
+	if (path)
+		return (path);
+	if (ft_strchr(cmd->args[0], '/') && !access(cmd->args[0], F_OK) \
+		&& access(cmd->args[0], X_OK))
+		ft_printf(2, "Minishell: %s: Permission denied\n", path);
+	else if (ft_strchr(cmd->args[0], '/') && !access(cmd->args[0], F_OK) \
+		&& !access(cmd->args[0], X_OK))
+		return (path);
+	ft_printf(2, "Minishell: %s: command not found\n", cmd->args[0]);
+	return (NULL);
 }
 
 char	*x_path(t_cmd *cmd, char *env, int *err)
@@ -127,7 +139,7 @@ char	*x_path(t_cmd *cmd, char *env, int *err)
 	char	*path;
 	int		i;
 
-	(1 && (i = -1) && (paths = path_split(cmd, env)));
+	(1 && (paths = path_split(env)) && (i = -1));
 	if (!paths)
 		return ((*err = 2), NULL);
 	while (paths[++i])
@@ -150,13 +162,13 @@ char	*x_path(t_cmd *cmd, char *env, int *err)
 	return ((*err = 1), ft_free(paths, 1));
 }
 
-char	**path_split(t_cmd *cmd, char *env)
+char	**path_split(char *env)
 {
 	char	**ret;
 	char	*tmp;
 	int		i;
 
-	(1 && (i = -1) && (ret = ft_split(env, ':')));
+	(1 && (ret = ft_split(env, ':')) && (i = -1));
 	if (!ret)
 		return (NULL);
 	while (ret[++i])

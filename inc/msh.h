@@ -6,7 +6,7 @@
 /*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 12:53:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/20 13:12:28 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/20 15:51:34 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,6 +233,8 @@ void		print_subargs(t_subarg **sub, int depth);
 int			executor(t_stair *st);
 void		exec_cmd(t_cmd *cmd);
 char		*search_cmd_path(t_cmd *cmd, int *err);
+char		*x_path(t_cmd *cmd, char *env, int *err);
+char		**path_split(char *env);
 ///Execution: Utils
 int			kill_childs(pid_t *pids, int size);
 int			redir_std(int dst[2], const int src[2]);
