@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 13:56:31 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/20 18:35:17 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/20 19:04:10 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	kill_childs(pid_t *pids, int size)
 	i = -1;
 	while (++i < size)
 	{
-		if (pids[i] > 0)
+		if (pids[i] > 1)
 		{
 			kill(pids[i], SIGTERM);
 			pids[i] = 0;
@@ -84,8 +84,6 @@ pid_t	exec_node(t_lstt *node, int idx, int end, int tmp_fd[2])
 		}
 		return (child);
 	}
-	ctrl_c(SET);
-	init_signals(N_INTERACT);
 	if (expand_args((t_cmd *)node->content, &((t_cmd *)node->content)->args_tk))
 		return (ERR_NODE);
 	if (idx == 0 && end && is_builtin(((t_cmd *)node->content)->args[0]))
@@ -95,10 +93,12 @@ pid_t	exec_node(t_lstt *node, int idx, int end, int tmp_fd[2])
 		return (ERR_NODE);
 	if (child == 0)
 	{
+		ctrl_c(SET);
+		init_signals(N_INTERACT);
 		ft_close(&node->fd[0]);
 		if (redirect_node(node, tmp_fd))
 			return (ERR_NODE);
-		// exec_cmd((t_cmd *)node->content);
+		exec_cmd((t_cmd *)node->content);
 	}
 	if (node->next)
 	{
