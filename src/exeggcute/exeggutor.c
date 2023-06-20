@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exeggutor.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 13:56:31 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/20 16:02:38 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/20 18:35:17 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,17 +57,13 @@ int	wait_childs(pid_t *pids, int size)
 	return (0);
 }
 
-pid_t	exec_node(t_lstt *node, int idx, int end)
+pid_t	exec_node(t_lstt *node, int idx, int end, int tmp_fd[2])
 {
 	pid_t	child;
 
 	if (redirect_parser(node->redirect, node->redir_size))
 		return (ERR_NODE);
-	if (redirect_node(node))
-		return (ERR_NODE);
 	child = 0;
-	(void) idx;
-	(void) end;
 	if (node->type == STAIR)
 	{
 		child = fork();
@@ -75,11 +71,20 @@ pid_t	exec_node(t_lstt *node, int idx, int end)
 			return (ERR_NODE);
 		if (child == 0)
 		{
+			ft_close(&node->fd[0]);
+			if (redirect_node(node, tmp_fd))
+				return (ERR_NODE);
 			executor(node->content);
 			exit(g_msh.err);
 		}
+		if (node->next)
+		{
+			ft_close(&node->fd[0]);
+			ft_close(&node->fd[1]);
+		}
 		return (child);
 	}
+	ctrl_c(SET);
 	init_signals(N_INTERACT);
 	if (expand_args((t_cmd *)node->content, &((t_cmd *)node->content)->args_tk))
 		return (ERR_NODE);
@@ -89,97 +94,18 @@ pid_t	exec_node(t_lstt *node, int idx, int end)
 	if (child < 0)
 		return (ERR_NODE);
 	if (child == 0)
-		exec_cmd((t_cmd *)node->content);
+	{
+		ft_close(&node->fd[0]);
+		if (redirect_node(node, tmp_fd))
+			return (ERR_NODE);
+		// exec_cmd((t_cmd *)node->content);
+	}
+	if (node->next)
+	{
+		ft_close(&node->fd[0]);
+		ft_close(&node->fd[1]);
+	}
 	return (child);
-}
-
-void	exec_cmd(t_cmd *cmd)
-{
-	int		err;
-	char	**env;
-
-	err = 0;
-	if (is_builtin(cmd->args[0]))
-		exec_builtins(cmd);
-	cmd->path = search_cmd_path(cmd, &err);
-	if (err)
-		exit (1);
-	env = list_to_array(&g_msh.env);
-	if (!env)
-		exit(1);
-	execve(cmd->path, cmd->args, env);
-	ft_printf(2, "Minishell: execve error\n");
-	exit (1);
-}
-
-char	*search_cmd_path(t_cmd *cmd, int *err)
-{
-	char	*path;
-	char	*env;
-
-	path = NULL;
-	env = env_node_value(&g_msh.env, "PATH");
-	if (env && !ft_strchr(cmd->args[0], '/'))
-		path = x_path(cmd, env, err);
-	if (path)
-		return (path);
-	if (ft_strchr(cmd->args[0], '/') && !access(cmd->args[0], F_OK) \
-		&& access(cmd->args[0], X_OK))
-		ft_printf(2, "Minishell: %s: Permission denied\n", path);
-	else if (ft_strchr(cmd->args[0], '/') && !access(cmd->args[0], F_OK) \
-		&& !access(cmd->args[0], X_OK))
-		return (path);
-	ft_printf(2, "Minishell: %s: command not found\n", cmd->args[0]);
-	return (NULL);
-}
-
-char	*x_path(t_cmd *cmd, char *env, int *err)
-{
-	char	**paths;
-	char	*path;
-	int		i;
-
-	(1 && (paths = path_split(env)) && (i = -1));
-	if (!paths)
-		return ((*err = 2), NULL);
-	while (paths[++i])
-	{
-		path = ft_strjoin(paths[i], cmd->args[0]);
-		if (!path)
-			return ((*err = 2), ft_free(paths, 1));
-		if (!access(path, F_OK))
-		{
-			if (access(path, X_OK))
-			{
-				ft_printf(2, "Minishell: %s: Permission denied\n", path);
-				*err = 1;
-				return (ft_free(paths, 1), ft_free(&path, 2));
-			}
-			return (ft_free(paths, 1), path);
-		}
-		ft_free(&path, 2);
-	}
-	return ((*err = 1), ft_free(paths, 1));
-}
-
-char	**path_split(char *env)
-{
-	char	**ret;
-	char	*tmp;
-	int		i;
-
-	(1 && (ret = ft_split(env, ':')) && (i = -1));
-	if (!ret)
-		return (NULL);
-	while (ret[++i])
-	{
-		tmp = ft_strchrjoin(ret[i], '/', SUFFIX);
-		if (!tmp)
-			return (ft_free(ret, 1));
-		ft_free(&ret[i], 2);
-		ret[i] = tmp;
-	}
-	return (ret);
 }
 
 int	exec_nodes(t_lstt **node, int size, const int std_fd[2])
@@ -187,28 +113,32 @@ int	exec_nodes(t_lstt **node, int size, const int std_fd[2])
 	t_lstt		*tmp;
 	pid_t		*pids;
 	int			i;
-	int			tmp_fd[2];
 
 	pids = ft_calloc(sizeof(pid_t), size);
 	if (!node || !*node || !pids)
 		return (1);
 	(1 && (tmp = *node) && (i = 0));
-	(1 && (tmp_fd[0] = dup(std_fd[0])) && (tmp_fd[1] = dup(std_fd[1])));
-	if (tmp_fd[0] == -1 || tmp_fd[1] == -1)
+	(1 && (g_msh.std_fd[0] = dup(IN)) && (g_msh.std_fd[1] = dup(OUT)));
+	if (g_msh.std_fd[0] == -1 || g_msh.std_fd[1] == -1)
 		return (free(pids), 1);
 	while (tmp)
 	{
-		if (pipe(tmp->fd) == -1)
-			return (exec_clean(tmp_fd, std_fd, pids, size));
-		pids[i] = exec_node(tmp, i, i == (size - 1));
+		dprintf(2, "%i\n", i);
+		if (tmp->next && pipe(tmp->fd) == -1)
+			return (exec_clean(g_msh.std_fd, std_fd, pids, size));
+		pids[i] = exec_node(tmp, i, i == (size - 1), g_msh.std_fd);
 		if (pids[i++] == ERR_NODE)
-			return (exec_clean(tmp_fd, std_fd, pids, size));
+			return (exec_clean(g_msh.std_fd, std_fd, pids, size));
 		tmp = tmp->next;
 	}
-	(((redir_std(tmp_fd, std_fd) || wait_childs(pids, size)) \
+	(((redir_std(g_msh.std_fd, std_fd, 1) || (wait_childs(pids, size))) \
 	&& (i = kill_childs(pids, size))) || (i = 0));
 	return (free(pids), i);
 }
+// dprintf(2, "g_msh.std_fd[0] == %i && g_msh.std_fd[1] == %i\n\n", 
+// g_msh.std_fd[0], g_msh.std_fd[1]);
+// dprintf(2, "cmd[%i]: pipe: fd[0] == %i && fd[1] == %i\n", 
+// i, tmp->fd[0], tmp->fd[1]);
 
 int	executor(t_stair *st)
 {

@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 12:52:36 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/20 12:52:30 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/20 18:34:07 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	redirect_parser(t_redirect *redir, int size)
 	int	i;
 
 	i = -1;
+	// dprintf(2, "redirect_parser: size == %i\n", size);
 	while (++i < size)
 	{
 		redir[i].file = subarg_expand(redir[i].file_tk);
@@ -88,7 +89,8 @@ int	redirect_node(t_lstt *node, int tmp_fd[2])
 		last_fd[IN] = node->prev->fd[IN];
 	if (node->next)
 		last_fd[OUT] = node->fd[OUT];
-	if (last_redirect(node->redirect, node->redir_size, last_fd))
+	if (node->redir_size \
+		&& last_redirect(node->redirect, node->redir_size, last_fd))
 		return (1);
 	if (redir_std(last_fd, std_fd, 0))
 		return (1);

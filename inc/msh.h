@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 12:53:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/20 13:14:08 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/20 18:32:01 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,6 +235,12 @@ void		ctrl_c(int mode);
 
 ///Execution: Main
 int			executor(t_stair *st);
+
+///Exectuion: Commands
+void		exec_cmd(t_cmd *cmd);
+char		*search_cmd_path(t_cmd *cmd, int *err);
+char		*x_path(t_cmd *cmd, char *env, int *err);
+char		**path_split(char *env);
 
 ///Execution: Utils
 int			kill_childs(pid_t *pids, int size);
