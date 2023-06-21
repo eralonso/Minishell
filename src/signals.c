@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 13:20:26 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/21 12:34:55 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/21 18:53:02 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	init_signals(int mode)
 	struct sigaction	signal;
 
 	signal.sa_flags = SA_RESTART;
+	sigemptyset(&signal.sa_mask);
 	if (mode == NORM)
 		signal.sa_sigaction = norm_handler;
 	else if (mode == N_INTERACT)

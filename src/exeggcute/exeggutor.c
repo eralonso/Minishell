@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 13:56:31 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/21 13:49:16 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/21 19:17:32 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,10 @@ pid_t	exec_node(t_lstt *node, int idx, int end, int tmp_fd[2])
 	if (expand_args((t_cmd *)node->content, &((t_cmd *)node->content)->args_tk))
 		return (ERR_NODE);
 	if (idx == 0 && end && is_builtin(((t_cmd *)node->content)->args[0]))
-		return (exec_builtins(node->content));
+	{
+		g_msh.err = exec_builtins(node->content);
+		return (0);
+	}
 	return (exec_fork_cmd(node, tmp_fd));
 }
 
@@ -92,7 +95,7 @@ int	exec_nodes(t_lstt **node, int size, const int std_fd[2])
 			return (exec_clean(g_msh.std_fd, std_fd, pids, size));
 		tmp = tmp->next;
 	}
-	g_msh.err = 0;
+	(pids[0] != 0 && (g_msh.err = 0));
 	(((redir_std(g_msh.std_fd, std_fd, 1) || (wait_childs(pids, size))) \
 	&& (i = kill_childs(pids, size))) || (i = 0));
 	return (free(pids), i);

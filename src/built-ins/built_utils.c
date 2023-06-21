@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 16:42:55 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/21 18:29:50 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/21 19:00:36 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,16 +98,18 @@ int	check_unset(char *node)
 	if (ft_isdigit(node[0]))
 	{
 		if (msg_error("unset", node, NVI, 2) == -1)
-			return (0);
+			return (-1);
+		return (1);
 	}
 	while (node[i])
 	{
 		if (!ft_isalnum(node[i]) && node[i] != '_')
 		{
 			if (msg_error("unset", node, NVI, 2) == -1)
-				return (0);
+				return (-1);
+			return (1);
 		}
 		i++;
 	}
-	return (1);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 14:23:30 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/21 17:10:17 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/21 19:13:31 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,24 @@
 
 int	exec_builtins(t_cmd *cmd)
 {
+	int	ret;
+
+	ret = 0;
 	if (!ft_strncmp("echo", cmd->args[0], 0XFFFFFF))
-		if (exec_echo(&cmd->args[1]))
-			return (ERR_NODE);
+		ret = exec_echo(&cmd->args[1]);
 	if (!ft_strncmp("cd", cmd->args[0], 0XFFFFFF))
-		if (exec_cd(&cmd->args[1]))
-			return (ERR_NODE);
+		ret = exec_cd(&cmd->args[1]);
 	if (!ft_strncmp("pwd", cmd->args[0], 0XFFFFFF))
-		if (exec_pwd())
-			return (ERR_NODE);
+		ret = exec_pwd();
 	if (!ft_strncmp("export", cmd->args[0], 0XFFFFFF))
-		if (exec_export(&cmd->args[1]))
-			return (ERR_NODE);
+		ret = exec_export(&cmd->args[1]);
 	if (!ft_strncmp("unset", cmd->args[0], 0XFFFFFF))
-		if (exec_unset(&g_msh.env, cmd->args))
-			return (ERR_NODE);
+		ret = exec_unset(&g_msh.env, cmd->args);
 	if (!ft_strncmp("env", cmd->args[0], 0XFFFFFF))
-		if (print_env(&g_msh.env))
-			return (ERR_NODE);
+		ret = print_env(&g_msh.env);
 	if (!ft_strncmp("exit", cmd->args[0], 0XFFFFFF))
-		if (exec_exit(&cmd->args[1]))
-			return (ERR_NODE);
-	return (0);
+		ret = exec_exit(&cmd->args[1]);
+	return (ret);
 }
 
 int	is_builtin(char *cmd)

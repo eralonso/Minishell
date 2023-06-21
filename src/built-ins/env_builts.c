@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:30:26 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/21 18:34:04 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/21 19:13:32 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,23 @@ int	exec_unset(t_env **env, char **input)
 {
 	int		j;
 	int		size;
+	int		err;
+	int		ret;
 
 	j = -1;
+	ret = 0;
 	size = ft_matrixlen(input);
 	while (++j < size)
 	{
-		if (!check_unset(input[j]))
+		err = check_unset(input[j]);
+		if (err == -1)
 			return (1);
-		env_unset_node(env, input[j]);
+		if (err)
+			ret = 1;
+		if (!err)
+			env_unset_node(env, input[j]);
 	}
-	return (0);
+	return (ret);
 }
 
 void	env_unset_node(t_env **env, char *node)
