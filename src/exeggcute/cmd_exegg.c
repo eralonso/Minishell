@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 16:35:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/20 18:55:40 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/21 11:57:52 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	expand_args(t_cmd *cmd, t_token **tk)
 
 	if (!tk)
 		return (1);
-	// dprintf(2, "expand_arg: size == %i\n", tk_tkcounter(tk, ARG, EOCL, 0));
 	cmd->args = ft_calloc(sizeof(char *), tk_tkcounter(tk, ARG, EOCL, 0) + 1);
 	if (!cmd->args)
 		return (1);
@@ -43,7 +42,7 @@ void	exec_cmd(t_cmd *cmd)
 
 	err = 0;
 	if (is_builtin(cmd->args[0]))
-		exec_builtins(cmd);
+		exit(exec_builtins(cmd));
 	cmd->path = search_cmd_path(cmd, &err);
 	if (err)
 		exit (1);

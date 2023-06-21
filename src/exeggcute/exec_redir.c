@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 12:52:36 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/20 18:34:07 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/21 13:49:32 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	redirect_parser(t_redirect *redir, int size)
 	int	i;
 
 	i = -1;
-	// dprintf(2, "redirect_parser: size == %i\n", size);
 	while (++i < size)
 	{
 		redir[i].file = subarg_expand(redir[i].file_tk);

@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:36:26 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/19 17:18:38 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/21 12:33:22 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	main(int ac, char **av, char **env)
 		do_sigign(SIGINT);
 		if (!line)
 		{
-			printf("exit");
+			ft_printf(2, "exit\n");
 			ctrl_c(SET);
 			return (0);
 		}

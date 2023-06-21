@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 12:53:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/20 18:32:01 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/21 11:52:47 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,6 +236,10 @@ void		ctrl_c(int mode);
 ///Execution: Main
 int			executor(t_stair *st);
 
+///Execution: Fork
+int			exec_fork_stair(t_lstt *node, int tmp_fd[2]);
+int			exec_fork_cmd(t_lstt *node, int tmp_fd[2]);
+
 ///Exectuion: Commands
 void		exec_cmd(t_cmd *cmd);
 char		*search_cmd_path(t_cmd *cmd, int *err);
@@ -267,6 +271,7 @@ char		*expand_wilds(t_subarg **args, int *err);
 char		*ft_strip(char *str);
 int			rmqt_size(char *str);
 char		*remove_quotes(char *str);
+void		msh_exit(int status);
 
 ///Parser: Tokens: Synthesize
 t_token		*tokenizer(char *str);

@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 18:50:15 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/20 11:25:32 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/21 12:10:23 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,12 @@ char		*ft_itoa(int n);
 long long	ft_atoll(char *str);
 size_t		ft_nbrlen_base(long long nbr, long long len);
 
-///Functions: IS: NUM
+///Functions: NUM: IS
 int			ft_isnum(char *input);
 int			ft_isnumdup(char **input, int num, int index);
 int			ft_isint(char *num);
 
-///Functions: IS: CHAR
+///Functions: CHAR: IS
 int			ft_isalnum(int c);
 int			ft_isalpha(int c);
 int			ft_isascii(int c);
@@ -79,12 +79,16 @@ int			ft_isprint(int c);
 int			ft_isspace(int c);
 int			ft_isblank(int c);
 
-///Functions: IS: STR
+///Functions: STR: IS
 int			ft_isempty(char *str);
 
 ///Functions: CHAR: CONVERSOR
 int			ft_tolower(int c);
 int			ft_toupper(int c);
+
+///Functions: STR: CONVERSOR
+void		ft_strtolower(char *str);
+void		ft_strtoupper(char *str);
 
 ///Functions: STR: EDIT
 char		*ft_strjoin(char const *s1, char const *s2);
@@ -117,6 +121,7 @@ int			ft_matrixlen(char **matrix);
 char		*ft_matrixjoin(char **matrix, char c);
 char		*ft_matrixjoin_size(char **matrix, char c, int size);
 int			ft_matrix_remainder(char **matrix, int size);
+char		**ft_matrixdup(char **matrix);
 
 ///Functions: PRINT
 void		ft_putchar_fd(char c, int fd);

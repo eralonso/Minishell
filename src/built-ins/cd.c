@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 12:53:46 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/19 16:49:21 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/21 11:15:32 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	get_cd_dir(char **input, char **pwd, int *flag)
 	if (!input[0])
 	{
 		*pwd = env_node_value(&g_msh.env, "HOME");
-		printf("env node value home:%s:\n", *pwd);
 		if (!*pwd)
 			return (1);
 	}

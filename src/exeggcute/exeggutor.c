@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 13:56:31 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/20 19:04:10 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/21 13:49:16 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ int	wait_childs(pid_t *pids, int size)
 		else if (WIFSIGNALED(status))
 		{
 			if (!last && WTERMSIG(status) == SIGINT)
-				g_msh.err = 130;
+				(1 && (g_msh.err = 130) && (last = 1));
 			else if (!last && WTERMSIG(status) == SIGQUIT)
-				g_msh.err = 131;
+				(1 && (g_msh.err = 131) && (last = 1));
 		}
 	}
 	return (0);
@@ -59,53 +59,15 @@ int	wait_childs(pid_t *pids, int size)
 
 pid_t	exec_node(t_lstt *node, int idx, int end, int tmp_fd[2])
 {
-	pid_t	child;
-
 	if (redirect_parser(node->redirect, node->redir_size))
 		return (ERR_NODE);
-	child = 0;
 	if (node->type == STAIR)
-	{
-		child = fork();
-		if (child < 0)
-			return (ERR_NODE);
-		if (child == 0)
-		{
-			ft_close(&node->fd[0]);
-			if (redirect_node(node, tmp_fd))
-				return (ERR_NODE);
-			executor(node->content);
-			exit(g_msh.err);
-		}
-		if (node->next)
-		{
-			ft_close(&node->fd[0]);
-			ft_close(&node->fd[1]);
-		}
-		return (child);
-	}
+		return (exec_fork_stair(node, tmp_fd));
 	if (expand_args((t_cmd *)node->content, &((t_cmd *)node->content)->args_tk))
 		return (ERR_NODE);
 	if (idx == 0 && end && is_builtin(((t_cmd *)node->content)->args[0]))
 		return (exec_builtins(node->content));
-	child = fork();
-	if (child < 0)
-		return (ERR_NODE);
-	if (child == 0)
-	{
-		ctrl_c(SET);
-		init_signals(N_INTERACT);
-		ft_close(&node->fd[0]);
-		if (redirect_node(node, tmp_fd))
-			return (ERR_NODE);
-		exec_cmd((t_cmd *)node->content);
-	}
-	if (node->next)
-	{
-		ft_close(&node->fd[0]);
-		ft_close(&node->fd[1]);
-	}
-	return (child);
+	return (exec_fork_cmd(node, tmp_fd));
 }
 
 int	exec_nodes(t_lstt **node, int size, const int std_fd[2])
@@ -123,7 +85,6 @@ int	exec_nodes(t_lstt **node, int size, const int std_fd[2])
 		return (free(pids), 1);
 	while (tmp)
 	{
-		dprintf(2, "%i\n", i);
 		if (tmp->next && pipe(tmp->fd) == -1)
 			return (exec_clean(g_msh.std_fd, std_fd, pids, size));
 		pids[i] = exec_node(tmp, i, i == (size - 1), g_msh.std_fd);
@@ -131,6 +92,7 @@ int	exec_nodes(t_lstt **node, int size, const int std_fd[2])
 			return (exec_clean(g_msh.std_fd, std_fd, pids, size));
 		tmp = tmp->next;
 	}
+	g_msh.err = 0;
 	(((redir_std(g_msh.std_fd, std_fd, 1) || (wait_childs(pids, size))) \
 	&& (i = kill_childs(pids, size))) || (i = 0));
 	return (free(pids), i);

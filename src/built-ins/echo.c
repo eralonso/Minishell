@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:07:59 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/19 17:36:48 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/21 11:04:57 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	ft_echo_n(char **input)
 	{
 		if (!input[i + 1])
 			c = '\0';
-		if (printf("%s%c", input[i], c) == -1)
+		if (ft_printf(1, "%s%c", input[i], c) == -1)
 		{
 			g_msh.err = 1;
 			return (1);

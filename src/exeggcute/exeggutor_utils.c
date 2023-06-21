@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 12:21:50 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/20 18:12:40 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/21 13:51:44 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,14 @@ int	redir_std(int dst[2], const int src[2], int end)
 	tmp = dup2(dst[OUT], src[OUT]);
 	if (tmp < 0)
 		err = tmp;
-	if (dst[IN] != src[IN] && (end || g_msh.std_fd[IN] != dst[IN]))
+	if (dst[IN] && dst[IN] != src[IN] && (end || g_msh.std_fd[IN] != dst[IN]))
 	{
 		tmp = ft_close(&dst[IN]);
 		if (tmp < 0)
 			err = tmp;
 	}
-	if (src[OUT] != dst[OUT] && (end || g_msh.std_fd[OUT] != dst[OUT]))
+	if (dst[OUT] > 1 && src[OUT] != dst[OUT] \
+		&& (end || g_msh.std_fd[OUT] != dst[OUT]))
 	{
 		tmp = ft_close(&dst[OUT]);
 		if (tmp < 0)
