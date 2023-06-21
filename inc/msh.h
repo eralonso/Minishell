@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 12:53:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/21 11:52:47 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/21 17:35:16 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,19 @@
 //Defines
 ///Errors: Value
 # define ERR_NODE	(int)-1
+# define ERR_CNF	(int)127
+# define ERR_XPERM	(int)126
+# define ERR_GEN	(int)1
 
+///Errors: Str
+# define NVI	(char *)"not a valid identifier"
+# define CNF	(char *)"command not found"
+# define NAR	(char *)"numeric argument required"
+# define NFD	(char *)"No such file or directory"
+# define PERM	(char *)"Permission denied"
+# define NAD	(char *)"Not a directory"
+# define EVE	(char *)"execve error"
+# define MLC	(char *)"malloc error"
 ///FD
 # define IN		(int)0
 # define OUT	(int)1
@@ -242,9 +254,10 @@ int			exec_fork_cmd(t_lstt *node, int tmp_fd[2]);
 
 ///Exectuion: Commands
 void		exec_cmd(t_cmd *cmd);
-char		*search_cmd_path(t_cmd *cmd, int *err);
-char		*x_path(t_cmd *cmd, char *env, int *err);
+char		*search_cmd_path(t_cmd *cmd);
+char		*x_path(t_cmd *cmd, char *env);
 char		**path_split(char *env);
+char		*t_path(char *path);
 
 ///Execution: Utils
 int			kill_childs(pid_t *pids, int size);
@@ -267,11 +280,14 @@ char		*subarg_expand(t_token *tk);
 int			arewildcard(t_subarg **sub);
 char		*expand_wilds(t_subarg **args, int *err);
 
-///UTILS
+///UTILS: Str
 char		*ft_strip(char *str);
 int			rmqt_size(char *str);
 char		*remove_quotes(char *str);
+
+///UTILS: Error
 void		msh_exit(int status);
+int			msg_error(char *str, char *added, char *added2, int ret);
 
 ///Parser: Tokens: Synthesize
 t_token		*tokenizer(char *str);
@@ -380,20 +396,6 @@ char		*env_node_value(t_env **env, char *key);
 int			create_add_node(char *key, char *value);
 void		set_null_node(char *key, t_env **env);
 int			is_builtin(char *cmd);
-
-///Expand
-int			env_var_count(char *str);
-int			var_size(char *str);
-char		*expand_var(char *str);
-char		**fill_env_vars(char *str, int size);
-char		*expand_env_var(char *str);
-char		*expand_line(char *str);
-int			expand(t_token **tk);
-int			var_total_size(char *str, char **vars);
-char		*var_line(char *str, char **vars, int size);
-
-///Expand: Wildcard
-char		*expand_wildcard(char *str);
 
 ///Wildcard
 char		**get_wildcard(char *directory);

@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 12:53:46 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/21 11:15:32 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/21 17:10:39 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	get_cd_dir(char **input, char **pwd, int *flag)
 	else if (input[0] && !ft_strncmp(input[0], "-", 0XFFFFFF))
 	{
 		if (!env_node_value(&g_msh.env, "OLDPWD"))
-			return (ft_printf(2, "Minishell: cd: OLDPWD not set\n"));
+			return (msg_error("cd", "OLDPWD not set", NULL, 0), 1);
 		*pwd = env_node_value(&g_msh.env, "OLDPWD");
 		*flag = 1;
 	}
@@ -57,11 +57,11 @@ int	exec_changed(char *pwd, int	*flag)
 	if (chdir(pwd) == -1)
 	{
 		if (access(pwd, F_OK))
-			ft_printf(2, "Minishell: cd: %s: No such file or directory\n", pwd);
+			msg_error("cd", pwd, NFD, 0);
 		else if (access(pwd, R_OK))
-			ft_printf(2, "Minishell: cd: %s: Permission denied\n", pwd);
+			msg_error("cd", pwd, PERM, 0);
 		else
-			ft_printf(2, "Minishell: cd: %s: Not a directory\n", pwd);
+			msg_error("cd", pwd, NAD, 0);
 		ft_free(&old_pwd, 2);
 		return (1);
 	}

@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 16:42:55 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/19 19:16:26 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/21 17:10:29 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,7 @@ int	check_export(char *key, char *str)
 	i = 0;
 	if (key && ft_isdigit(key[0]))
 	{
-		if (ft_printf(2, "Minishell: export: `%s': not a valid identifier\n", \
-		str) == -1)
+		if (msg_error("export", str, NVI, 2) == -1)
 			return (0);
 		return (0);
 	}
@@ -82,8 +81,7 @@ int	check_export(char *key, char *str)
 	{
 		if (!ft_isalnum(key[i]) && key[i] != '_')
 		{
-			if (ft_printf(2, "%s`%s': not a valid identifier\n", \
-			"Minishell: export: ", str) == -1)
+			if (msg_error("export", str, NVI, 2) == -1)
 				return (0);
 			return (0);
 		}
@@ -99,16 +97,14 @@ int	check_unset(char *node)
 	i = 0;
 	if (ft_isdigit(node[0]))
 	{
-		if (ft_printf(2, "Minishell: unset: `%s': \
-		not a valid identifier\n", node) == -1)
+		if (msg_error("unset", node, NVI, 2) == -1)
 			return (0);
 	}
 	while (node[i])
 	{
 		if (!ft_isalnum(node[i]) && node[i] != '_')
 		{
-			if (ft_printf(2, "Minishell: unset: `%s': \
-			not a valid identifier\n", node) == -1)
+			if (msg_error("unset", node, NVI, 2) == -1)
 				return (0);
 		}
 		i++;

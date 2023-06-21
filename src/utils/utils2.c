@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 12:26:22 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/21 11:49:44 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/21 15:10:37 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,4 @@ int	node_update(char *key, char *value)
 			return (1);
 	}
 	return (0);
-}
-
-void	msh_exit(int status)
-{
-	ctrl_c(SET);
-	g_msh.err = status;
-	st_clean(&g_msh.stair);
-	clean_env(&g_msh.env, 0);
-	exit(status);
 }
