@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 12:53:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/21 17:35:16 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/21 18:24:37 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,6 @@ typedef struct s_redirect	t_redirect;
 typedef struct s_cmd		t_cmd;
 typedef struct s_kof		t_kof;
 typedef struct s_token		t_token;
-typedef struct s_block		t_block;
 typedef struct s_env		t_env;
 typedef struct s_stair		t_stair;
 typedef struct s_lstt		t_lstt;
