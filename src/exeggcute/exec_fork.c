@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 10:48:24 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/21 13:48:02 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/22 11:58:10 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	exec_fork_stair(t_lstt *node, int tmp_fd[2])
 	{
 		ft_close(&node->fd[0]);
 		if (redirect_node(node, tmp_fd))
-			return (ERR_NODE);
+			exit(ERR_GEN);
 		executor(node->content);
 		exit(g_msh.err);
 	}
@@ -50,8 +50,10 @@ int	exec_fork_cmd(t_lstt *node, int tmp_fd[2])
 		ctrl_c(SET);
 		ft_close(&node->fd[0]);
 		if (redirect_node(node, tmp_fd))
-			exit (ERR_NODE);
-		exec_cmd((t_cmd *)node->content);
+			exit(ERR_GEN);
+		if (((t_cmd *)node->content)->args[0])
+			exec_cmd((t_cmd *)node->content);
+		exit(0);
 	}
 	if (node->next)
 	{

@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 12:03:27 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/19 14:38:15 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/22 11:55:01 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,12 @@ int	ft_strncmp(char *s1, char *s2, size_t n)
 	str1 = (unsigned char *)s1;
 	str2 = (unsigned char *)s2;
 	i = 0;
-	if (!n || !s1 || !s2)
+	if (!n || (!s1 && !s2))
 		return (0);
+	if (!s1 && s2)
+		return (*s2);
+	if (!s2 && s1)
+		return (*s1);
 	while (str1[i] && str2[i] && --n)
 	{
 		if (str1[i] != str2[i])

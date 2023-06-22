@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 12:52:36 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/21 20:11:07 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/22 12:37:19 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,29 +26,49 @@ int	redirect_parser(t_redirect *redir, int size)
 	return (0);
 }
 
+int	ft_access(char *file, int mode)
+{
+	int	ret;
+
+	ret = 0;
+	if (mode == IN)
+	{
+		if (access(file, F_OK))
+			(1 && (ret = -1) && msg_error(file, NFD, NULL, 0));
+		if (!ret && access(file, R_OK))
+			(1 && (ret = -1) && msg_error(file, PERM, NULL, 0));
+	}
+	if (mode == OUT)
+	{
+		if (!access(file, F_OK) && access(file, W_OK))
+			(1 && (ret = -1) && msg_error(file, PERM, NULL, 0));
+		if (ft_strchr(file, '/') && access(file, F_OK))
+			(1 && (ret = -1) && msg_error(file, NFD, NULL, 0));
+	}
+	return (ret);
+}
+
 int	check_file(char *file, int type, int mode)
 {
 	int	fd;
 	int	flag;
+	int	err;
 
 	fd = -1;
+	err = ft_access(file, mode);
+	if (err)
+		return (err);
 	if (mode == IN)
-	{
-		if (access(file, F_OK | R_OK))
-			return (-1);
 		fd = open(file, O_RDONLY);
-	}
 	else if (mode == OUT)
 	{
-		if (!access(file, F_OK) && access(file, W_OK))
-			return (-1);
 		flag = O_TRUNC;
 		if (type == RDAP)
 			flag = O_APPEND;
 		fd = open(file, O_WRONLY | O_CREAT | flag, 0666);
 	}
 	if (fd < 0)
-		return (-1);
+		msg_error("open: Error trying open file", file, NULL, 2);
 	return (fd);
 }
 
@@ -71,7 +91,7 @@ int	last_redirect(t_redirect *redir, int size, int last_fd[2])
 			ft_close(&last_fd[mode]);
 		last_fd[mode] = redir[i].fd[mode];
 		if (last_fd[mode] < 0)
-			return (1);
+			return (last_fd[mode]);
 		i++;
 	}
 	return (0);
@@ -81,6 +101,7 @@ int	redirect_node(t_lstt *node, int tmp_fd[2])
 {
 	int			last_fd[2];
 	const int	std_fd[2] = {0, 1};
+	int			err;
 
 	last_fd[IN] = tmp_fd[IN];
 	last_fd[OUT] = tmp_fd[OUT];
@@ -88,9 +109,12 @@ int	redirect_node(t_lstt *node, int tmp_fd[2])
 		last_fd[IN] = node->prev->fd[IN];
 	if (node->next)
 		last_fd[OUT] = node->fd[OUT];
-	if (node->redir_size \
-		&& last_redirect(node->redirect, node->redir_size, last_fd))
-		return (1);
+	if (node->redir_size)
+	{
+		err = last_redirect(node->redirect, node->redir_size, last_fd);
+		if (err)
+			return (1);
+	}
 	if (redir_std(last_fd, std_fd, 0))
 		return (1);
 	return (0);
