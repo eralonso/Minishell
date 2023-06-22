@@ -6,11 +6,37 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:39:37 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/22 11:51:07 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/22 18:46:37 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<msh.h>
+
+t_list	*wild_to_list(t_wild *wild)
+{
+	int		i;
+	t_list	*new;
+	t_list	*tmp;
+
+	if (!wild)
+		return (NULL);
+	i = -1;
+	new = NULL;
+	while (++i < wild->size)
+	{
+		if (wild->wilds[i])
+		{
+			tmp = ft_lstnew(ft_strdup(wild->wilds[i]));
+			if (!tmp)
+			{
+				ft_lstclear(&new, free);
+				return (NULL);
+			}
+			ft_lstadd_back(&new, tmp);
+		}
+	}
+	return (new);
+}
 
 char	*subarg_join(t_subarg **sub)
 {
@@ -74,22 +100,31 @@ int	expand_vars(t_subarg **args)
 	return (0);
 }
 
-char	*subarg_expand(t_token *tk)
+t_list	*subarg_expand(t_token *tk)
 {
-	char	*str;
-	int		err;
+	t_wild	*wild;
+	t_list	*new;
 
-	err = 0;
+	if (!tk)
+		return (NULL);
+	if (tk->type == ARG && !tk->args)
+		return (ft_lstnew(NULL));
+	new = NULL;
 	if (expand_vars(&tk->args))
 		return (NULL);
 	if (arewildcard(&tk->args))
 	{
-		str = expand_wilds(&tk->args, &err);
-		if (err)
+		wild = expand_wilds(&tk->args);
+		if (!wild)
 			return (NULL);
-		if (str)
-			return (str);
+		if (wild->rem)
+		{
+			new = wild_to_list(wild);
+			ft_free_size(wild->wilds, wild->size);
+			free(wild);
+			return (new);
+		}
 	}
-	str = subarg_join(&tk->args);
-	return (str);
+	new = ft_lstnew(subarg_join(&tk->args));
+	return (new);
 }

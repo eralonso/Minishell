@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 14:23:30 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/22 13:56:18 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/22 18:42:58 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ int	is_builtin(char *cmd)
 {
 	char	*str;
 
+	if (!cmd)
+		return (0);
 	str = ft_strdup(cmd);
 	if (!str)
 		return (-1);

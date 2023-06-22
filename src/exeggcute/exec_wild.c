@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 18:27:56 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/20 11:58:02 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/22 18:19:29 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,19 @@ char	*join_wild(t_subarg **sub)
 	return (str);
 }
 
-int	init_wild(t_wild *wild)
+int	init_wild(t_wild **wild)
 {
-	wild->wilds = get_wildcard(CURRENT_DIR);
-	if (!wild->wilds)
+	*wild = ft_calloc(sizeof(t_wild), 1);
+	if (!*wild)
 		return (1);
-	wild->size = ft_matrixlen(wild->wilds);
-	wild->rem = wild->size;
-	wild->idxs = ft_calloc(sizeof(int), wild->size);
-	if (!wild->idxs)
-		return (ft_free(wild->wilds, 1), 1);
+	(*wild)->wilds = get_wildcard(CURRENT_DIR);
+	if (!(*wild)->wilds)
+		return (1);
+	(*wild)->size = ft_matrixlen((*wild)->wilds);
+	(*wild)->rem = (*wild)->size;
+	(*wild)->idxs = ft_calloc(sizeof(int), (*wild)->size);
+	if (!(*wild)->idxs)
+		return (ft_free((*wild)->wilds, 1), 1);
 	return (0);
 }
 
@@ -87,30 +90,30 @@ void	select_wilds(t_wild *wild, char *str, int first, int last)
 	}
 }
 
-char	*expand_wilds(t_subarg **args, int *err)
+t_wild	*expand_wilds(t_subarg **args)
 {
 	t_subarg	*tmp;
-	t_wild		wild;
+	t_wild		*wild;
 	char		*str;
 	int			first;
-	char		*line;
 
 	if (init_wild(&wild))
-		return ((*err = 1), NULL);
-	(1 && (tmp = *args)) && ((first = 1) && ((str = NULL) || (line = NULL)));
+		return (NULL);
+	(1 && (tmp = *args)) && ((first = 1) && ((str = NULL)));
 	while (tmp)
 	{
 		if (tmp->type != WILD)
 		{
-			(1 && ((str = join_wild(&tmp)) || (*err = 1)));
+			str = join_wild(&tmp);
 			if (!str)
-				return (free(wild.idxs), ft_free(wild.wilds, 1));
-			select_wilds(&wild, str, first, !(tmp && tmp->type == WILD));
+				return (free(wild->idxs), ft_free(wild->wilds, 1));
+			select_wilds(wild, str, first, !(tmp && tmp->type == WILD));
 		}
 		((ft_free(&str, 2) || 1) && tmp && (tmp = tmp->next) && (first = 0));
 	}
-	(wild.rem && (line = ft_matrixjoin_size(wild.wilds, ' ', wild.size)));
-	(wild.rem && !line && (*err = 1));
-	ft_free_size(wild.wilds, wild.size);
-	return (line);
+	free(wild->idxs);
+	return (wild);
 }
+	// (wild->rem && (line = ft_matrixjoin_size(wild->wilds, ' ', wild->size)));
+	// (wild->rem && !line && (*err = 1));
+	// ft_free_size(wild->wilds, wild->size);

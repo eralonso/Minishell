@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 12:52:36 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/22 12:37:19 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/22 19:38:20 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,28 @@
 
 int	redirect_parser(t_redirect *redir, int size)
 {
-	int	i;
+	int		i;
+	t_list	*args;
 
 	i = -1;
 	while (++i < size)
 	{
-		redir[i].file = subarg_expand(redir[i].file_tk);
-		if (!redir[i].file)
-			return (1);
+		if (redir[i].type != RDHD)
+		{
+			args = real_list(&redir[i].file_tk);
+			if (!args)
+				return (1);
+			if (args->next)
+			{
+				redir[i].warn = 1;
+				ft_lstclear(&args, free);
+			}
+			else
+			{
+				redir[i].file = args->content;
+				free(args);
+			}			
+		}
 	}
 	return (0);
 }
@@ -52,12 +66,10 @@ int	check_file(char *file, int type, int mode)
 {
 	int	fd;
 	int	flag;
-	int	err;
 
 	fd = -1;
-	err = ft_access(file, mode);
-	if (err)
-		return (err);
+	if (ft_access(file, mode))
+		return (-1);
 	if (mode == IN)
 		fd = open(file, O_RDONLY);
 	else if (mode == OUT)
@@ -82,6 +94,10 @@ int	last_redirect(t_redirect *redir, int size, int last_fd[2])
 	i = 0;
 	while (i < size)
 	{
+		if (redir[i].warn)
+			msg_error("*", "ambiguos redirect", NULL, 0);
+		if (redir[i].warn)
+			return (-1);
 		mode = OUT;
 		if (redir[i].type == RDI || redir[i].type == RDHD)
 			mode = IN;

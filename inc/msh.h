@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 12:53:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/22 16:06:31 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/22 18:31:29 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,7 @@ struct s_redirect
 	int		type;
 	t_token	*file_tk;
 	char	*file;
+	int		warn;
 	int		fd[2];
 	int		tmp_fd[2];
 };
@@ -279,9 +280,10 @@ int			redirect_parser(t_redirect *redir, int size);
 char		*subarg_join(t_subarg **sub);
 char		*expand_dollar(t_subarg *expand, int var_in);
 int			expand_vars(t_subarg **args);
-char		*subarg_expand(t_token *tk);
+t_list		*subarg_expand(t_token *tk);
 int			arewildcard(t_subarg **sub);
-char		*expand_wilds(t_subarg **args, int *err);
+t_wild		*expand_wilds(t_subarg **args);
+t_list		*real_list(t_token **tk);
 
 ///UTILS: Str
 char		*ft_strip(char *str);

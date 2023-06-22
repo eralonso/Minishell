@@ -6,11 +6,35 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 17:34:04 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/22 12:49:40 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/22 18:44:44 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<msh.h>
+
+t_list	*real_list(t_token **tk)
+{
+	t_list	*list;
+	t_list	*new;
+	t_token	*tmp;
+
+	if (!tk)
+		return (NULL);
+	tmp = *tk;
+	list = NULL;
+	while (tmp)
+	{
+		new = subarg_expand(tmp);
+		if (!new)
+		{
+			ft_lstclear(&list, free);
+			return (NULL);
+		}
+		ft_lstadd_back(&list, new);
+		tmp = tmp->next;
+	}
+	return (list);
+}
 
 char	**path_split(char *env)
 {
