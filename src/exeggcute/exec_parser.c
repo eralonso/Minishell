@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_parser.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:39:37 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/20 18:29:44 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/21 20:15:50 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	*expand_dollar(t_subarg *expand, int var_in)
 		tmp = env_search(&g_msh.env, expand->str);
 		if (!tmp && !ft_strncmp(expand->str, "?\0", 2))
 			return (ft_itoa(g_msh.err));
-		if (tmp)
+		if (tmp && tmp->value)
 			return (ft_strdup(tmp->value));
 	}
 	return (ft_strdup(""));

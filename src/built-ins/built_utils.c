@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 16:42:55 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/21 19:00:36 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/21 20:43:57 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	check_export(char *key, char *str)
 	int	i;
 
 	i = 0;
-	if (key && ft_isdigit(key[0]))
+	if (!*key || (key && ft_isdigit(key[0])))
 	{
 		if (msg_error("export", str, NVI, 2) == -1)
 			return (0);

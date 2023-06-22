@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_input.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:18:49 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/20 13:15:58 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/21 20:36:31 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,13 @@ char	*validate_input(char *input, int *err)
 	if (ft_isempty(str))
 	{
 		ft_free(&str, 2);
-		*err = 0;
+		*err = 1;
 		return (NULL);
 	}
 	if (check_syntax(str))
 	{
 		ft_free(&str, 2);
+		g_msh.err = 258;
 		*err = 1;
 		return (NULL);
 	}
