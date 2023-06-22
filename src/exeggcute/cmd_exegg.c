@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 16:35:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/22 12:04:40 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/22 12:49:34 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void	exec_cmd(t_cmd *cmd)
 	msg_error(EVE, NULL, NULL, 0);
 	msh_exit(ERR_GEN);
 }
-
 
 char	*search_cmd_path(t_cmd *cmd)
 {
