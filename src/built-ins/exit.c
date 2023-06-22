@@ -6,11 +6,14 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 15:00:11 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/22 14:11:24 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/22 15:38:28 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<msh.h>
+
+static int	validate_args(char **node);
+static void	print_exit_error(char *data);
 
 int	exec_exit(char **exit_args)
 {
@@ -22,19 +25,20 @@ int	exec_exit(char **exit_args)
 		exit(1);
 	if (!exit_args[0])
 		exit(g_msh.err);
-	if (!validate_args(exit_args, &value))
+	if (!validate_args(exit_args))
 	{
 		tmp_value = ft_atoi(exit_args[0]);
 		value = (int)tmp_value;
 	}
+	if (ft_matrixlen(exit_args) > 1)
+		return (msg_error("exit", "too many arguments", NULL, 0), 1);
 	if (value == -1)
 		return (1);
-	clean_env(&g_msh.env, 0);
 	msh_exit(value);
 	return (0);
 }
 
-int	validate_args(char **node, int *value)
+static int	validate_args(char **node)
 {
 	int	i;
 
@@ -44,10 +48,7 @@ int	validate_args(char **node, int *value)
 	while (node[i])
 	{
 		if (!is_valid_num(node[i]))
-		{
-			*value = print_exit_error(node[i]);
-			return (1);
-		}
+			print_exit_error(node[i]);
 		i++;
 	}
 	if (!node[i] && i == 2)
@@ -79,9 +80,9 @@ int	is_valid_num(char *data)
 	return (0);
 }
 
-int	print_exit_error(char *data)
+static void	print_exit_error(char *data)
 {
 	if (msg_error("exit", data, NAR, 0))
-		return (-1);
-	return (255);
+		msh_exit(1);
+	msh_exit(255);
 }

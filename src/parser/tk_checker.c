@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tk_checker.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 18:56:51 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/16 16:50:48 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/22 16:15:16 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,15 +85,16 @@ int	check_tokens(t_token **tk)
 	while (tmp && tmp->type != EOCL && err == 0)
 	{
 		(tmp->type == ARG && (tmp->next->type == OP \
-			|| (tmp->prev && tmp->prev->type == CP)) && (err = 1));
-		(tmp->type == PIPE && check_pipe(tmp) && (err = 1));
-		(tmp->type == OP && check_op(tmp) && (err = 1));
-		(tmp->type == CP && check_cp(tmp) && (err = 1));
-		((tmp->type == AND || tmp->type == OR) && check_logo(tmp) && (err = 1));
+			|| (tmp->prev && tmp->prev->type == CP)) && (err = ARG));
+		(tmp->type == PIPE && check_pipe(tmp) && (err = PIPE));
+		(tmp->type == OP && check_op(tmp) && (err = OP));
+		(tmp->type == CP && check_cp(tmp) && (err = CP));
+		((tmp->type == AND || tmp->type == OR) && check_logo(tmp) \
+			&& (err = tmp->type));
 		((tmp->type == RDI || tmp->type == RDO || tmp->type == RDAP) \
-		&& tmp->next->type != ARG && (err = 1));
-		(tmp->type == RDHD && tmp->next->type != LIMITER && (err = 1));
+		&& tmp->next->type != ARG && (err = tmp->type));
+		(tmp->type == RDHD && tmp->next->type != LIMITER && (err = RDHD));
 		tmp = tmp->next;
 	}
-	return (err);
+	return (msg_syntax_error(err, err));
 }

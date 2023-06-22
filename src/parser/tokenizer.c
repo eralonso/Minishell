@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 11:40:07 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/21 20:38:02 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/22 16:17:37 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,6 @@ t_token	*tokenizer(char *str)
 		return (tk_clean(&tk, NEXT));
 	tk_addback(&tk, node);
 	if (check_tokens(&tk))
-	{
-		g_msh.err = 258;
 		return (tk_clean(&tk, NEXT));
-	}
 	return (tk);
 }

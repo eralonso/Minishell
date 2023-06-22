@@ -6,16 +6,33 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:18:49 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/22 14:13:19 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/22 16:21:39 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<msh.h>
 
-int	msg_syntax_error(char *str, int ret)
+int	msg_syntax_error(int type, int ret)
 {
-	if (ft_printf(2, "Minishell: error near unexpected token `%s'", str) == -1)
-		return (-1);
+	char	*str;
+
+	str = NULL;
+	((type == RDI || type == RDO || type == RDHD || type == RDAP) \
+		&& (str = ft_strdup("newline")));
+	(type == OP && (str = ft_strdup("(")));
+	(type == CP && (str = ft_strdup(")")));
+	(type == PIPE && (str = ft_strdup("|")));
+	(type == AND && (str = ft_strdup("&")));
+	(type == OR && (str = ft_strdup("||")));
+	(type == DQ && (str = ft_strdup("\"")));
+	(type == SQ && (str = ft_strdup("\'")));
+	(type == ARG && (str = ft_strdup("ARG")));
+	if (str)
+	{
+		ft_printf(2, "Minishell: error near unexpected token `%s'", str);
+		free(str);
+		g_msh.err = 258;
+	}
 	return (ret);
 }
 
@@ -30,17 +47,17 @@ static int	check_syntax(char *input)
 	{
 		check_qp(&fok, input[i]);
 		if (fok.cp > fok.op)
-			return (msg_syntax_error(")", 1));
+			return (msg_syntax_error(CP, 1));
 		if ((fok.sq < 0 && fok.dq < 0) && ((input[i] == '&' \
 		&& input[++i] != '&')))
-			return (msg_syntax_error("&", 1));
+			return (msg_syntax_error(AND, 1));
 	}
 	if (fok.sq > 0)
-		return (msg_syntax_error("\'", 1));
+		return (msg_syntax_error(SQ, 1));
 	if (fok.dq > 0)
-		return (msg_syntax_error("\"", 1));
+		return (msg_syntax_error(DQ, 1));
 	if (fok.op > fok.cp)
-		return (msg_syntax_error("(", 1));
+		return (msg_syntax_error(OP, 1));
 	return (0);
 }
 
@@ -91,7 +108,6 @@ char	*validate_input(char *input, int *err)
 	if (check_syntax(str))
 	{
 		ft_free(&str, 2);
-		g_msh.err = 258;
 		*err = 1;
 		return (NULL);
 	}

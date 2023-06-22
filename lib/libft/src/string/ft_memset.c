@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 18:22:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/01/29 18:05:30 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/22 15:57:13 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,9 @@
 
 void	*ft_memset(void *b, int c, size_t len)
 {
-	size_t	size;
-
-	size = len;
+	if (!b)
+		return (NULL);
 	while (len-- > 0)
-		*((unsigned char *)(b++)) = (unsigned char)c;
-	return (b - size);
+		((unsigned char *)b)[len] = (unsigned char)c;
+	return (b);
 }

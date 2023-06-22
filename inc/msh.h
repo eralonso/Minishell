@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 12:53:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/22 13:34:41 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/22 16:06:31 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@
 ////RDI == ReDirection Input '<', AND == And '&&', 
 ////RDO == ReDirection Output '>', OR == Or '||', 
 ////OP == Open Parenthesis '(', ARG == Argument == 
-////Text {[A ... Z], [a ... z], [0 ... 9]}, CP == Close Parenthesis ')',
+////Text {[A ... Z], [a ... z], [0 ... 9], etc}, CP == Close Parenthesis ')',
 ////LOGIC == LOGIC operator {&&, ||}, RD == ReDirections == {<, >, <<, >>}
 # define EOCL		(int)0
 # define RDHD		(int)1
@@ -105,8 +105,12 @@
 # define RD			(int)12
 # define LIMITER	(int)13
 
+///Auxiliar types for error
+# define SQ			(int)14
+# define DQ			(int)15
+
 ///Types of ARG: 
-////TXT == Text {[a ... z], [A ... Z], [0 ... 9]}
+////TXT == Text {[a ... z], [A ... Z], [0 ... 9], etc}
 ////VAR == Enviroment variable '$', WILD == Wildcard '*'
 # define TXT	(int)1
 # define VAR	(int)2
@@ -287,7 +291,7 @@ char		*remove_quotes(char *str);
 ///UTILS: Error
 void		msh_exit(int status);
 int			msg_error(char *str, char *added, char *added2, int ret);
-int			msg_syntax_error(char *str, int ret);
+int			msg_syntax_error(int type, int ret);
 
 ///Parser: Tokens: Synthesize
 t_token		*tokenizer(char *str);
@@ -381,7 +385,6 @@ int			check_unset(char *node);
 
 ///Builtins: Exit
 int			exec_exit(char **exit);
-int			print_exit_error(char *data);
 
 ///Builtins: Cd
 int			exec_cd(char **input);
@@ -391,7 +394,6 @@ int			env_pwd_change(t_env **env, char *old_pwd, int *flag);
 int			exec_builtins(t_cmd *cmd);
 
 ///Builtins: Utils
-int			validate_args(char **node, int *value);
 int			is_valid_num(char *data);
 char		*env_node_value(t_env **env, char *key);
 int			create_add_node(char *key, char *value);
