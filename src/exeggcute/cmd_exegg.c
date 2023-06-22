@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_exegg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 16:35:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/21 17:36:11 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/22 12:48:54 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	exec_cmd(t_cmd *cmd)
 	msg_error(EVE, NULL, NULL, 0);
 	msh_exit(ERR_GEN);
 }
-
 
 char	*search_cmd_path(t_cmd *cmd)
 {

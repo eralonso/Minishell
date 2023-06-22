@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 11:01:58 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/21 18:34:48 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/22 12:47:44 by pramos-m         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ int	exec_export(char **nodes)
 			return (1);
 	}
 	else
+	{
 		return (export_add(nodes));
+	}
 	return (0);
 }
 
@@ -54,8 +56,9 @@ int	export_add(char **input)
 	int		j;
 	int		k;
 	int		i;
+	int		t;
 
-	(0 || (j = 0) || (i = 0) || (res[0] = NULL) || (res[1] = NULL));
+	(0 || (j = 0) || (t = 0) || (i = 0) || (res[0] = NULL) || (res[1] = NULL));
 	while (j < ft_matrixlen(input))
 	{
 		k = ft_strchri(input[i], '=');
@@ -70,9 +73,10 @@ int	export_add(char **input)
 		}
 		if (check_export(res[0], input[j]) && node_update(res[0], res[1]))
 			return (clean_env(&g_msh.env, 0), free(res[0]), free(res[1]), 1);
+		(!sec_check_export(res[0]) && (t = 1));
 		(ft_free(&res[0], 2) || ft_free(&res[1], 2) || ((++i) && (++j)));
 	}
-	return (0);
+	return (t || 0);
 }
 
 char	**sort_env(char **env)
