@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 11:16:49 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/19 18:39:16 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/22 13:53:47 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<libft.h>
 
-char	*ft_strdup(const char *str)
+char	*ft_strdup(char *str)
 {
 	char	*dup;
 	size_t	i;

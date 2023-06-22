@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   msh.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 12:53:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/22 12:47:56 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/22 13:34:41 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,6 +287,7 @@ char		*remove_quotes(char *str);
 ///UTILS: Error
 void		msh_exit(int status);
 int			msg_error(char *str, char *added, char *added2, int ret);
+int			msg_syntax_error(char *str, int ret);
 
 ///Parser: Tokens: Synthesize
 t_token		*tokenizer(char *str);

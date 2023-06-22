@@ -6,11 +6,18 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:18:49 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/22 11:34:05 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/22 14:13:19 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<msh.h>
+
+int	msg_syntax_error(char *str, int ret)
+{
+	if (ft_printf(2, "Minishell: error near unexpected token `%s'", str) == -1)
+		return (-1);
+	return (ret);
+}
 
 static int	check_syntax(char *input)
 {
@@ -23,17 +30,17 @@ static int	check_syntax(char *input)
 	{
 		check_qp(&fok, input[i]);
 		if (fok.cp > fok.op)
-			return (1);
+			return (msg_syntax_error(")", 1));
 		if ((fok.sq < 0 && fok.dq < 0) && ((input[i] == '&' \
-		&& input[i + 1] != '&') || (input[i] == '|' && input[i + 1] == '&')))
-			return (1);
-		if ((fok.sq < 0 && fok.dq < 0) && ft_strnstr(&input[i], "&&\0", 2) \
-			&& ft_strchr("&|\0", input[++i + 1]))
-			return (1);
+		&& input[++i] != '&')))
+			return (msg_syntax_error("&", 1));
 	}
-	if (--i >= 0 && (ft_strchr("&|\\\0", input[i]) \
-	|| (fok.sq + fok.dq) != -2 || fok.op != fok.cp))
-		return (1);
+	if (fok.sq > 0)
+		return (msg_syntax_error("\'", 1));
+	if (fok.dq > 0)
+		return (msg_syntax_error("\"", 1));
+	if (fok.op > fok.cp)
+		return (msg_syntax_error("(", 1));
 	return (0);
 }
 

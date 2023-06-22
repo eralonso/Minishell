@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 18:50:15 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/21 12:10:23 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/22 13:53:58 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char		*ft_strtrim(char *s1, char *set);
 void		ft_striteri(char *s, void (*f)(unsigned int, char*));
 char		**ft_split(char const *s, char c);
-char		*ft_strdup(const char *s1);
+char		*ft_strdup(char *s1);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 void		ft_strcat(char *dst, const char *src);
 char		*ft_strchrjoin(char *str, char c, int mode);

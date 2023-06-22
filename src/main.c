@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:36:26 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/21 12:33:22 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/22 13:29:16 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	main(int ac, char **av, char **env)
 			return (0);
 		}
 		if (*line && start(line))
-			printf("ERROR\n\tg_msh.err: %i\n", g_msh.err);
+			printf("\nERROR\n\tg_msh.err: %i\n", g_msh.err);
 	}
 	ctrl_c(SET);
 	return (0);

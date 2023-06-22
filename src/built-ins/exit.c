@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 15:00:11 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/21 17:10:44 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/22 14:11:24 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	exec_exit(char **exit_args)
 	if (value == -1)
 		return (1);
 	clean_env(&g_msh.env, 0);
-	exit(value);
+	msh_exit(value);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 16:35:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/22 12:49:34 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/22 13:53:08 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,7 @@ char	*search_cmd_path(t_cmd *cmd)
 	}
 	if (ft_strchr(cmd->args[0], '/'))
 		return (t_path(cmd->args[0]));
+	msg_error(cmd->args[0], NFD, NULL, 0);
+	msh_exit(ERR_CNF);
 	return (NULL);
 }
