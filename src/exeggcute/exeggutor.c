@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 13:56:31 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/23 12:01:08 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/23 13:59:01 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,10 @@ pid_t	exec_node(t_lstt *node, int idx, int end, int tmp_fd[2])
 {
 	if (redirect_parser(node->redirect, node->redir_size))
 		return (ERR_NODE);
+	if (redirect_node(node, tmp_fd))
+		return (ERR_GEN);
 	if (node->type == STAIR)
-		return (exec_fork_stair(node, tmp_fd));
+		return (exec_fork_stair(node));
 	if (expand_args((t_cmd *)node->content, &((t_cmd *)node->content)->args_tk))
 		return (ERR_NODE);
 	if (idx == 0 && end && is_builtin(((t_cmd *)node->content)->args[0]))
@@ -70,7 +72,7 @@ pid_t	exec_node(t_lstt *node, int idx, int end, int tmp_fd[2])
 		g_msh.err = exec_builtins(node->content);
 		return (0);
 	}
-	return (exec_fork_cmd(node, tmp_fd));
+	return (exec_fork_cmd(node));
 }
 
 int	exec_nodes(t_lstt **node, int size, const int std_fd[2])

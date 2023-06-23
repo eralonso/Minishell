@@ -6,13 +6,13 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 10:48:24 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/23 12:01:35 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/23 13:58:19 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<msh.h>
 
-int	exec_fork_stair(t_lstt *node, int tmp_fd[2])
+int	exec_fork_stair(t_lstt *node)
 {
 	pid_t	child;
 
@@ -22,8 +22,6 @@ int	exec_fork_stair(t_lstt *node, int tmp_fd[2])
 	if (child == 0)
 	{
 		ft_close(&node->fd[0]);
-		if (redirect_node(node, tmp_fd))
-			msh_exit(ERR_GEN);
 		executor(node->content);
 		msh_exit(g_msh.err);
 	}
@@ -37,7 +35,7 @@ int	exec_fork_stair(t_lstt *node, int tmp_fd[2])
 	return (child);
 }
 
-int	exec_fork_cmd(t_lstt *node, int tmp_fd[2])
+int	exec_fork_cmd(t_lstt *node)
 {
 	pid_t	child;
 
@@ -49,8 +47,6 @@ int	exec_fork_cmd(t_lstt *node, int tmp_fd[2])
 	{
 		ctrl_c(SET);
 		ft_close(&node->fd[0]);
-		if (redirect_node(node, tmp_fd))
-			msh_exit(ERR_GEN);
 		if (((t_cmd *)node->content)->args[0])
 			exec_cmd((t_cmd *)node->content);
 		msh_exit(0);
