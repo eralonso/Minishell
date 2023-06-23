@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 15:00:11 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/22 15:38:28 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/23 18:42:30 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	exec_exit(char **exit_args)
 	long long	tmp_value;
 
 	value = g_msh.err;
-	if (write(2, "exit\n", 5) < 0)
+	if (ft_printf(2, "exit\n") < 0)
 		exit(1);
 	if (!exit_args[0])
 		exit(g_msh.err);
@@ -32,8 +32,6 @@ int	exec_exit(char **exit_args)
 	}
 	if (ft_matrixlen(exit_args) > 1)
 		return (msg_error("exit", "too many arguments", NULL, 0), 1);
-	if (value == -1)
-		return (1);
 	msh_exit(value);
 	return (0);
 }

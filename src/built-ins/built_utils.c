@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 16:42:55 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/22 12:48:31 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/23 19:44:49 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,29 @@ int	check_unset(char *node)
 		}
 		i++;
 	}
+	return (0);
+}
+
+int	check_max_path(char *str)
+{
+	char	**paths;
+	int		i;
+
+	if (!str)
+		return (0);
+	paths = ft_split(str, '/');
+	if (!paths)
+		return (-1);
+	i = 0;
+	while (paths[i])
+	{
+		if (ft_strlen(paths[i]) > MAX_PATH)
+		{
+			ft_free(paths, 1);
+			return (1);
+		}
+		i++;
+	}
+	ft_free(paths, 1);
 	return (0);
 }

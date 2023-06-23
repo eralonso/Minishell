@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 12:53:46 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/21 17:10:39 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/23 19:45:43 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,22 @@ int	exec_cd(char **input)
 {
 	char	*pwd;
 	int		flag;
+	int		err;
 
 	flag = 0;
+	if (input[0] && !input[0][0])
+		return (0);
+	err = check_max_path(input[0]);
+	if (err == -1)
+	{
+		msg_error(MLC, NULL, NULL, 0);
+		return (1);
+	}
+	if (err)
+	{
+		msg_error("cd", input[0], "File name too long", 0);
+		return (1);
+	}
 	if (get_cd_dir(input, &pwd, &flag))
 		return (1);
 	if (exec_changed(pwd, &flag))

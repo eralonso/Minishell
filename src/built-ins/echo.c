@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 10:07:59 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/21 11:04:57 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/23 18:29:29 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ static int	check_echo_flag(char *str)
 {
 	int	i;
 
+	if (!str)
+		return (0);
 	if (str[0] != '-')
 		return (0);
 	i = 0;
@@ -60,7 +62,9 @@ int	ft_echo_n(char **input)
 
 	i = 0;
 	c = ' ';
-	while (input[++i])
+	while (check_echo_flag(input[i]))
+		i++;
+	while (input[i])
 	{
 		if (!input[i + 1])
 			c = '\0';
@@ -69,6 +73,7 @@ int	ft_echo_n(char **input)
 			g_msh.err = 1;
 			return (1);
 		}
+		i++;
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 15:05:33 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/23 10:42:55 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/23 18:32:05 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	print_quote(char *str, int op, int quoted, int last)
 	if (last)
 		c = '\n';
 	if (str && quoted & op)
-		return (ft_printf(2, " '%s'%c", str, c));
+		return (ft_printf(2, " `%s'%c", str, c));
 	if (str)
 		return (ft_printf(2, " %s%c", str, c));
 	return (0);

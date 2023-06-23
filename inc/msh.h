@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 12:53:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/23 13:58:48 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/23 19:48:25 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,9 @@
 
 ///Directory
 # define CURRENT_DIR	(char *)"."
+
+///Max path length
+# define MAX_PATH		(int)255
 
 ///Types of tokens: 
 ////EOCL == End Of Command Line, RDHD == ReDirection Here Doc '<<',
@@ -394,6 +397,7 @@ int			get_cd_dir(char **input, char **pwd, int *flag);
 int			exec_changed(char *pwd, int *flag);
 int			env_pwd_change(t_env **env, char *old_pwd, int *flag);
 int			exec_builtins(t_cmd *cmd);
+int			check_max_path(char *str);
 
 ///Builtins: Utils
 int			is_valid_num(char *data);

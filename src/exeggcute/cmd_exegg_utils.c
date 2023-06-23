@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 17:34:04 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/22 18:44:44 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/23 18:38:37 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ char	*t_path(char *path)
 {
 	if (access(path, F_OK))
 	{
-		msg_error(path, CNF, NULL, 0);
+		msg_error(path, NFD, NULL, 0);
 		msh_exit(ERR_CNF);
 	}
 	if (access(path, X_OK))

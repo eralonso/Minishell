@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 13:56:31 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/23 13:59:01 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/23 18:54:09 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	wait_childs(pid_t *pids, int size)
 	int		i;
 	int		last;
 
-	if (pids[0] == 0)
+	if (pids[0] < 2 && size == 1)
 		return (0);
 	i = -1;
 	last = 0;
@@ -62,7 +62,10 @@ pid_t	exec_node(t_lstt *node, int idx, int end, int tmp_fd[2])
 	if (redirect_parser(node->redirect, node->redir_size))
 		return (ERR_NODE);
 	if (redirect_node(node, tmp_fd))
+	{
+		g_msh.err = 1;
 		return (ERR_GEN);
+	}
 	if (node->type == STAIR)
 		return (exec_fork_stair(node));
 	if (expand_args((t_cmd *)node->content, &((t_cmd *)node->content)->args_tk))
@@ -97,7 +100,7 @@ int	exec_nodes(t_lstt **node, int size, const int std_fd[2])
 			return (exec_clean(g_msh.std_fd, std_fd, pids, size));
 		tmp = tmp->next;
 	}
-	(pids[0] != 0 && (g_msh.err = 0));
+	(pids[0] > 1 && (g_msh.err = 0));
 	(((redir_std(g_msh.std_fd, std_fd, 1) || (wait_childs(pids, size))) \
 	&& (i = kill_childs(pids, size))) || (i = 0));
 	return (free(pids), i);
