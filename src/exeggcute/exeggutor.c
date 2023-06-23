@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 13:56:31 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/22 19:37:37 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/23 12:01:08 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	exec_nodes(t_lstt **node, int size, const int std_fd[2])
 
 	pids = ft_calloc(sizeof(pid_t), size);
 	if (!node || !*node || !pids)
-		return (1);
+		return (free(pids), 1);
 	(1 && (tmp = *node) && (i = 0));
 	(1 && (g_msh.std_fd[0] = dup(IN)) && (g_msh.std_fd[1] = dup(OUT)));
 	if (g_msh.std_fd[0] == -1 || g_msh.std_fd[1] == -1)

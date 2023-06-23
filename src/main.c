@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:36:26 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/22 13:29:16 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/23 12:12:13 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,27 @@ void	ctrl_c(int mode)
 {
 	struct termios	tc;
 
-	tcgetattr(0, &tc);
+	tcgetattr(g_msh.std_fd[IN], &tc);
 	tc.c_lflag &= ~ECHOCTL;
 	if (mode == SET)
 		tc.c_lflag |= ECHOCTL;
 	tcsetattr(0, TCSANOW, &tc);
 }
 
+void	restart_global(void)
+{
+	g_msh.ctrl_c = 0;
+	g_msh.std_fd[IN] = 0;
+	g_msh.std_fd[OUT] = 1;
+}
+
 void	set_up(char **env)
 {
+	g_msh.err = 0;
+	restart_global();
 	ft_env(env);
 	set_null_node("OLDPWD", &g_msh.env);
 	ctrl_c(UNSET);
-	g_msh.err = 0;
 }
 
 int	main(int ac, char **av, char **env)
@@ -56,7 +64,7 @@ int	main(int ac, char **av, char **env)
 	set_up(env);
 	while (42)
 	{
-		g_msh.ctrl_c = 0;
+		restart_global();
 		init_signals(NORM);
 		do_sigign(SIGQUIT);
 		line = readline("PESH + 🐚 > ");
@@ -65,11 +73,10 @@ int	main(int ac, char **av, char **env)
 		{
 			ft_printf(2, "exit\n");
 			ctrl_c(SET);
-			return (0);
+			return (clean_env(&g_msh.env, g_msh.err));
 		}
 		if (*line && start(line))
-			printf("\nERROR\n\tg_msh.err: %i\n", g_msh.err);
+			printf("\nFatal Error\n\tg_msh.err: %i\n", g_msh.err);
 	}
-	ctrl_c(SET);
 	return (0);
 }

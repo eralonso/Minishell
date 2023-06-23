@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 16:35:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/22 18:47:28 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/23 12:05:10 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	expand_args(t_cmd *cmd, t_token **tk)
 	if (!args)
 		return (1);
 	cmd->args = ft_calloc(sizeof(char *), ft_lstsize(args) + 1);
-	if (!cmd->args)
+	if (!cmd->args || !(*tk)->args)
 		ft_lstclear(&args, free);
 	if (!cmd->args)
 		return (1);

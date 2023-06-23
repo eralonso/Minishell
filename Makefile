@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/22 10:08:41 by eralonso          #+#    #+#              #
-#    Updated: 2023/06/22 18:31:08 by eralonso         ###   ########.fr        #
+#    Updated: 2023/06/23 12:08:57 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,7 +81,7 @@ INCLUDE		:=	$(addprefix -I,$(HEADERS))
 RM			:=	rm -rf
 MKD			:=	mkdir -p
 MK			:=	Makefile
-CFLAGS		:=	-Wall -Wextra -Werror -fsanitize=address
+CFLAGS		:=	-Wall -Wextra -Werror #-fsanitize=address
 MKFLAGS		:=	--no-print-directory
 MUTE		:=	&> /dev/null
 CC			:=	gcc

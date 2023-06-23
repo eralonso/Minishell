@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 15:05:33 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/21 18:32:50 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/23 10:42:55 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	msh_exit(int status)
 {
 	ctrl_c(SET);
+	rl_clear_history();
 	g_msh.err = status;
 	st_clean(&g_msh.stair);
 	clean_env(&g_msh.env, 0);
