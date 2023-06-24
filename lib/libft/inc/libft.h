@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 18:50:15 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/22 13:53:58 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/24 10:50:03 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ long long	ft_atoll(char *str);
 size_t		ft_nbrlen_base(long long nbr, long long len);
 
 ///Functions: NUM: IS
-int			ft_isnum(char *input);
+int			ft_isnum(char *input, int num);
 int			ft_isnumdup(char **input, int num, int index);
 int			ft_isint(char *num);
 

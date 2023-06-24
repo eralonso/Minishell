@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 12:21:50 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/21 13:51:44 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/24 11:11:04 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,3 @@ int	redir_std(int dst[2], const int src[2], int end)
 	}
 	return (err);
 }
-// dprintf(2, "dst[0]:%i: && src[0]:%i:\n", dst[0], src[0]);
-// dprintf(2, "dst[1]:%i: && src[1]:%i:\n\n\n", dst[1], src[1]);

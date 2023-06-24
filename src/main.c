@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:36:26 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/23 18:25:40 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/24 11:10:01 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	set_up(char **env)
 	restart_global();
 	ft_env(env);
 	set_null_node("OLDPWD", &g_msh.env);
+	update_shlvl();
 	ctrl_c(UNSET);
 }
 
@@ -80,4 +81,3 @@ int	main(int ac, char **av, char **env)
 	}
 	return (0);
 }
-// printf("\nFatal Error\n\tg_msh.err: %i\n", g_msh.err);

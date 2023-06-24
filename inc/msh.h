@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 12:53:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/23 19:48:25 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/24 10:53:37 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -350,6 +350,7 @@ t_lstt		*tk_to_lstt(t_token **tk);
 t_env		*node_create(char *key, char *value);
 void		addfront_env(t_env **msh_env, t_env *tmp);
 void		ft_env(char **env);
+void		update_shlvl(void);
 
 ///Enviroment: Utils
 char		**list_to_array(t_env **m_env);

@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 13:20:26 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/21 18:53:02 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/24 15:43:48 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	norm_handler(int sig, siginfo_t *data, void *non_used_data)
 	(void) non_used_data;
 	if (sig == SIGINT)
 	{
-		ft_printf(2, "\n");
+		ft_printf(1, "\n");
 		rl_replace_line("", 1);
 		rl_on_new_line();
 		rl_redisplay();
@@ -65,7 +65,7 @@ void	heredoc_handler(int sig, siginfo_t *data, void *non_used_data)
 		rl_replace_line("", 1);
 		rl_on_new_line();
 		rl_redisplay();
-		ft_printf(2, "\n");
+		ft_printf(1, "\n");
 		exit(1);
 	}
 	return ;
@@ -77,12 +77,12 @@ void	ninter_handler(int sig, siginfo_t *data, void *non_used_data)
 	(void) non_used_data;
 	if (sig == SIGINT)
 	{
-		ft_printf(2, "\n");
+		ft_printf(1, "\n");
 		g_msh.err = 130;
 	}
 	else if (sig == SIGQUIT)
 	{
-		ft_printf(2, "Quit: 3\n");
+		ft_printf(1, "Quit: 3\n");
 		g_msh.err = 131;
 	}
 	return ;

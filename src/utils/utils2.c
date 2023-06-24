@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 12:26:22 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/22 11:55:18 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/06/24 11:09:11 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,28 @@ int	node_update(char *key, char *value)
 			return (1);
 	}
 	return (0);
+}
+
+void	update_shlvl(void)
+{
+	char	*value;
+	char	*new;
+	int		num;
+
+	value = env_node_value(&g_msh.env, "SHLVL");
+	if (!value || !*value || !ft_isnum(value, 1))
+		node_update("SHLVL", "1");
+	else
+	{
+		num = ft_atoi(value);
+		num++;
+		if (num < 0)
+			new = ft_strdup("0");
+		else if (num > 999)
+			new = ft_strdup("1");
+		else
+			new = ft_itoa(num);
+		node_update("SHLVL", new);
+		free(new);
+	}
 }

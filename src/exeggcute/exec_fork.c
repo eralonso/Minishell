@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 10:48:24 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/23 13:58:19 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/24 16:32:48 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ int	exec_fork_cmd(t_lstt *node)
 {
 	pid_t	child;
 
-	init_signals(N_INTERACT);
 	child = fork();
 	if (child < 0)
 		return (ERR_NODE);
 	if (child == 0)
 	{
+		init_signals(N_INTERACT);
 		ctrl_c(SET);
 		ft_close(&node->fd[0]);
 		if (((t_cmd *)node->content)->args[0])

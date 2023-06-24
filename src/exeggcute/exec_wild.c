@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 18:27:56 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/22 18:19:29 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/24 11:11:09 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,3 @@ t_wild	*expand_wilds(t_subarg **args)
 	free(wild->idxs);
 	return (wild);
 }
-	// (wild->rem && (line = ft_matrixjoin_size(wild->wilds, ' ', wild->size)));
-	// (wild->rem && !line && (*err = 1));
-	// ft_free_size(wild->wilds, wild->size);

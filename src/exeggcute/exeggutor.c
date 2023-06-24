@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 13:56:31 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/23 18:54:09 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/24 11:11:00 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,10 +105,6 @@ int	exec_nodes(t_lstt **node, int size, const int std_fd[2])
 	&& (i = kill_childs(pids, size))) || (i = 0));
 	return (free(pids), i);
 }
-// dprintf(2, "g_msh.std_fd[0] == %i && g_msh.std_fd[1] == %i\n\n", 
-// g_msh.std_fd[0], g_msh.std_fd[1]);
-// dprintf(2, "cmd[%i]: pipe: fd[0] == %i && fd[1] == %i\n", 
-// i, tmp->fd[0], tmp->fd[1]);
 
 int	executor(t_stair *st)
 {

@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 15:00:11 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/23 18:42:30 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/24 10:54:30 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	is_valid_num(char *data)
 	bool	neg;
 
 	neg = 0;
-	if (!ft_isnum(data) || *data == 0)
+	if (!ft_isnum(data, 1) || *data == 0)
 		return (0);
 	if (*data == '-')
 		neg = 1;

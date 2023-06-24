@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 13:11:12 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/23 19:12:31 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/06/24 11:10:37 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,3 @@ t_subarg	*subarg_create(char *str, int size, char quote)
 	}
 	return (new);
 }
-
-	// printf("suba arg VAR create: str: :%s: && i:%i\n", str, *i);
-	// printf("suba arg create: str: :%s: && size:%i\n", str, size);
