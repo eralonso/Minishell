@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 12:53:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/24 10:53:37 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/08/03 14:17:18 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,76 +14,76 @@
 # define MSH_H
 
 //Includes
-# include	<limits.h>
-# include	<errno.h>
-# include	<stdbool.h>
-# include   <stdlib.h>
-# include   <stdio.h>
-# include   <unistd.h>
-# include	<curses.h>
-# include	<term.h>
-# include	<tcl.h>
-# include	<sys/wait.h>
-# include	<sys/types.h>
-# include	<dirent.h>
-# include	<signal.h>
-# include	<readline.h>
-# include	<history.h>
-# include	<libft.h>
-# include	<ft_printf.h>
-# include	<sys/stat.h>
+# include <limits.h>
+# include <errno.h>
+# include <stdbool.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <unistd.h>
+# include <curses.h>
+# include <term.h>
+# include <tcl.h>
+# include <sys/wait.h>
+# include <sys/types.h>
+# include <dirent.h>
+# include <signal.h>
+# include <readline.h>
+# include <history.h>
+# include <libft.h>
+# include <ft_printf.h>
+# include <sys/stat.h>
 
 //Defines
 ///Errors: Value
-# define ERR_NODE	(int)-1
-# define ERR_CNF	(int)127
-# define ERR_XPERM	(int)126
-# define ERR_GEN	(int)1
+# define ERR_NODE	-1
+# define ERR_CNF	127
+# define ERR_XPERM	126
+# define ERR_GEN	1
 
 ///Errors: Str
-# define NVI	(char *)"not a valid identifier"
-# define CNF	(char *)"command not found"
-# define NAR	(char *)"numeric argument required"
-# define NFD	(char *)"No such file or directory"
-# define PERM	(char *)"Permission denied"
-# define NAD	(char *)"Not a directory"
-# define EVE	(char *)"execve error"
-# define MLC	(char *)"malloc error"
+# define NVI	"not a valid identifier"
+# define CNF	"command not found"
+# define NAR	"numeric argument required"
+# define NFD	"No such file or directory"
+# define PERM	"Permission denied"
+# define NAD	"Not a directory"
+# define EVE	"execve error"
+# define MLC	"malloc error"
 ///FD
-# define IN		(int)0
-# define OUT	(int)1
+# define IN		0
+# define OUT	1
 
 ///CTRL C
-# define UNSET	(int)0
-# define SET	(int)1
+# define UNSET	0
+# define SET	1
 
 ///Parenthesis
-# define OFF	(int)0
-# define ON		(int)1
+# define OFF	0
+# define ON		1
 
 ///Iterator, Len, Flag
-# define I		(int)0
-# define L		(int)1
-# define F		(int)2
+# define I		0
+# define L		1
+# define F		2
 
 ///Type of struct: TK == token, BK == Block
-# define TK		(int)0
-# define BK		(int)1
+# define TK		0
+# define BK		1
 
 ///Direction to clean
-# define NEXT	(int)0
-# define PREV	(int)1
+# define NEXT	0
+# define PREV	1
 
 ///Signals modes
-# define NORM		(int)1
-# define HEREDOC	(int)2
-# define N_INTERACT	(int)3
+# define NORM		1
+# define HEREDOC	2
+# define N_INTERACT	3
 
 ///Directory
-# define CURRENT_DIR	(char *)"."
+# define CURRENT_DIR	"."
 
 ///Max path length
-# define MAX_PATH		(int)255
+# define MAX_PATH		255
 
 ///Types of tokens: 
 ////EOCL == End Of Command Line, RDHD == ReDirection Here Doc '<<',
@@ -93,39 +93,39 @@
 ////OP == Open Parenthesis '(', ARG == Argument == 
 ////Text {[A ... Z], [a ... z], [0 ... 9], etc}, CP == Close Parenthesis ')',
 ////LOGIC == LOGIC operator {&&, ||}, RD == ReDirections == {<, >, <<, >>}
-# define EOCL		(int)0
-# define RDHD		(int)1
-# define PIPE		(int)2
-# define RDAP		(int)3
-# define RDI		(int)4
-# define AND		(int)5
-# define RDO		(int)6
-# define OR			(int)7
-# define OP			(int)8
-# define ARG		(int)9
-# define CP			(int)10
-# define LOGIC		(int)11
-# define RD			(int)12
-# define LIMITER	(int)13
+# define EOCL		0
+# define RDHD		1
+# define PIPE		2
+# define RDAP		3
+# define RDI		4
+# define AND		5
+# define RDO		6
+# define OR			7
+# define OP			8
+# define ARG		9
+# define CP			10
+# define LOGIC		11
+# define RD			12
+# define LIMITER	13
 
 ///Auxiliar types for error
-# define SQ			(int)14
-# define DQ			(int)15
+# define SQ			14
+# define DQ			15
 
 ///Types of ARG: 
 ////TXT == Text {[a ... z], [A ... Z], [0 ... 9], etc}
 ////VAR == Enviroment variable '$', WILD == Wildcard '*'
-# define TXT	(int)1
-# define VAR	(int)2
-# define WILD	(int)3
+# define TXT	1
+# define VAR	2
+# define WILD	3
 
 ///Type of node: MAIN == First Step, CMD == CoMmanD, STAIR == subshell/stair
-# define CMD	(int)1
-# define STAIR	(int)2
-# define MAIN	(int)3
+# define CMD	1
+# define STAIR	2
+# define MAIN	3
 
 ///Register of characters allows for variable environment
-# define ENV_CHARS	(char *)"_0123456789abcdefghijklmnopqrstuvwxyz\
+# define ENV_CHARS	"_0123456789abcdefghijklmnopqrstuvwxyz\
 							ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 //Typedefs
@@ -287,6 +287,7 @@ t_list		*subarg_expand(t_token *tk);
 int			arewildcard(t_subarg **sub);
 t_wild		*expand_wilds(t_subarg **args);
 t_list		*real_list(t_token **tk);
+t_list		*good_expand(t_subarg **sub);
 
 ///UTILS: Str
 char		*ft_strip(char *str);

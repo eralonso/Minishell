@@ -6,11 +6,11 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 18:01:19 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/20 10:31:41 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/07/13 11:35:40 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	<libft.h>
+#include <libft.h>
 
 static char	*ft_create_word(char const *s, char c)
 {

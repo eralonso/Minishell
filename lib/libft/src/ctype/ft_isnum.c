@@ -6,11 +6,11 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 14:08:58 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/24 10:49:49 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/07/13 11:35:33 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	<libft.h>
+#include <libft.h>
 
 int	ft_isnum(char *input, int space)
 {

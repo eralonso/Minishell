@@ -6,11 +6,11 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 13:30:26 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/21 19:13:32 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/07/13 16:43:11 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	<msh.h>
+#include <msh.h>
 
 t_env	*env_search(t_env **env, char *key)
 {

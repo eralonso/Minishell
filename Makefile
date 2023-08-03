@@ -1,7 +1,7 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
+#    Makefile                                            :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
@@ -25,7 +25,7 @@ CIAN		:=	\033[1;96m
 NAME		:=	minishell
 
 #<--------------------------------->VARS<------------------------------------>#
-NULL		:=	
+NULL		:=
 SPACE		:=	$(NULL) #
 
 #<--------------------------------->ROOTS<----------------------------------->#
@@ -41,7 +41,7 @@ INC_ROOT	:=	inc/
 
 #<-------------------------------->LIBRARYS<--------------------------------->#
 LIB_A		:=	$(RDLINE_ROOT)libreadline.a $(RDLINE_ROOT)libhistory.a \
-				$(LIBFT_ROOT)libft.a 
+				$(LIBFT_ROOT)libft.a
 
 LIB_ADD_DIR	:=	-L$(RDLINE_ROOT) -L$(LIBFT_ROOT)
 
@@ -67,7 +67,7 @@ FILES		:=	main validate_input parse_env echo utils \
 				env_builts exit export pwd built_exec wildcard subargs \
 				subargs_utils debug_subargs exeggutor utils2 subargs_utils2 \
 				exec_parser exec_wild exeggutor_utils exec_redir cmd_exegg \
-				exec_fork error_utils cmd_exegg_utils
+				exec_fork error_utils cmd_exegg_utils exec_parser_utils
 
 #<--------------------------------->SRCS<----------------------------------->#
 SRCS		:=	$(addsuffix .c,$(FILES))
@@ -95,11 +95,11 @@ vpath %.d $(DEP_ROOT)
 
 define msg_creating
 	printf "\r$(3)$(1): $(YELLOW)$(2).$(DEF_COLOR)                                                                 \r"
-	sleep 0.1
+	sleep 0.01
 	printf "\r$(3)$(1): $(YELLOW)$(2)..$(DEF_COLOR)                                                                \r"
-	sleep 0.1
+	sleep 0.01
 	printf "\r$(3)$(1): $(YELLOW)$(2)...$(DEF_COLOR)                                                               \r"
-	sleep 0.1
+	sleep 0.01
 endef
 
 create_dir = $(shell $(MKD) $(1))
@@ -116,6 +116,7 @@ librarys :
 	$(MAKE) $(MKFLAGS) rdline
 
 $(DEP_ROOT)%.d : %.c | $(call create_dir,$(DEP_ROOT))
+	$(call msg_creating,Dependence,$*,$(BLUE))
 	$(CC) $(CFLAGS) -MMD -MF $@ -DREADLINE_LIBRARY=1 $(INCLUDE) -c $< && rm -rf $(addsuffix .o,$*)
 	sed -i.tmp '1 s|:| $@ :|' $@ && rm -rf $(addsuffix .tmp,$@)
 	sed -i.tmp '1 s|^$*|$(OBJ_ROOT)$*|' $@ && rm -rf $(addsuffix .tmp,$@)

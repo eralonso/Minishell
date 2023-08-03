@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 18:10:43 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/19 18:39:07 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/07/13 16:43:11 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	<msh.h>
+#include <msh.h>
 
 int	init_kof(t_kof *fok)
 {

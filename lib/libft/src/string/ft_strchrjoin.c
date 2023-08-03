@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchrjoin.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pramos-m <pramos-m@student.42.fr>          +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 10:21:34 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/19 18:47:16 by pramos-m         ###   ########.fr       */
+/*   Updated: 2023/07/13 11:35:40 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	<libft.h>
+#include <libft.h>
 
 char	*ft_strchrjoin(char *str, char c, int mode)
 {

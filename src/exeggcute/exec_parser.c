@@ -6,11 +6,11 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 17:39:37 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/23 19:13:45 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/08/03 14:16:08 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	<msh.h>
+#include <msh.h>
 
 t_list	*wild_to_list(t_wild *wild)
 {
@@ -125,6 +125,8 @@ t_list	*subarg_expand(t_token *tk)
 			return (new);
 		}
 	}
-	new = ft_lstnew(subarg_join(&tk->args));
+	new = good_expand(&tk->args);
 	return (new);
 }
+
+	// new = ft_lstnew(subarg_join(&tk->args));

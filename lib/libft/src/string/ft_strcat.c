@@ -6,11 +6,11 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 17:06:33 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/13 15:38:54 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/07/13 11:35:40 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	<libft.h>
+#include <libft.h>
 
 void	ft_strcat(char *dst, const char *src)
 {

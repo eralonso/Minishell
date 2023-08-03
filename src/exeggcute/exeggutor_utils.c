@@ -6,11 +6,11 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 12:21:50 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/24 11:11:04 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/07/13 16:43:11 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	<msh.h>
+#include <msh.h>
 
 int	exec_clean(int tmp_fd[2], const int std_fd[2], pid_t *pids, int size)
 {

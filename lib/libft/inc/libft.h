@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 18:50:15 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/24 10:50:03 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/07/13 11:39:22 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 # define LIBFT_H
 
 //Includes
-# include	<stdlib.h>
-# include	<unistd.h>
-# include	<fcntl.h>
-# include	<limits.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <limits.h>
 
 //Defines
 ///Define: Bases for a numbers
-# define B10 (char *)"0123456789"
-# define BL16 (char *)"0123456789abcdef"
-# define BU16 (char *)"0123456789ABCDEF"
+# define B10	"0123456789"
+# define BL16	"0123456789abcdef"
+# define BU16	"0123456789ABCDEF"
 
 ///Define: ft_strchrjoin: Type of mode
-# define PREFIX	(int)0
-# define SUFFIX	(int)1
+# define PREFIX	0
+# define SUFFIX	1
 
 //Typedefs
 typedef struct s_list	t_list;

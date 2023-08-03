@@ -6,11 +6,11 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/16 15:24:25 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/06 17:52:35 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/07/13 16:43:11 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	<msh.h>
+#include <msh.h>
 
 int	check_qp(t_kof *fok, char c)
 {

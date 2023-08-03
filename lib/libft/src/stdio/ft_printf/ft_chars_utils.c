@@ -6,12 +6,12 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/04 18:56:37 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/25 16:47:49 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/07/13 11:36:37 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"ft_printf.h"
-#include	"libft.h"
+#include "ft_printf.h"
+#include "libft.h"
 
 void	ft_putnchar(char c, int n, t_manager *stk)
 {

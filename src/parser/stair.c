@@ -6,11 +6,11 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 18:03:45 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/16 18:14:29 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/07/13 16:43:11 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	<msh.h>
+#include <msh.h>
 
 static int	st_go_node(t_token **tk, t_token **start, t_stair *step, int *type)
 {

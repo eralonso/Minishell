@@ -6,12 +6,12 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 09:00:21 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/25 16:47:53 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/07/13 11:36:38 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"ft_printf.h"
-#include	"libft.h"
+#include "ft_printf.h"
+#include "libft.h"
 
 void	ft_format_checker(t_manager *stack, char fmt)
 {

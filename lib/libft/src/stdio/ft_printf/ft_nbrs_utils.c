@@ -6,12 +6,12 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/26 17:24:16 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/25 16:47:58 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/07/13 11:37:11 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	<ft_printf.h>
-#include	"libft.h"
+#include "ft_printf.h"
+#include "libft.h"
 
 size_t	ft_nbr_size(t_lli nbr, t_lli len)
 {

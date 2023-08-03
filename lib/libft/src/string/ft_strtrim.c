@@ -6,11 +6,11 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 09:41:35 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/13 15:48:56 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/07/13 11:37:36 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"libft.h"
+#include "libft.h"
 
 char	*ft_strtrim(char *s1, char *set)
 {

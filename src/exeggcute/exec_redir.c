@@ -6,11 +6,11 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 12:52:36 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/22 19:38:20 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/07/13 16:44:20 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	<msh.h>
+#include <msh.h>
 
 int	redirect_parser(t_redirect *redir, int size)
 {
@@ -34,7 +34,7 @@ int	redirect_parser(t_redirect *redir, int size)
 			{
 				redir[i].file = args->content;
 				free(args);
-			}			
+			}
 		}
 	}
 	return (0);

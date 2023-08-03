@@ -6,11 +6,11 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 11:13:56 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/18 16:50:50 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/08/03 12:11:31 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	<msh.h>
+#include <msh.h>
 
 void	print_redirect(t_redirect *redirect, int size)
 {
@@ -64,7 +64,7 @@ void	print_nodes(t_lstt **lst, int depth)
 	i = 0;
 	while (node)
 	{
-		printf("%i NODE %i\n", depth, i);
+		printf("DEPTH: %i | NODE: %i\n", depth, i);
 		if (node->redir_size)
 			print_redirect(node->redirect, node->redir_size);
 		if (node->type == STAIR)

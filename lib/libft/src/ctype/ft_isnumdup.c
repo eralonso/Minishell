@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isnumdup.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eralonso <eralonso@student.42barcel>       +#+  +:+       +#+        */
+/*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/29 14:05:33 by eralonso          #+#    #+#             */
-/*   Updated: 2023/01/29 14:11:31 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/07/13 11:35:33 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	<libft.h>
+#include <libft.h>
 
 int	ft_isnumdup(char **input, int num, int index)
 {

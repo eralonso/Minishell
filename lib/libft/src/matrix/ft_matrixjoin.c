@@ -6,11 +6,11 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 10:25:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/20 11:38:32 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/07/13 11:35:35 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	<libft.h>
+#include <libft.h>
 
 char	*ft_matrixjoin(char **matrix, char c)
 {

@@ -6,11 +6,11 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 11:47:29 by eralonso          #+#    #+#             */
-/*   Updated: 2023/06/19 14:55:11 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/07/13 16:44:07 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	<msh.h>
+#include <msh.h>
 
 void	print_matrix(char **matrix)
 {
@@ -23,7 +23,7 @@ void	print_matrix(char **matrix)
 	{
 		printf("matrix[%i]:%s:\n", i, matrix[i]);
 		i++;
-	}	
+	}
 }
 
 void	print_matrix_size(char **matrix, int size)
@@ -38,5 +38,5 @@ void	print_matrix_size(char **matrix, int size)
 		if (matrix[i])
 			printf("matrix[%i]:%s:\n", i, matrix[i]);
 		i++;
-	}	
+	}
 }

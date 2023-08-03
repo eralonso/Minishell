@@ -6,12 +6,12 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 17:57:07 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/25 16:47:56 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/07/13 11:36:38 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"ft_printf.h"
-#include	"libft.h"
+#include "ft_printf.h"
+#include "libft.h"
 
 void	ft_flag_selector(t_flags *flags, char fmt)
 {

@@ -6,21 +6,21 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 11:13:19 by eralonso          #+#    #+#             */
-/*   Updated: 2023/05/25 16:51:10 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/07/13 11:39:35 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-# include	<stdarg.h>
-# include	<stdlib.h>
+# include <stdarg.h>
+# include <stdlib.h>
 
-# define B10 (char *)"0123456789"
-# define BL16 (char *)"0123456789abcdef"
-# define BU16 (char *)"0123456789ABCDEF"
-# define FL (char *)"-0123456789.#+ "
-# define FT (char *)"cspdiuxX"
+# define B10	"0123456789"
+# define BL16	"0123456789abcdef"
+# define BU16	"0123456789ABCDEF"
+# define FL		"-0123456789.#+ "
+# define FT		"cspdiuxX"
 
 typedef unsigned long long	t_ull;
 typedef long long int		t_lli;
