@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:18:49 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/08/03 12:13:20 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/08/31 13:35:41 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int	msg_syntax_error(int type, int ret)
 	(type == ARG && (str = ft_strdup("ARG")));
 	if (str)
 	{
-		ft_printf(2, "Minishell: error near unexpected token `%s'\n", str);
+		ft_printf(2, "Minishell: Syantx error near unexpected token `%s'\n", \
+			str);
 		free(str);
 		g_msh.err = 258;
 	}

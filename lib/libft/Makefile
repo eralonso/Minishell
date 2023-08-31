@@ -39,7 +39,7 @@ HEADERS 	:=	$(INC_ROOT)
 
 #----------------------------------->DIRS<-------------------------------------#
 SRC_DIRS	:=	./:ctype/:stype/:lists/:matrix/:stdio/:stdlib/:$\
-				strings/:string/:unistd/:stdio/ft_printf/	
+				strings/:string/:unistd/:stdio/ft_printf/
 SRC_DIRS	:=	$(subst :,$(SPACE),$(SRC_DIRS))
 SRC_DIRS	:=	$(addprefix $(SRC_ROOT),$(SRC_DIRS))
 SRC_DIRS	:=	$(subst $(SPACE),:,$(SRC_DIRS))

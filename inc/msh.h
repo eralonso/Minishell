@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 12:53:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/08/03 14:17:18 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/08/31 13:38:13 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,10 @@
 # define NORM		1
 # define HEREDOC	2
 # define N_INTERACT	3
+
+///Signals Messages
+# define S_INT		"\n"
+# define S_QUIT		"Quit: 3\n"
 
 ///Directory
 # define CURRENT_DIR	"."

@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 13:56:31 by eralonso          #+#    #+#             */
-/*   Updated: 2023/08/03 14:06:23 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/08/31 13:37:56 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ int	wait_childs(pid_t *pids, int size)
 		else if (WIFSIGNALED(status))
 		{
 			if (!last && WTERMSIG(status) == SIGINT)
-				(1 && (g_msh.err = 130) && (last = 1));
+				(1 && (g_msh.err = 130) && (last = 1) && ft_printf(2, S_INT));
 			else if (!last && WTERMSIG(status) == SIGQUIT)
-				(1 && (g_msh.err = 131) && (last = 1));
+				(1 && (g_msh.err = 131) && (last = 1) && ft_printf(2, S_QUIT));
 		}
 	}
 	return (0);

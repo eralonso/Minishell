@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/31 13:20:26 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/07/13 16:43:11 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/08/31 13:30:39 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,13 @@ void	ninter_handler(int sig, siginfo_t *data, void *non_used_data)
 	(void) non_used_data;
 	if (sig == SIGINT)
 	{
-		ft_printf(1, "\n");
 		g_msh.err = 130;
+		exit(130);
 	}
 	else if (sig == SIGQUIT)
 	{
-		ft_printf(1, "Quit: 3\n");
 		g_msh.err = 131;
+		exit(130);
 	}
 	return ;
 }
