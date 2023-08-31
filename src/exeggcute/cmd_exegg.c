@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 16:35:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/08/31 18:35:16 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/08/31 18:59:59 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,32 @@ int	expand_args(t_cmd *cmd, t_token **tk)
 		args = tmp;
 	}
 	return (0);
+}
+
+char	*search_cmd_path(t_cmd *cmd)
+{
+	char	*path;
+	char	*env;
+
+	path = NULL;
+	if (!cmd->args[0][0])
+		msg_error(cmd->args[0], CNF, NULL, 0);
+	if (!cmd->args[0][0])
+		msh_exit(ERR_CNF);
+	env = env_node_value(&g_msh.env, "PATH");
+	if (env && !ft_strchr(cmd->args[0], '/'))
+	{
+		path = x_path(cmd, env);
+		if (path)
+			return (path);
+		msg_error(cmd->args[0], CNF, NULL, 0);
+		msh_exit(ERR_CNF);
+	}
+	if (ft_strchr(cmd->args[0], '/'))
+		return (t_path(cmd->args[0]));
+	msg_error(cmd->args[0], NFD, NULL, 0);
+	msh_exit(ERR_CNF);
+	return (NULL);
 }
 
 static int	is_directory(char *file)
@@ -74,30 +100,4 @@ void	exec_cmd(t_cmd *cmd)
 	execve(cmd->path, cmd->args, env);
 	msg_error(EVE, NULL, NULL, 0);
 	msh_exit(ERR_GEN);
-}
-
-char	*search_cmd_path(t_cmd *cmd)
-{
-	char	*path;
-	char	*env;
-
-	path = NULL;
-	if (!cmd->args[0][0])
-		msg_error(cmd->args[0], CNF, NULL, 0);
-	if (!cmd->args[0][0])
-		msh_exit(ERR_CNF);
-	env = env_node_value(&g_msh.env, "PATH");
-	if (env && !ft_strchr(cmd->args[0], '/'))
-	{
-		path = x_path(cmd, env);
-		if (path)
-			return (path);
-		msg_error(cmd->args[0], CNF, NULL, 0);
-		msh_exit(ERR_CNF);
-	}
-	if (ft_strchr(cmd->args[0], '/'))
-		return (t_path(cmd->args[0]));
-	msg_error(cmd->args[0], NFD, NULL, 0);
-	msh_exit(ERR_CNF);
-	return (NULL);
 }
