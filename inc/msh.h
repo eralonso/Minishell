@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 12:53:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/08/31 13:38:13 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/08/31 18:24:05 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@
 # define NAD	"Not a directory"
 # define EVE	"execve error"
 # define MLC	"malloc error"
+# define ISDIR	"is a directory"
+
 ///FD
 # define IN		0
 # define OUT	1

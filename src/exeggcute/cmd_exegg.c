@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 16:35:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/07/13 16:43:11 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/08/31 18:35:16 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,30 @@ int	expand_args(t_cmd *cmd, t_token **tk)
 	return (0);
 }
 
+static int	is_directory(char *file)
+{
+	DIR	*dir_check;
+
+	dir_check = opendir(file);
+	if (dir_check)
+	{
+		closedir(dir_check);
+		return (1);
+	}
+	return (0);
+}
+
 void	exec_cmd(t_cmd *cmd)
 {
 	char	**env;
 
 	if (is_builtin(cmd->args[0]))
 		msh_exit(exec_builtins(cmd));
+	if (is_directory(cmd->args[0]))
+	{
+		msg_error(cmd->args[0], ISDIR, NULL, 0);
+		msh_exit(ERR_XPERM);
+	}
 	cmd->path = search_cmd_path(cmd);
 	if (!cmd->path)
 		msh_exit(ERR_GEN);
