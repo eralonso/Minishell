@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 14:23:30 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/07/13 16:43:11 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/09/05 13:02:46 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,9 @@ int	is_builtin(char *cmd)
 	str = ft_strdup(cmd);
 	if (!str)
 		return (-1);
-	ft_strtolower(str);
+	if (env_search(&g_msh.env, "PATH") && ft_strnstr(\
+		env_search(&g_msh.env, "PATH")->value, "/bin", 0xFFFFFF))
+		ft_strtolower(str);
 	if (!ft_strncmp("echo", str, 0XFFFFFF))
 		return (free(str), 1);
 	else if (!ft_strncmp("cd", str, 0XFFFFFF))
@@ -64,6 +66,5 @@ int	is_builtin(char *cmd)
 		return (free(str), 1);
 	else if (!ft_strncmp("exit", str, 0XFFFFFF))
 		return (free(str), 1);
-	else
-		return (free(str), 0);
+	return (free(str), 0);
 }

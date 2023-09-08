@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 14:15:00 by eralonso          #+#    #+#             */
-/*   Updated: 2023/08/03 14:17:33 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/09/04 17:29:50 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,8 @@ static char	*retokenize(t_list **first, t_subarg *tmp, char *str)
 		ft_lstadd_back(first, ft_lstnew(ft_malloc_strjoin(str, tokens[++i])));
 		str = NULL;
 	}
-	if (ft_matrixlen(tokens) > 1)
-	{
-		while (tokens[++i + 1] != 0)
-			ft_lstadd_back(first, ft_lstnew(ft_strdup(tokens[i])));
-	}
+	while (tokens[++i + 1] != 0)
+		ft_lstadd_back(first, ft_lstnew(ft_strdup(tokens[i])));
 	if (tokens[i])
 		str = ft_strdup(tokens[i]);
 	ft_free(tokens, 1);

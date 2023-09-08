@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 12:58:52 by eralonso          #+#    #+#             */
-/*   Updated: 2023/08/03 12:24:41 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/09/08 13:33:54 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ t_subarg	*gen_subargs(char *str, char del)
 	(0 || (i = 0) || (err = 0) || (args = NULL));
 	while (str && str[i])
 	{
-		(!del && (str[i] == '\'' || str[i] == '\"') && (del = str[i]) && (i++));
+		(!del && (str[i] == '\'' || str[i] == '"') && (del = str[i]) && (i++));
 		if (!del && str[i] == '*')
 			err = subarg_wild(str, &i, &args);
 		else if (del != '\'' && str[i] == '$')
