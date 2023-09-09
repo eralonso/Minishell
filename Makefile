@@ -67,7 +67,8 @@ FILES		:=	main validate_input parse_env echo utils \
 				env_builts exit export pwd built_exec wildcard subargs \
 				subargs_utils debug_subargs exeggutor utils2 subargs_utils2 \
 				exec_parser exec_wild exeggutor_utils exec_redir cmd_exegg \
-				exec_fork error_utils cmd_exegg_utils exec_parser_utils strip
+				exec_fork error_utils cmd_exegg_utils exec_parser_utils strip \
+				export_utils
 
 #<--------------------------------->SRCS<----------------------------------->#
 SRCS		:=	$(addsuffix .c,$(FILES))
@@ -81,7 +82,7 @@ INCLUDE		:=	$(addprefix -I,$(HEADERS))
 RM			:=	rm -rf
 MKD			:=	mkdir -p
 MK			:=	Makefile
-CFLAGS		:=	-Wall -Wextra -Werror #-fsanitize=address
+CFLAGS		:=	-Wall -Wextra -Werror -fsanitize=address
 MKFLAGS		:=	--no-print-directory
 MUTE		:=	&> /dev/null
 CC			:=	gcc
@@ -121,7 +122,7 @@ $(DEP_ROOT)%.d : %.c | $(call create_dir,$(DEP_ROOT))
 	sed -i.tmp '1 s|:| $@ :|' $@ && rm -rf $(addsuffix .tmp,$@)
 	sed -i.tmp '1 s|^$*|$(OBJ_ROOT)$*|' $@ && rm -rf $(addsuffix .tmp,$@)
 
-$(OBJ_ROOT)%.o : %.c %.d $(LIB_A) | $(call create_dir,$(OBJ_ROOT))
+$(OBJ_ROOT)%.o : %.c %.d $(MK) $(LIB_A) | $(call create_dir,$(OBJ_ROOT))
 	$(call msg_creating,Object,$*,$(PINK))
 	$(CC) $(CFLAGS) -DREADLINE_LIBRARY=1 $(INCLUDE) -c $< -o $@
 

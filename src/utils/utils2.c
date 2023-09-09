@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 12:26:22 by eralonso          #+#    #+#             */
-/*   Updated: 2023/07/13 16:43:11 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/09/09 16:25:50 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*remove_quotes(char *str)
 	return (clean);
 }
 
-int	node_update(char *key, char *value)
+int	node_update(char *key, char *value, int mode)
 {
 	t_env	*tmp;
 
@@ -69,9 +69,17 @@ int	node_update(char *key, char *value)
 			return (1);
 		return (0);
 	}
-	ft_free(&tmp->value, 2);
+	if (mode != ADD)
+		ft_free(&tmp->value, 2);
 	if (value)
 	{
+		if (mode == ADD)
+		{
+			tmp->value = ft_malloc_strjoin(tmp->value, value);
+			if (!tmp->value)
+				return (1);
+			return (0);
+		}
 		tmp->value = ft_strdup(value);
 		if (!tmp->value)
 			return (1);
@@ -87,7 +95,7 @@ void	update_shlvl(void)
 
 	value = env_node_value(&g_msh.env, "SHLVL");
 	if (!value || !*value || !ft_isnum(value, 1))
-		node_update("SHLVL", "1");
+		node_update("SHLVL", "1", EQUAL);
 	else
 	{
 		num = ft_atoi(value);
@@ -98,7 +106,7 @@ void	update_shlvl(void)
 			new = ft_strdup("1");
 		else
 			new = ft_itoa(num);
-		node_update("SHLVL", new);
+		node_update("SHLVL", new, EQUAL);
 		free(new);
 	}
 }

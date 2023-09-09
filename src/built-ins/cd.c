@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 12:53:46 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/06/23 19:45:43 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/09/09 15:57:34 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,13 +99,13 @@ int	env_pwd_change(t_env **env, char *old_pwd, int *flag)
 		return (1);
 	if (*flag)
 		ft_printf(1, "%s\n", pwd);
-	if (node_update("PWD", pwd))
+	if (node_update("PWD", pwd, EQUAL))
 	{
 		free(pwd);
 		return (1);
 	}
 	free(pwd);
-	if (node_update("OLDPWD", old_pwd))
+	if (node_update("OLDPWD", old_pwd, EQUAL))
 		return (1);
 	return (0);
 }

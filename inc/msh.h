@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 12:53:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/08/31 18:24:05 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/09/09 16:28:40 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,13 @@
 ///Register of characters allows for variable environment
 # define ENV_CHARS	"_0123456789abcdefghijklmnopqrstuvwxyz\
 							ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+///Enviroment variables modes: EQUAL == '=', ADD '+=',
+////NONE 'example', INVALID 'exa+mple'
+# define INVALID 0
+# define EQUAL 1
+# define ADD 2
+# define NONE 3
 
 //Typedefs
 typedef struct s_redirect	t_redirect;
@@ -365,7 +372,6 @@ t_env		*env_search(t_env **env, char *key);
 char		**sort_env(char **env);
 int			print_export(void);
 int			clean_env(t_env **list, int ret);
-void		env_set_value(t_env **list, char *name, char *value);
 
 ///Validate
 char		*validate_input(char *input, int *err);
@@ -385,7 +391,7 @@ int			exec_pwd(void);
 ///Builtins: Env
 int			print_env(t_env **env);
 int			print_one_env(char *input);
-int			node_update(char *key, char *value);
+int			node_update(char *key, char *value, int mode);
 
 ///Builtins: Export && Unset
 int			export_add(char **input);
