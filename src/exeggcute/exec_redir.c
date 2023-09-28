@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 12:52:36 by eralonso          #+#    #+#             */
-/*   Updated: 2023/07/13 16:44:20 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/09/20 11:57:53 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	last_redirect(t_redirect *redir, int size, int last_fd[2])
 	while (i < size)
 	{
 		if (redir[i].warn)
-			msg_error("*", "ambiguos redirect", NULL, 0);
+			msg_error("*", AMB_RD, NULL, 0);
 		if (redir[i].warn)
 			return (-1);
 		mode = OUT;

@@ -6,7 +6,7 @@
 #    By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/22 10:08:41 by eralonso          #+#    #+#              #
-#    Updated: 2023/06/23 12:08:57 by eralonso         ###   ########.fr        #
+#    Updated: 2023/09/28 11:17:17 by eralonso         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -82,7 +82,7 @@ INCLUDE		:=	$(addprefix -I,$(HEADERS))
 RM			:=	rm -rf
 MKD			:=	mkdir -p
 MK			:=	Makefile
-CFLAGS		:=	-Wall -Wextra -Werror -fsanitize=address
+CFLAGS		:=	-Wall -Wextra -Werror #-fsanitize=address
 MKFLAGS		:=	--no-print-directory
 MUTE		:=	&> /dev/null
 CC			:=	gcc
@@ -114,7 +114,12 @@ all :
 
 librarys :
 	$(MAKE) $(MKFLAGS) -C $(LIBFT_ROOT)
-	$(MAKE) $(MKFLAGS) rdline
+	$(MAKE) $(MKFLAGS) $(RDLINE_ROOT)libreadline.a
+
+$(RDLINE_ROOT)libreadline.a:
+	pwd $(MUTE)
+	cd ./lib/readline/ $(MUTE) && ./configure $(MUTE)
+	make -C ./lib/readline/ $(MUTE)
 
 $(DEP_ROOT)%.d : %.c | $(call create_dir,$(DEP_ROOT))
 	$(call msg_creating,Dependence,$*,$(BLUE))
@@ -129,11 +134,6 @@ $(OBJ_ROOT)%.o : %.c %.d $(MK) $(LIB_A) | $(call create_dir,$(OBJ_ROOT))
 $(NAME) : $(DEPS) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) $(LIB_ADD_DIR) $(LIB_SEARCH) $(LIB_A) -o $@
 	echo "\n$(GREEN)Minishell has been compiled\nNOS LO COMEMOS$(DEF_COLOR)"
-
-rdline :
-	pwd $(MUTE)
-	cd ./lib/readline/ $(MUTE) && ./configure $(MUTE)
-	make -C ./lib/readline/ $(MUTE)
 
 clean :
 	$(MAKE) $(MKFLAGS) clean -C $(RDLINE_ROOT)
@@ -156,7 +156,7 @@ re :
 	echo ""
 	echo "$(CIAN)Minishell has been recompiled$(DEF_COLOR)"
 
-.PHONY : all clean fclean re librarys rdline
+.PHONY : all clean fclean re librarys
 
 .SILENT :
 

@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 12:18:49 by pramos-m          #+#    #+#             */
-/*   Updated: 2023/09/08 13:55:47 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/09/28 11:26:51 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	start(char *input)
 	if (err >= 0)
 		return (err);
 	tk = tokenizer(str);
-	(ft_free(&input, 2) || ft_free(&str, 2));
+	ft_free(&str, 2);
 	if (!tk)
 		return (1);
 	tk_tmp = tk;

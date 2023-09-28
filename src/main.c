@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:36:26 by eralonso          #+#    #+#             */
-/*   Updated: 2023/07/13 16:43:11 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/09/28 11:28:01 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int	main(int ac, char **av, char **env)
 			return (clean_env(&g_msh.env, g_msh.err));
 		}
 		(*line && start(line));
+		ft_free(&line, 2);
 	}
 	return (0);
 }

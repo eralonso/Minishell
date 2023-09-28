@@ -140,4 +140,8 @@ re :
 
 .SILENT :
 
+ifeq (,$(findstring clean,$(MAKECMDGOALS)))
+ifeq (,$(findstring re,$(MAKECMDGOALS)))
 -include $(DEPS)
+endif
+endif

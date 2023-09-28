@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 12:53:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/09/09 16:28:40 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/09/20 11:58:05 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@
 # define EVE	"execve error"
 # define MLC	"malloc error"
 # define ISDIR	"is a directory"
+# define AMB_RD "ambiguous redirect"
 
 ///FD
 # define IN		0
