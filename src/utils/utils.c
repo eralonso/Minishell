@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 18:10:43 by eralonso          #+#    #+#             */
-/*   Updated: 2023/09/09 16:01:56 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/10/03 15:42:58 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,26 +22,6 @@ int	init_kof(t_kof *fok)
 	fok->op = 0;
 	return (1);
 }
-
-// void	env_set_value(t_env **list, char *name, char *value)
-// {
-// 	t_env	*env;
-// 	char	**input;
-
-// 	input = calloc(sizeof(char *), 3);
-// 	input[0] = name;
-// 	input[1] = value;
-// 	if (!list || !name || !value || !*list)
-// 		return ;
-// 	env = env_search(list, name);
-// 	if (env == NULL)
-// 		export_add(input);
-// 	else
-// 	{
-// 		free (env->value);
-// 		env->value = ft_strdup(value);
-// 	}
-// }
 
 int	env_change_value(t_env	*list, char *name, char *value)
 {

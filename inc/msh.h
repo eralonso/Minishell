@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 12:53:13 by eralonso          #+#    #+#             */
-/*   Updated: 2023/09/20 11:58:05 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/10/03 15:50:09 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -312,6 +312,7 @@ char		*remove_quotes(char *str);
 void		msh_exit(int status);
 int			msg_error(char *str, char *added, char *added2, int ret);
 int			msg_syntax_error(int type, int ret);
+int			fd_check(void);
 
 ///Parser: Tokens: Synthesize
 t_token		*tokenizer(char *str);

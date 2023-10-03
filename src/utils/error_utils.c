@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 15:05:33 by eralonso          #+#    #+#             */
-/*   Updated: 2023/07/13 16:43:11 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/10/03 15:49:36 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,19 @@ int	msg_error(char *str, char *added, char *added2, int quoted)
 	if (print_quote(added2, 4, quoted, 1) == -1)
 		return (-1);
 	return (0);
+}
+
+int	fd_check(void)
+{
+	int	fd;
+
+	fd = open("fdTestFile.msh", O_CREAT);
+	if (fd < 0)
+	{
+		ft_printf(2, "Too few file descriptors availables. At least 4\n");
+		return (0);
+	}
+	close(fd);
+	unlink("fdTestFile.msh");
+	return (1);
 }

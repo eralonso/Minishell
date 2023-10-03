@@ -6,7 +6,7 @@
 /*   By: eralonso <eralonso@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/03 17:36:26 by eralonso          #+#    #+#             */
-/*   Updated: 2023/10/03 12:52:39 by eralonso         ###   ########.fr       */
+/*   Updated: 2023/10/03 15:50:27 by eralonso         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	main(int ac, char **av, char **env)
 	char			*line;
 
 	(void) av;
-	if (ac > 1)
+	if (ac > 1 || !fd_check())
 		exit(1);
 	set_up(env);
 	while (42)
